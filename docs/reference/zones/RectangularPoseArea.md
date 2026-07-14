@@ -10,6 +10,9 @@
 
 These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.
 
+!!! note "2025 package names"
+    The 2025 robot used SCREAMLib's earlier short packages such as `data`, `drivers`, and `util`. With SCREAMLib 26.3.7, prefix those imports with `com.teamscreamrobotics.`; the implementation pattern remains applicable.
+
 ### 2025: Use `RectangularPoseArea` in `FieldConstants.java`
 
 [`src/main/java/frc2025/constants/FieldConstants.java` lines 18–33](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/constants/FieldConstants.java#L18-L33)
@@ -93,8 +96,8 @@ boolean contains(Pose2d pose) {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `bottomLeft` | `Translation2d` | bottom left corner of the rectangle. **Parameter `topRight`:** top right corner of the rectangle. |
-| `topRight` | `Translation2d` | top right corner of the rectangle. |
+| `bottomLeft` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
+| `topRight` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `RectangularPoseArea` instance.
 
@@ -106,13 +109,6 @@ boolean contains(Pose2d pose) {
       this.topRight = topRight;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Create a 2D rectangular area for pose calculations.
-    
-    **Parameter `bottomLeft`:** bottom left corner of the rectangle.
-    **Parameter `topRight`:** top right corner of the rectangle.
 
 ### `public double getMinX()`
 
@@ -136,10 +132,6 @@ boolean contains(Pose2d pose) {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the minimum X coordinate (left edge) in meters.
-
 ### `public double getMaxX()`
 
 [Source lines 31–33](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/RectangularPoseArea.java#L31)
@@ -161,10 +153,6 @@ boolean contains(Pose2d pose) {
       return topRight.getX();
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the maximum X coordinate (right edge) in meters.
 
 ### `public double getMinY()`
 
@@ -188,10 +176,6 @@ boolean contains(Pose2d pose) {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the minimum Y coordinate (bottom edge) in meters.
-
 ### `public double getMaxY()`
 
 [Source lines 41–43](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/RectangularPoseArea.java#L41)
@@ -214,10 +198,6 @@ boolean contains(Pose2d pose) {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the maximum Y coordinate (top edge) in meters.
-
 ### `public Translation2d getBottomLeftPoint()`
 
 [Source lines 46–48](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/RectangularPoseArea.java#L46)
@@ -239,10 +219,6 @@ boolean contains(Pose2d pose) {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the bottom-left corner of the rectangle.
-
 ### `public Translation2d getTopRightPoint()`
 
 [Source lines 51–53](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/RectangularPoseArea.java#L51)
@@ -263,10 +239,6 @@ boolean contains(Pose2d pose) {
       return topRight;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the top-right corner of the rectangle.
 
 ### `public boolean contains(Pose2d pose)`
 
@@ -293,10 +265,6 @@ boolean contains(Pose2d pose) {
       return contains(pose.getTranslation());
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns `true` if the pose's translation is within the rectangle.
 
 ### `public boolean contains(Translation2d pose)`
 
@@ -327,10 +295,6 @@ boolean contains(Pose2d pose) {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns `true` if the translation is within the rectangle (inclusive bounds).
-
 ## Exposed fields and types
 
 ### `public class RectangularPoseArea`
@@ -338,7 +302,3 @@ boolean contains(Pose2d pose) {
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/RectangularPoseArea.java#L7)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    An axis-aligned rectangular 2D zone on the field used for pose containment checks.

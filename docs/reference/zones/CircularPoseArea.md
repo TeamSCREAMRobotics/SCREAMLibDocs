@@ -25,8 +25,8 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `center` | `Translation2d` | center of the circle in field coordinates (meters) **Parameter `diameter`:** diameter of the circle in meters |
-| `diameter` | `double` | diameter of the circle in meters |
+| `center` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
+| `diameter` | `double` | Linear value in meters. |
 
 **Result:** Constructs and initializes a `CircularPoseArea` instance.
 
@@ -38,13 +38,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       this.diameter = diameter;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a circular zone.
-    
-    **Parameter `center`:** center of the circle in field coordinates (meters)
-    **Parameter `diameter`:** diameter of the circle in meters
 
 ### `public Translation2d getCenter()`
 
@@ -67,10 +60,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the center of the circle in field coordinates.
-
 ### `public double getDiameter()`
 
 [Source lines 29–31](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/CircularPoseArea.java#L29)
@@ -91,10 +80,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       return diameter;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the diameter of the circle in meters.
 
 ### `public boolean contains(Pose2d pose)`
 
@@ -122,10 +107,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns `true` if the pose's translation is inside the circle.
-
 ### `public boolean contains(Translation2d translation)`
 
 [Source lines 39–41](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/CircularPoseArea.java#L39)
@@ -152,10 +133,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns `true` if the translation is inside the circle.
-
 ## Exposed fields and types
 
 ### `public class CircularPoseArea`
@@ -163,7 +140,3 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/CircularPoseArea.java#L7)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    A circular 2D zone on the field used for pose containment checks.

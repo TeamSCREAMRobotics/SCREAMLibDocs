@@ -10,6 +10,9 @@
 
 These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.
 
+!!! note "2025 package names"
+    The 2025 robot used SCREAMLib's earlier short packages such as `data`, `drivers`, and `util`. With SCREAMLib 26.3.7, prefix those imports with `com.teamscreamrobotics.`; the implementation pattern remains applicable.
+
 ### 2025: Reload an autonomous command only when the dashboard selection changes
 
 [`src/main/java/frc2025/Robot.java` lines 25–77](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/Robot.java#L25-L77)
@@ -100,10 +103,6 @@ public class Robot extends TimedRobot {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Runs `runnable` the first time this method is called; subsequent calls are no-ops.
-
 ### `public void runOnceWhen(Runnable runnable, boolean condition)`
 
 [Source lines 27–31](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/RunnableUtil.java#L27)
@@ -133,10 +132,6 @@ public class Robot extends TimedRobot {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Runs `runnable` the first time `condition` is `true`; no-op thereafter.
-
 ### `public &lt;T&gt; void runOnceWhenChanged(Runnable runnable, T newValue)`
 
 [Source lines 40–47](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/RunnableUtil.java#L40)
@@ -151,8 +146,8 @@ public class Robot extends TimedRobot {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `runnable` | `Runnable` | the action to execute on change **Parameter `newValue`:** the value to compare against the previous call |
-| `newValue` | `T` | the value to compare against the previous call |
+| `runnable` | `Runnable` | `Runnable` input consumed by the implementation shown below. |
+| `newValue` | `T` | `T` input consumed by the implementation shown below. |
 
 **Result:** Returns `&lt;T&gt; void`. Exact return expressions are listed in the behavior section.
 
@@ -169,14 +164,6 @@ public class Robot extends TimedRobot {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Runs `runnable` each time `newValue` differs from the previous call's value.
-    Does not fire on the first call (initialization).
-    
-    **Parameter `runnable`:** the action to execute on change
-    **Parameter `newValue`:** the value to compare against the previous call
-
 ### `public &lt;T&gt; void runOnceWhenTrueThenWhenChanged( Runnable runnable, boolean condition, T newValue)`
 
 [Source lines 57–69](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/RunnableUtil.java#L57)
@@ -191,9 +178,9 @@ public class Robot extends TimedRobot {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `runnable` | `Runnable` | the action to execute **Parameter `condition`:** the trigger condition **Parameter `newValue`:** the value to monitor for changes after the condition is met |
-| `condition` | `boolean` | the trigger condition **Parameter `newValue`:** the value to monitor for changes after the condition is met |
-| `newValue` | `T` | the value to monitor for changes after the condition is met |
+| `runnable` | `Runnable` | `Runnable` input consumed by the implementation shown below. |
+| `condition` | `boolean` | `boolean` input consumed by the implementation shown below. |
+| `newValue` | `T` | `T` input consumed by the implementation shown below. |
 
 **Result:** Returns `&lt;T&gt; void`. Exact return expressions are listed in the behavior section.
 
@@ -214,15 +201,6 @@ public class Robot extends TimedRobot {
       }
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Fires `runnable` the first time `condition` becomes `true`, then again
-    on every subsequent change to `newValue`.
-    
-    **Parameter `runnable`:** the action to execute
-    **Parameter `condition`:** the trigger condition
-    **Parameter `newValue`:** the value to monitor for changes after the condition is met
 
 ### `public void reset()`
 
@@ -245,10 +223,6 @@ public class Robot extends TimedRobot {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Resets the run state so the next call to any `run*` method fires again.
-
 ### `public void runUntil(Runnable runnable, boolean stopCondition)`
 
 [Source lines 90–95](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/RunnableUtil.java#L90)
@@ -263,8 +237,8 @@ public class Robot extends TimedRobot {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `runnable` | `Runnable` | the action to execute **Parameter `stopCondition`:** when `true`, executes and then stops future calls |
-| `stopCondition` | `boolean` | when `true`, executes and then stops future calls |
+| `runnable` | `Runnable` | `Runnable` input consumed by the implementation shown below. |
+| `stopCondition` | `boolean` | `boolean` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -278,14 +252,6 @@ public class Robot extends TimedRobot {
       }
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Runs `runnable` once if `stopCondition` is `true` and has not already stopped.
-    Marks as stopped after running.
-    
-    **Parameter `runnable`:** the action to execute
-    **Parameter `stopCondition`:** when `true`, executes and then stops future calls
 
 ### `public void tryUntil(Runnable runnable, boolean stopCondition)`
 
@@ -301,8 +267,8 @@ public class Robot extends TimedRobot {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `runnable` | `Runnable` | the action to attempt **Parameter `stopCondition`:** loop continues while this is `true` and not stopped |
-| `stopCondition` | `boolean` | loop continues while this is `true` and not stopped |
+| `runnable` | `Runnable` | `Runnable` input consumed by the implementation shown below. |
+| `stopCondition` | `boolean` | `boolean` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -321,14 +287,6 @@ public class Robot extends TimedRobot {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Retries `runnable` in a loop while `stopCondition` is `true` and
-    not yet stopped, silently swallowing exceptions until it succeeds.
-    
-    **Parameter `runnable`:** the action to attempt
-    **Parameter `stopCondition`:** loop continues while this is `true` and not stopped
-
 ### `public void tryUntil(Runnable runnable)`
 
 [Source lines 121–130](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/RunnableUtil.java#L121)
@@ -343,7 +301,7 @@ public class Robot extends TimedRobot {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `runnable` | `Runnable` | the action to attempt repeatedly |
+| `runnable` | `Runnable` | `Runnable` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -361,13 +319,6 @@ public class Robot extends TimedRobot {
       shouldStop.compareAndSet(false, true);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Retries `runnable` until it succeeds without throwing, silently swallowing exceptions.
-    Marks as stopped on first success.
-    
-    **Parameter `runnable`:** the action to attempt repeatedly
 
 ### `public void reset()`
 
@@ -389,10 +340,6 @@ public class Robot extends TimedRobot {
       shouldStop.set(false);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Resets the stopped state so future calls to `runUntil`/`tryUntil` can fire again.
 
 ### `public boolean hasStopped()`
 
@@ -416,10 +363,6 @@ public class Robot extends TimedRobot {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns `true` if this instance has reached its stop condition.
-
 ## Exposed fields and types
 
 ### `public class RunnableUtil`
@@ -428,27 +371,14 @@ public class Robot extends TimedRobot {
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    Thread-safe utility classes for executing runnables conditionally or exactly once.
-
 ### `public static class RunOnce`
 
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/RunnableUtil.java#L13)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    Executes a `Runnable` at most once (or once per triggering condition).
-    All state is thread-safe via atomics.
-
 ### `public static class RunUntil`
 
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/RunnableUtil.java#L80)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Executes a `Runnable` until a stop condition is met, with optional retry-on-exception.

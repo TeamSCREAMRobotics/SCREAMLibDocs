@@ -10,6 +10,9 @@
 
 These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.
 
+!!! note "2025 package names"
+    The 2025 robot used SCREAMLib's earlier short packages such as `data`, `drivers`, and `util`. With SCREAMLib 26.3.7, prefix those imports with `com.teamscreamrobotics.`; the implementation pattern remains applicable.
+
 ### 2026: Compose robot, turret, hood, and shooter transforms
 
 [`src/main/java/frc2026/tars/subsystems/shooter/Shooter.java` lines 490–505](https://github.com/TeamSCREAMRobotics/4522_2026Competition/blob/e9d3ad1471c68ffa779655b75c4d56b9b7730325/src/main/java/frc2026/tars/subsystems/shooter/Shooter.java#L490-L505)
@@ -90,7 +93,7 @@ drivetrain.setControl(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `translation` | `Translation2d` | The translation to create the transform with **Returns:** The resulting transform |
+| `translation` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Transform2d`. Exact return expressions are listed in the behavior section.
 
@@ -101,13 +104,6 @@ drivetrain.setControl(
       return new Transform2d(translation, Rotation2d.kZero);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a pure translating transform
-    
-    **Parameter `translation`:** The translation to create the transform with
-    **Returns:** The resulting transform
 
 ### `public static Transform2d translationToTransform(double x, double y)`
 
@@ -123,8 +119,8 @@ drivetrain.setControl(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `x` | `double` | The x componenet of the translation **Parameter `y`:** The y componenet of the translation **Returns:** The resulting transform |
-| `y` | `double` | The y componenet of the translation **Returns:** The resulting transform |
+| `x` | `double` | `double` input consumed by the implementation shown below. |
+| `y` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `Transform2d`. Exact return expressions are listed in the behavior section.
 
@@ -135,14 +131,6 @@ drivetrain.setControl(
       return new Transform2d(new Translation2d(x, y), Rotation2d.kZero);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a pure translating transform
-    
-    **Parameter `x`:** The x componenet of the translation
-    **Parameter `y`:** The y componenet of the translation
-    **Returns:** The resulting transform
 
 ### `public static Transform2d rotationToTransform(Rotation2d rotation)`
 
@@ -158,7 +146,7 @@ drivetrain.setControl(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `rotation` | `Rotation2d` | The rotation to create the transform with **Returns:** The resulting transform |
+| `rotation` | `Rotation2d` | Mechanism or rotor rotations; verify the configured ratio. |
 
 **Result:** Returns `Transform2d`. Exact return expressions are listed in the behavior section.
 
@@ -169,13 +157,6 @@ drivetrain.setControl(
       return new Transform2d(Translation2d.kZero, rotation);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a pure rotating transform
-    
-    **Parameter `rotation`:** The rotation to create the transform with
-    **Returns:** The resulting transform
 
 ### `public static Transform2d poseToTransform(Pose2d pose)`
 
@@ -191,7 +172,7 @@ drivetrain.setControl(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `pose` | `Pose2d` | The pose that will represent the transform **Returns:** The resulting transform |
+| `pose` | `Pose2d` | `Pose2d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Transform2d`. Exact return expressions are listed in the behavior section.
 
@@ -202,13 +183,6 @@ drivetrain.setControl(
       return new Transform2d(pose.getTranslation(), pose.getRotation());
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Converts a Pose2d to a Transform2d to be used in a kinematic chain
-    
-    **Parameter `pose`:** The pose that will represent the transform
-    **Returns:** The resulting transform
 
 ### `public static Pose2d transformToPose(Transform2d transform)`
 
@@ -224,7 +198,7 @@ drivetrain.setControl(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `transform` | `Transform2d` | The transform that will represent the pose **Returns:** The resulting pose |
+| `transform` | `Transform2d` | `Transform2d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Pose2d`. Exact return expressions are listed in the behavior section.
 
@@ -235,14 +209,6 @@ drivetrain.setControl(
       return new Pose2d(transform.getTranslation(), transform.getRotation());
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Converts a Transform2d to a Pose2d to be used as a position or as the start of a kinematic
-    chain
-    
-    **Parameter `transform`:** The transform that will represent the pose
-    **Returns:** The resulting pose
 
 ### `public static Pose2d translationToPose(Translation2d translation)`
 
@@ -258,7 +224,7 @@ drivetrain.setControl(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `translation` | `Translation2d` | The translation to create the pose with **Returns:** The resulting pose |
+| `translation` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Pose2d`. Exact return expressions are listed in the behavior section.
 
@@ -269,13 +235,6 @@ drivetrain.setControl(
       return new Pose2d(translation, Rotation2d.kZero);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a pure translated pose
-    
-    **Parameter `translation`:** The translation to create the pose with
-    **Returns:** The resulting pose
 
 ### `public static Pose2d rotationToPose(Rotation2d rotation)`
 
@@ -291,7 +250,7 @@ drivetrain.setControl(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `rotation` | `Rotation2d` | The rotation to create the pose with **Returns:** The resulting pose |
+| `rotation` | `Rotation2d` | Mechanism or rotor rotations; verify the configured ratio. |
 
 **Result:** Returns `Pose2d`. Exact return expressions are listed in the behavior section.
 
@@ -302,13 +261,6 @@ drivetrain.setControl(
       return new Pose2d(Translation2d.kZero, rotation);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a pure rotated pose
-    
-    **Parameter `rotation`:** The rotation to create the pose with
-    **Returns:** The resulting pose
 
 ### `public static Twist2d multiplyTwist(Twist2d twist, double factor)`
 
@@ -324,8 +276,8 @@ drivetrain.setControl(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `twist` | `Twist2d` | The twist to multiply **Parameter `factor`:** The scaling factor for the twist components **Returns:** The new twist |
-| `factor` | `double` | The scaling factor for the twist components **Returns:** The new twist |
+| `twist` | `Twist2d` | `Twist2d` input consumed by the implementation shown below. |
+| `factor` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `Twist2d`. Exact return expressions are listed in the behavior section.
 
@@ -336,14 +288,6 @@ drivetrain.setControl(
       return new Twist2d(twist.dx * factor, twist.dy * factor, twist.dtheta * factor);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Multiplies a twist by a scaling factor
-    
-    **Parameter `twist`:** The twist to multiply
-    **Parameter `factor`:** The scaling factor for the twist components
-    **Returns:** The new twist
 
 ### `public static Transform3d pose3dToTransform3d(Pose3d pose)`
 
@@ -359,7 +303,7 @@ drivetrain.setControl(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `pose` | `Pose3d` | The pose that will represent the transform **Returns:** The resulting transform |
+| `pose` | `Pose3d` | `Pose3d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Transform3d`. Exact return expressions are listed in the behavior section.
 
@@ -370,13 +314,6 @@ drivetrain.setControl(
       return new Transform3d(pose.getTranslation(), pose.getRotation());
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Converts a Pose3d to a Transform3d to be used in a kinematic chain
-    
-    **Parameter `pose`:** The pose that will represent the transform
-    **Returns:** The resulting transform
 
 ### `public static Pose3d transform3dToPose3d(Transform3d transform)`
 
@@ -392,7 +329,7 @@ drivetrain.setControl(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `transform` | `Transform3d` | The transform that will represent the pose **Returns:** The resulting pose |
+| `transform` | `Transform3d` | `Transform3d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Pose3d`. Exact return expressions are listed in the behavior section.
 
@@ -403,14 +340,6 @@ drivetrain.setControl(
       return new Pose3d(transform.getTranslation(), transform.getRotation());
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Converts a Transform3d to a Pose3d to be used as a position or as the start of a kinematic
-    chain
-    
-    **Parameter `transform`:** The transform that will represent the pose
-    **Returns:** The resulting pose
 
 ### `public static Translation2d translation3dTo2dXY(Translation3d translation)`
 
@@ -426,7 +355,7 @@ drivetrain.setControl(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `translation` | `Translation3d` | The original translation **Returns:** The resulting translation |
+| `translation` | `Translation3d` | `Translation3d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Translation2d`. Exact return expressions are listed in the behavior section.
 
@@ -437,13 +366,6 @@ drivetrain.setControl(
       return new Translation2d(translation.getX(), translation.getY());
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Converts a Translation3d to a Translation2d by extracting two dimensions (X and Y). chain
-    
-    **Parameter `translation`:** The original translation
-    **Returns:** The resulting translation
 
 ### `public static Translation2d translation3dTo2dXZ(Translation3d translation)`
 
@@ -459,7 +381,7 @@ drivetrain.setControl(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `translation` | `Translation3d` | The original translation **Returns:** The resulting translation |
+| `translation` | `Translation3d` | `Translation3d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Translation2d`. Exact return expressions are listed in the behavior section.
 
@@ -470,13 +392,6 @@ drivetrain.setControl(
       return new Translation2d(translation.getX(), translation.getZ());
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Converts a Translation3d to a Translation2d by extracting two dimensions (X and Z). chain
-    
-    **Parameter `translation`:** The original translation
-    **Returns:** The resulting translation
 
 ### `public static Pose3d translationToPose3d(Translation2d translation, double z)`
 
@@ -492,8 +407,8 @@ drivetrain.setControl(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `translation` | `Translation2d` | the XY position **Parameter `z`:** the height in meters |
-| `z` | `double` | the height in meters |
+| `translation` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
+| `z` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `Pose3d`. Exact return expressions are listed in the behavior section.
 
@@ -505,13 +420,6 @@ drivetrain.setControl(
           new Translation3d(translation.getX(), translation.getY(), z), new Rotation3d());
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a `Pose3d` from a 2D translation and a Z height, with zero rotation.
-    
-    **Parameter `translation`:** the XY position
-    **Parameter `z`:** the height in meters
 
 ### `public static Translation2d normalize(Translation2d translation)`
 
@@ -527,7 +435,7 @@ drivetrain.setControl(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `translation` | `Translation2d` | the vector to normalize |
+| `translation` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Translation2d`. Exact return expressions are listed in the behavior section.
 
@@ -538,12 +446,6 @@ drivetrain.setControl(
       return new Translation2d(1, translation.getAngle());
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns a unit vector in the same direction as `translation`.
-    
-    **Parameter `translation`:** the vector to normalize
 
 ### `public static Translation2d findClosest(Translation2d origin, Translation2d... others)`
 
@@ -561,8 +463,8 @@ drivetrain.setControl(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `origin` | `Translation2d` | the reference point **Parameter `others`:** the candidate points to search |
-| `others` | `Translation2d...` | the candidate points to search |
+| `origin` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
+| `others` | `Translation2d...` | `Translation2d...` input consumed by the implementation shown below. |
 
 **Result:** Returns `Translation2d`. Exact return expressions are listed in the behavior section.
 
@@ -585,13 +487,6 @@ drivetrain.setControl(
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the point in `others` nearest to `origin` by Euclidean distance.
-    
-    **Parameter `origin`:** the reference point
-    **Parameter `others`:** the candidate points to search
-
 ## Exposed fields and types
 
 ### `public class GeomUtil`
@@ -599,7 +494,3 @@ drivetrain.setControl(
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L21)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Geometry utilities for working with translations, rotations, transforms, and poses.

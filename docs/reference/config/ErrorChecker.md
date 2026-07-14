@@ -42,12 +42,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    This method takes a list of StatusCodes and returns true if they are all OK. When we configure
-    our devices, we wrap all our our calls to the devices in this method to tell us if the device
-    has configured correctly, or if there are errors.
-
 ### `public static void configureDevice( DeviceConfiguration config, String name, double bootAllowanceSeconds, boolean printInfo)`
 
 [Source lines 38–67](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/config/ErrorChecker.java#L38)
@@ -106,12 +100,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    This method does the actual configuration for the device. It repeatedly calls
-    config.configureSettings() until there is a successful configuration or until it times out. If
-    printInfo is true, it will print if the configuration succeeded and how many tries it took
-
 ### `public static void configureDevice(DeviceConfiguration config, String name, boolean printInfo)`
 
 [Source lines 74–76](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/config/ErrorChecker.java#L74)
@@ -138,12 +126,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    This method does the actual configuration for the device. It repeatedly calls
-    config.configureSettings() until there is a successful configuration or until it times out. If
-    printInfo is true, it will print if the configuration succeeded and how many tries it took
-
 ### `public boolean configureSettings()`
 
 [Source lines 84–84](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/config/ErrorChecker.java#L84)
@@ -162,11 +144,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     public boolean configureSettings();
     ```
 
-??? note "Author note from JavaDoc"
-
-    This method does all of the configuration logic for the device and returns true only if the
-    configuration is good.
-
 ## Exposed fields and types
 
 ### `public class ErrorChecker`
@@ -181,26 +158,14 @@ This exposed `class` is part of the API surface. Its callable members are docume
 
 This is a **static final public** field with an initializer. It is not reassigned after initialization. The declaring source references it 2 times, so changing it can affect every control path that reads `BOOT_ALLOWANCE_SECONDS`.
 
-??? note "Author note from JavaDoc"
-
-    Seconds after robot start during which configuration retries are allowed.
-
 ### `public static final int TRIES_TO_GENERATE_WARNING = 5`
 
 *Exposed field · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/config/ErrorChecker.java#L12)*
 
 This is a **static final public** field with an initializer. It is not reassigned after initialization. The declaring source references it 2 times, so changing it can affect every control path that reads `TRIES_TO_GENERATE_WARNING`.
 
-??? note "Author note from JavaDoc"
-
-    Number of configuration attempts before a DS warning is generated.
-
 ### `public static interface DeviceConfiguration`
 
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/config/ErrorChecker.java#L79)*
 
 This exposed `interface` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    This interface is where all of our logic for configuring each device goes.

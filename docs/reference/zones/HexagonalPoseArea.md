@@ -10,6 +10,9 @@
 
 These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.
 
+!!! note "2025 package names"
+    The 2025 robot used SCREAMLib's earlier short packages such as `data`, `drivers`, and `util`. With SCREAMLib 26.3.7, prefix those imports with `com.teamscreamrobotics.`; the implementation pattern remains applicable.
+
 ### 2025: Use `HexagonalPoseArea` in `FieldConstants.java`
 
 [`src/main/java/frc2025/constants/FieldConstants.java` lines 86–101](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/constants/FieldConstants.java#L86-L101)
@@ -48,8 +51,8 @@ public static final Map<Integer, Pair<Pose2d, Pose2d>> BLUE_REEF_LOCATIONS_FLIPP
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `origin` | `Translation2d` | center of the hexagon in field coordinates **Parameter `radius`:** circumradius (center to vertex) of the hexagon |
-| `radius` | `Length` | circumradius (center to vertex) of the hexagon |
+| `origin` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
+| `radius` | `Length` | `Length` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `HexagonalPoseArea` instance.
 
@@ -60,13 +63,6 @@ public static final Map<Integer, Pair<Pose2d, Pose2d>> BLUE_REEF_LOCATIONS_FLIPP
         this(origin, radius, Rotation2d.kZero);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates an axis-aligned regular hexagon.
-    
-    **Parameter `origin`:** center of the hexagon in field coordinates
-    **Parameter `radius`:** circumradius (center to vertex) of the hexagon
 
 ### `public HexagonalPoseArea(Translation2d origin, Length radius, Rotation2d rotation)`
 
@@ -82,9 +78,9 @@ public static final Map<Integer, Pair<Pose2d, Pose2d>> BLUE_REEF_LOCATIONS_FLIPP
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `origin` | `Translation2d` | center of the hexagon in field coordinates **Parameter `radius`:** circumradius (center to vertex) **Parameter `rotation`:** rotation to apply to the hexagon |
-| `radius` | `Length` | circumradius (center to vertex) **Parameter `rotation`:** rotation to apply to the hexagon |
-| `rotation` | `Rotation2d` | rotation to apply to the hexagon |
+| `origin` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
+| `radius` | `Length` | `Length` input consumed by the implementation shown below. |
+| `rotation` | `Rotation2d` | Mechanism or rotor rotations; verify the configured ratio. |
 
 **Result:** Constructs and initializes a `HexagonalPoseArea` instance.
 
@@ -97,14 +93,6 @@ public static final Map<Integer, Pair<Pose2d, Pose2d>> BLUE_REEF_LOCATIONS_FLIPP
         calculateVertices(rotation);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a regular hexagon with an angular offset applied to all vertices.
-    
-    **Parameter `origin`:** center of the hexagon in field coordinates
-    **Parameter `radius`:** circumradius (center to vertex)
-    **Parameter `rotation`:** rotation to apply to the hexagon
 
 ### `public Translation2d[] getVertices()`
 
@@ -127,10 +115,6 @@ public static final Map<Integer, Pair<Pose2d, Pose2d>> BLUE_REEF_LOCATIONS_FLIPP
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the six vertex positions of the hexagon in field coordinates.
-
 ### `public OptionalInt contains(Translation2d position)`
 
 [Source lines 70–85](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/HexagonalPoseArea.java#L70)
@@ -148,7 +132,7 @@ public static final Map<Integer, Pair<Pose2d, Pose2d>> BLUE_REEF_LOCATIONS_FLIPP
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `position` | `Translation2d` | The position to check. **Returns:** An OptionalInt containing the index of the triangle within the hexagon that contains the position, or an empty OptionalInt if the position is outside the hexagon. |
+| `position` | `Translation2d` | Position in the units required by this API and configuration. |
 
 **Result:** Returns `OptionalInt`. Exact return expressions are listed in the behavior section.
 
@@ -173,15 +157,6 @@ public static final Map<Integer, Pair<Pose2d, Pose2d>> BLUE_REEF_LOCATIONS_FLIPP
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Determines if a given position is within the hexagonal area.
-    
-    **Parameter `position`:** The position to check.
-    **Returns:** An OptionalInt containing the index of the triangle within the hexagon
-    that contains the position, or an empty OptionalInt if the position is
-    outside the hexagon.
-
 ## Exposed fields and types
 
 ### `public class HexagonalPoseArea`
@@ -189,7 +164,3 @@ public static final Map<Integer, Pair<Pose2d, Pose2d>> BLUE_REEF_LOCATIONS_FLIPP
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/HexagonalPoseArea.java#L10)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    A regular hexagonal 2D zone on the field used for pose containment checks.

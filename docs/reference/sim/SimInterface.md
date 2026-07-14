@@ -24,7 +24,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `deltaTime` | `double` | elapsed time since the last call, in seconds |
+| `deltaTime` | `double` | Time value in seconds. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -33,12 +33,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     ```java
     void update(double deltaTime);
     ```
-
-??? note "Author note from JavaDoc"
-
-    Advances the simulation by `deltaTime` seconds.
-    
-    **Parameter `deltaTime`:** elapsed time since the last call, in seconds
 
 ### `void setInputVoltage(double voltage)`
 
@@ -52,7 +46,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `voltage` | `double` | input voltage in volts |
+| `voltage` | `double` | Voltage value in volts. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -61,12 +55,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     ```java
     void setInputVoltage(double voltage);
     ```
-
-??? note "Author note from JavaDoc"
-
-    Applies the motor input voltage to the simulation.
-    
-    **Parameter `voltage`:** input voltage in volts
 
 ### `double getPosition()`
 
@@ -86,10 +74,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     double getPosition();
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the simulated mechanism position in rotations.
-
 ### `double getVelocity()`
 
 [Source lines 23–23](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/sim/SimInterface.java#L23)
@@ -108,10 +92,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     double getVelocity();
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the simulated mechanism velocity in rotations per second.
-
 ## Exposed fields and types
 
 ### `public interface SimInterface`
@@ -119,7 +99,3 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/sim/SimInterface.java#L4)*
 
 This exposed `interface` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Common interface for physics simulation backends (DC motor, elevator, arm, flywheel).

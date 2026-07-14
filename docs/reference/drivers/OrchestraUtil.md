@@ -26,7 +26,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `FXs` | `TalonFX...` | the motors to add |
+| `FXs` | `TalonFX...` | `TalonFX...` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -39,12 +39,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       }
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Registers one or more TalonFX motors as instruments in the orchestra.
-    
-    **Parameter `FXs`:** the motors to add
 
 ### `public static void play(String fileName)`
 
@@ -59,7 +53,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `fileName` | `String` | the file name without the `.chrp` extension |
+| `fileName` | `String` | `String` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -71,12 +65,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       orchestra.play();
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Loads and plays a `.chrp` music file from the deploy directory.
-    
-    **Parameter `fileName`:** the file name without the `.chrp` extension
 
 ### `public static boolean isPlaying()`
 
@@ -99,10 +87,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns `true` if the orchestra is currently playing.
-
 ### `public static void pause()`
 
 [Source lines 38–40](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/OrchestraUtil.java#L38)
@@ -122,10 +106,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       orchestra.pause();
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Pauses playback without resetting the track position.
 
 ### `public static void stop()`
 
@@ -147,10 +127,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Stops playback and resets the track position to the beginning.
-
 ## Exposed fields and types
 
 ### `public class OrchestraUtil`
@@ -158,7 +134,3 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/OrchestraUtil.java#L7)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Singleton wrapper around a CTRE `Orchestra` for playing `.chrp` music files.

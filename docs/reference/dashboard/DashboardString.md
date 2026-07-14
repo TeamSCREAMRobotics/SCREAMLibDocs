@@ -10,6 +10,9 @@
 
 These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.
 
+!!! note "2025 package names"
+    The 2025 robot used SCREAMLib's earlier short packages such as `data`, `drivers`, and `util`. With SCREAMLib 26.3.7, prefix those imports with `com.teamscreamrobotics.`; the implementation pattern remains applicable.
+
 ### 2025: Use `DashboardString` in `DashboardString.java`
 
 [`src/main/java/com/team4522/DashboardString.java` lines 2–17](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/com/team4522/DashboardString.java#L2-L17)
@@ -47,9 +50,9 @@ public class DashboardString {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `tableName` | `String` | NetworkTables table to publish under **Parameter `key`:** entry key within the table **Parameter `defaultValue`:** initial value written to the table |
-| `key` | `String` | entry key within the table **Parameter `defaultValue`:** initial value written to the table |
-| `defaultValue` | `String` | initial value written to the table |
+| `tableName` | `String` | `String` input consumed by the implementation shown below. |
+| `key` | `String` | `String` input consumed by the implementation shown below. |
+| `defaultValue` | `String` | `String` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `DashboardString` instance.
 
@@ -63,14 +66,6 @@ public class DashboardString {
       entry.setDefaultString(defaultValue);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a dashboard-linked string.
-    
-    **Parameter `tableName`:** NetworkTables table to publish under
-    **Parameter `key`:** entry key within the table
-    **Parameter `defaultValue`:** initial value written to the table
 
 ### `public void set(String value)`
 
@@ -98,10 +93,6 @@ public class DashboardString {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Pushes `value` to the dashboard and caches it locally.
-
 ### `public String get()`
 
 [Source lines 33–35](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/dashboard/DashboardString.java#L33)
@@ -124,10 +115,6 @@ public class DashboardString {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the current dashboard value, falling back to the last locally set value.
-
 ## Exposed fields and types
 
 ### `public class DashboardString`
@@ -135,7 +122,3 @@ public class DashboardString {
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/dashboard/DashboardString.java#L8)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    A String value backed by a NetworkTables entry for dashboard interaction.

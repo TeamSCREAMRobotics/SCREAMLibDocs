@@ -10,6 +10,9 @@
 
 These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.
 
+!!! note "2025 package names"
+    The 2025 robot used SCREAMLib's earlier short packages such as `data`, `drivers`, and `util`. With SCREAMLib 26.3.7, prefix those imports with `com.teamscreamrobotics.`; the implementation pattern remains applicable.
+
 ### 2025: Use `ScreamUtil` in `Controlboard.java`
 
 [`src/main/java/frc2025/controlboard/Controlboard.java` lines 75–90](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/controlboard/Controlboard.java#L75-L90)
@@ -126,10 +129,6 @@ public Rotation2d getHeading() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Wraps `rotation` to the range `(-π, π]`.
-
 ### `public static Rotation2d boundRotation0_360(Rotation2d rotation)`
 
 [Source lines 20–24](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/ScreamUtil.java#L20)
@@ -159,10 +158,6 @@ public Rotation2d getHeading() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Wraps `rotation` to the range `[0°, 360°)`.
-
 ### `public static Rotation2d getTangent(Translation2d start, Translation2d end)`
 
 [Source lines 32–35](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/ScreamUtil.java#L32)
@@ -177,8 +172,8 @@ public Rotation2d getHeading() {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `start` | `Translation2d` | the starting point **Parameter `end`:** the ending point |
-| `end` | `Translation2d` | the ending point |
+| `start` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
+| `end` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Rotation2d`. Exact return expressions are listed in the behavior section.
 
@@ -190,13 +185,6 @@ public Rotation2d getHeading() {
       return new Rotation2d(dist.getX(), dist.getY());
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the tangent (heading) angle of the vector from `start` to `end`.
-    
-    **Parameter `start`:** the starting point
-    **Parameter `end`:** the ending point
 
 ### `public static boolean epsilonEquals(double a, double b, final double epsilon)`
 
@@ -211,9 +199,9 @@ public Rotation2d getHeading() {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `a` | `double` | first value **Parameter `b`:** second value **Parameter `epsilon`:** tolerance |
-| `b` | `double` | second value **Parameter `epsilon`:** tolerance |
-| `epsilon` | `double` | tolerance |
+| `a` | `double` | `double` input consumed by the implementation shown below. |
+| `b` | `double` | `double` input consumed by the implementation shown below. |
+| `epsilon` | `double` | Allowed absolute error around the target. |
 
 **Result:** Returns `boolean`. Exact return expressions are listed in the behavior section.
 
@@ -224,14 +212,6 @@ public Rotation2d getHeading() {
       return (a - epsilon <= b) && (a + epsilon >= b);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns `true` if `|a - b| <= epsilon`.
-    
-    **Parameter `a`:** first value
-    **Parameter `b`:** second value
-    **Parameter `epsilon`:** tolerance
 
 ### `public static boolean epsilonEquals(double a, double b)`
 
@@ -258,10 +238,6 @@ public Rotation2d getHeading() {
       return epsilonEquals(a, b, EPSILON);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns `true` if `|a - b| <= EPSILON`.
 
 ### `public static boolean epsilonEquals(int a, int b, int epsilon)`
 
@@ -290,10 +266,6 @@ public Rotation2d getHeading() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns `true` if `|a - b| <= epsilon` (integer overload).
-
 ### `public double getStallTorque(double stallTorque, double freeSpeed, double speed)`
 
 [Source lines 65–67](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/ScreamUtil.java#L65)
@@ -307,9 +279,9 @@ public Rotation2d getHeading() {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `stallTorque` | `double` | maximum torque at zero speed (N·m) **Parameter `freeSpeed`:** no-load speed (rad/s or RPM — must match units of `speed`) **Parameter `speed`:** current speed |
-| `freeSpeed` | `double` | no-load speed (rad/s or RPM — must match units of `speed`) **Parameter `speed`:** current speed |
-| `speed` | `double` | current speed |
+| `stallTorque` | `double` | `double` input consumed by the implementation shown below. |
+| `freeSpeed` | `double` | Velocity/speed in the units required by this API and configuration. |
+| `speed` | `double` | Velocity/speed in the units required by this API and configuration. |
 
 **Result:** Returns `double`. Exact return expressions are listed in the behavior section.
 
@@ -320,14 +292,6 @@ public Rotation2d getHeading() {
       return -stallTorque / freeSpeed * speed + stallTorque;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Estimates output torque at the given speed using a linear motor model.
-    
-    **Parameter `stallTorque`:** maximum torque at zero speed (N·m)
-    **Parameter `freeSpeed`:** no-load speed (rad/s or RPM — must match units of `speed`)
-    **Parameter `speed`:** current speed
 
 ### `public static Twist2d chassisSpeedsToTwist2d(ChassisSpeeds chassisSpeeds)`
 
@@ -343,7 +307,7 @@ public Rotation2d getHeading() {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `chassisSpeeds` | `ChassisSpeeds` | the speeds to convert |
+| `chassisSpeeds` | `ChassisSpeeds` | Velocity/speed in the units required by this API and configuration. |
 
 **Result:** Returns `Twist2d`. Exact return expressions are listed in the behavior section.
 
@@ -358,12 +322,6 @@ public Rotation2d getHeading() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Converts a `ChassisSpeeds` to a `Twist2d` with the same vx, vy, and omega.
-    
-    **Parameter `chassisSpeeds`:** the speeds to convert
-
 ### `public static boolean epsilonEquals(final Twist2d twist, final Twist2d other, double epsilon)`
 
 [Source lines 88–92](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/ScreamUtil.java#L88)
@@ -377,9 +335,9 @@ public Rotation2d getHeading() {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `twist` | `Twist2d` | first twist **Parameter `other`:** second twist **Parameter `epsilon`:** per-component tolerance |
-| `other` | `Twist2d` | second twist **Parameter `epsilon`:** per-component tolerance |
-| `epsilon` | `double` | per-component tolerance |
+| `twist` | `Twist2d` | `Twist2d` input consumed by the implementation shown below. |
+| `other` | `Twist2d` | `Twist2d` input consumed by the implementation shown below. |
+| `epsilon` | `double` | Allowed absolute error around the target. |
 
 **Result:** Returns `boolean`. Exact return expressions are listed in the behavior section.
 
@@ -392,14 +350,6 @@ public Rotation2d getHeading() {
           && ScreamUtil.epsilonEquals(twist.dtheta, other.dtheta, epsilon);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns `true` if all components of two twists are within `epsilon` of each other.
-    
-    **Parameter `twist`:** first twist
-    **Parameter `other`:** second twist
-    **Parameter `epsilon`:** per-component tolerance
 
 ### `public static boolean epsilonEquals(final Twist2d twist, final Twist2d other)`
 
@@ -427,10 +377,6 @@ public Rotation2d getHeading() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns `true` if all twist components are within `#EPSILON` of each other.
-
 ### `public static boolean valueBetween(double value, double upper, double lower)`
 
 [Source lines 106–108](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/ScreamUtil.java#L106)
@@ -444,9 +390,9 @@ public Rotation2d getHeading() {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `value` | `double` | the value to test **Parameter `upper`:** the exclusive upper bound **Parameter `lower`:** the exclusive lower bound |
-| `upper` | `double` | the exclusive upper bound **Parameter `lower`:** the exclusive lower bound |
-| `lower` | `double` | the exclusive lower bound |
+| `value` | `double` | `double` input consumed by the implementation shown below. |
+| `upper` | `double` | `double` input consumed by the implementation shown below. |
+| `lower` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `boolean`. Exact return expressions are listed in the behavior section.
 
@@ -457,14 +403,6 @@ public Rotation2d getHeading() {
       return value < upper && value > lower;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns `true` if `lower < value < upper` (exclusive).
-    
-    **Parameter `value`:** the value to test
-    **Parameter `upper`:** the exclusive upper bound
-    **Parameter `lower`:** the exclusive lower bound
 
 ### `public static boolean withinAngleThreshold( Rotation2d targetAngle, Rotation2d currentAngle, Rotation2d threshold)`
 
@@ -480,9 +418,9 @@ public Rotation2d getHeading() {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `targetAngle` | `Rotation2d` | the desired angle **Parameter `currentAngle`:** the measured angle **Parameter `threshold`:** the maximum allowable error |
-| `currentAngle` | `Rotation2d` | the measured angle **Parameter `threshold`:** the maximum allowable error |
-| `threshold` | `Rotation2d` | the maximum allowable error |
+| `targetAngle` | `Rotation2d` | `Rotation2d` input consumed by the implementation shown below. |
+| `currentAngle` | `Rotation2d` | `Rotation2d` input consumed by the implementation shown below. |
+| `threshold` | `Rotation2d` | `Rotation2d` input consumed by the implementation shown below. |
 
 **Result:** Returns `boolean`. Exact return expressions are listed in the behavior section.
 
@@ -495,15 +433,6 @@ public Rotation2d getHeading() {
           targetAngle.getDegrees(), currentAngle.getDegrees(), threshold.getDegrees(), -180, 180);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns `true` if `currentAngle` is within `threshold` of `targetAngle`,
-    accounting for wrap-around.
-    
-    **Parameter `targetAngle`:** the desired angle
-    **Parameter `currentAngle`:** the measured angle
-    **Parameter `threshold`:** the maximum allowable error
 
 ### `public static double random(double lower, double upper)`
 
@@ -519,8 +448,8 @@ public Rotation2d getHeading() {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `lower` | `double` | lower bound **Parameter `upper`:** upper bound |
-| `upper` | `double` | upper bound |
+| `lower` | `double` | `double` input consumed by the implementation shown below. |
+| `upper` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `double`. Exact return expressions are listed in the behavior section.
 
@@ -537,13 +466,6 @@ public Rotation2d getHeading() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns a random double in `[lower, upper]`, swapping bounds if `lower >= upper`.
-    
-    **Parameter `lower`:** lower bound
-    **Parameter `upper`:** upper bound
-
 ## Exposed fields and types
 
 ### `public class ScreamUtil`
@@ -552,16 +474,8 @@ public Rotation2d getHeading() {
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    Various utility methods
-
 ### `public static final double EPSILON = 1e-3`
 
 *Exposed field · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/ScreamUtil.java#L12)*
 
 This is a **static final public** field with an initializer. It is not reassigned after initialization. The declaring source references it 5 times, so changing it can affect every control path that reads `EPSILON`.
-
-??? note "Author note from JavaDoc"
-
-    Default epsilon used by the no-argument `#epsilonEquals` overloads.

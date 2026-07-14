@@ -27,8 +27,8 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `joint1Length` | `Length` | length of the first link (shoulder to elbow) **Parameter `joint2Length`:** length of the second link (elbow to end-effector) |
-| `joint2Length` | `Length` | length of the second link (elbow to end-effector) |
+| `joint1Length` | `Length` | `Length` input consumed by the implementation shown below. |
+| `joint2Length` | `Length` | `Length` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `IKSolver` instance.
 
@@ -41,13 +41,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
         this.maxDistance = joint1Length.plus(joint2Length).getMeters();
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates an IK solver for a two-link arm.
-    
-    **Parameter `joint1Length`:** length of the first link (shoulder to elbow)
-    **Parameter `joint2Length`:** length of the second link (elbow to end-effector)
 
 ### `public Rotation2d[] solve(Translation2d target, boolean elbowDown)`
 
@@ -66,8 +59,8 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `target` | `Translation2d` | the desired end-effector position (meters) relative to the shoulder **Parameter `elbowDown`:** `true` for the elbow-down configuration, `false` for elbow-up **Returns:** `[theta1, theta2]` — shoulder and elbow joint ang… |
-| `elbowDown` | `boolean` | `true` for the elbow-down configuration, `false` for elbow-up **Returns:** `[theta1, theta2]` — shoulder and elbow joint angles |
+| `target` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
+| `elbowDown` | `boolean` | `boolean` input consumed by the implementation shown below. |
 
 **Result:** Returns `Rotation2d[]`. Exact return expressions are listed in the behavior section.
 
@@ -105,15 +98,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Solves for the joint angles needed to reach `target`.
-    If the target is outside the arm's reachable range it is clamped to the nearest reachable point.
-    
-    **Parameter `target`:** the desired end-effector position (meters) relative to the shoulder
-    **Parameter `elbowDown`:** `true` for the elbow-down configuration, `false` for elbow-up
-    **Returns:** `[theta1, theta2]` — shoulder and elbow joint angles
-
 ## Exposed fields and types
 
 ### `public class IKSolver`
@@ -121,7 +105,3 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/math/IKSolver.java#L9)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Two-joint 2D inverse kinematics solver using the law of cosines.

@@ -27,10 +27,10 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `constants` | `TalonFXSubsystemSimConstants` | simulation constants from the subsystem configuration **Parameter `stateConsumer`:** called with `(position, velocity)` after each sim step (no boxing) **Parameter `periodSec`:** update period in seconds **Parameter `na… |
-| `stateConsumer` | `SimStateCallback` | called with `(position, velocity)` after each sim step (no boxing) **Parameter `periodSec`:** update period in seconds **Parameter `name`:** thread/notifier name for diagnostics |
-| `periodSec` | `double` | update period in seconds **Parameter `name`:** thread/notifier name for diagnostics |
-| `name` | `String` | thread/notifier name for diagnostics |
+| `constants` | `TalonFXSubsystemSimConstants` | `TalonFXSubsystemSimConstants` input consumed by the implementation shown below. |
+| `stateConsumer` | `SimStateCallback` | `SimStateCallback` input consumed by the implementation shown below. |
+| `periodSec` | `double` | Time value in seconds. |
+| `name` | `String` | `String` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `SimulationThread` instance.
 
@@ -55,16 +55,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Creates a simulation thread. If `TalonFXSubsystemSimConstants#useSeparateThread()` is
-    `true` the notifier is started immediately.
-    
-    **Parameter `constants`:** simulation constants from the subsystem configuration
-    **Parameter `stateConsumer`:** called with `(position, velocity)` after each sim step (no boxing)
-    **Parameter `periodSec`:** update period in seconds
-    **Parameter `name`:** thread/notifier name for diagnostics
-
 ### `public void setSimVoltage(DoubleSupplier simVoltage)`
 
 [Source lines 65–71](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/sim/SimulationThread.java#L65)
@@ -80,7 +70,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `simVoltage` | `DoubleSupplier` | supplier returning the desired input voltage |
+| `simVoltage` | `DoubleSupplier` | Voltage value in volts. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -95,13 +85,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
                   : simVoltage.getAsDouble();
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the voltage supplier used to drive the simulation each step.
-    If `TalonFXSubsystemSimConstants#limitVoltage()` is `true`, the value is clamped to ±12V.
-    
-    **Parameter `simVoltage`:** supplier returning the desired input voltage
 
 ### `public DoubleSupplier getSimVoltage()`
 
@@ -123,10 +106,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       return simVoltage;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the current sim voltage supplier (already wrapped with optional clamping).
 
 ### `public void update()`
 
@@ -162,11 +141,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Manually steps the simulation. Must only be called when not using a separate thread;
-    logs a DS error and returns early if the notifier is active.
-
 ### `public void startSimThread(String name)`
 
 [Source lines 102–116](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/sim/SimulationThread.java#L102)
@@ -180,7 +154,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `name` | `String` | the notifier thread name |
+| `name` | `String` | `String` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -204,12 +178,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Starts the background `Notifier` thread at the configured period.
-    
-    **Parameter `name`:** the notifier thread name
-
 ## Exposed fields and types
 
 ### `public class SimulationThread`
@@ -217,8 +185,3 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/sim/SimulationThread.java#L15)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Drives a `SimInterface` at a fixed period, either inline (called from `periodic()`)
-    or on a dedicated background thread using a WPILib `Notifier`.

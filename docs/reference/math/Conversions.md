@@ -10,6 +10,9 @@
 
 These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.
 
+!!! note "2025 package names"
+    The 2025 robot used SCREAMLib's earlier short packages such as `data`, `drivers`, and `util`. With SCREAMLib 26.3.7, prefix those imports with `com.teamscreamrobotics.`; the implementation pattern remains applicable.
+
 ### 2025: Use `Conversions` in `Elevator.java`
 
 [`src/main/java/frc2025/subsystems/superstructure/elevator/Elevator.java` lines 39–54](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/subsystems/superstructure/elevator/Elevator.java#L39-L54)
@@ -70,8 +73,8 @@ public double getTimeOfFlight(double distance, double velocity, double hoodAngle
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `falconRPS` | `double` | Falcon rotations per second **Parameter `gearRatio`:** gear ratio between Falcon and mechanism (set to 1 for Falcon RPM) **Returns:** RPM of mechanism |
-| `gearRatio` | `double` | gear ratio between Falcon and mechanism (set to 1 for Falcon RPM) **Returns:** RPM of mechanism |
+| `falconRPS` | `double` | Rotational speed in revolutions per second. |
+| `gearRatio` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `double`. Exact return expressions are listed in the behavior section.
 
@@ -83,12 +86,6 @@ public double getTimeOfFlight(double distance, double velocity, double hoodAngle
       return motorRPM / gearRatio;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    **Parameter `falconRPS`:** Falcon rotations per second
-    **Parameter `gearRatio`:** gear ratio between Falcon and mechanism (set to 1 for Falcon RPM)
-    **Returns:** RPM of mechanism
 
 ### `public static double rpmToRPS(double rpm, double gearRatio)`
 
@@ -103,8 +100,8 @@ public double getTimeOfFlight(double distance, double velocity, double hoodAngle
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `rpm` | `double` | RPM of mechanism **Parameter `gearRatio`:** Gear ratio between Falcon and mechanism (set to 1 for Falcon RPS) **Returns:** Falcon rotations per second |
-| `gearRatio` | `double` | Gear ratio between Falcon and mechanism (set to 1 for Falcon RPS) **Returns:** Falcon rotations per second |
+| `rpm` | `double` | Rotational speed in revolutions per minute. |
+| `gearRatio` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `double`. Exact return expressions are listed in the behavior section.
 
@@ -116,12 +113,6 @@ public double getTimeOfFlight(double distance, double velocity, double hoodAngle
       return motorRPM / 60.0;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    **Parameter `rpm`:** RPM of mechanism
-    **Parameter `gearRatio`:** Gear ratio between Falcon and mechanism (set to 1 for Falcon RPS)
-    **Returns:** Falcon rotations per second
 
 ### `public static double rpsToMPS(double falconRPS, double circumference, double gearRatio)`
 
@@ -137,9 +128,9 @@ public double getTimeOfFlight(double distance, double velocity, double hoodAngle
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `falconRPS` | `double` | Falcon rotations per second **Parameter `circumference`:** circumference of wheel in meters **Parameter `gearRatio`:** gear ratio between Falcon and mechanism **Returns:** mechanism linear velocity in meters per second |
-| `circumference` | `double` | circumference of wheel in meters **Parameter `gearRatio`:** gear ratio between Falcon and mechanism **Returns:** mechanism linear velocity in meters per second |
-| `gearRatio` | `double` | gear ratio between Falcon and mechanism **Returns:** mechanism linear velocity in meters per second |
+| `falconRPS` | `double` | Rotational speed in revolutions per second. |
+| `circumference` | `double` | `double` input consumed by the implementation shown below. |
+| `gearRatio` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `double`. Exact return expressions are listed in the behavior section.
 
@@ -151,13 +142,6 @@ public double getTimeOfFlight(double distance, double velocity, double hoodAngle
       return (wheelRPM * circumference) / 60.0;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    **Parameter `falconRPS`:** Falcon rotations per second
-    **Parameter `circumference`:** circumference of wheel in meters
-    **Parameter `gearRatio`:** gear ratio between Falcon and mechanism
-    **Returns:** mechanism linear velocity in meters per second
 
 ### `public static double mpsToRPS(double velocity, double circumference, double gearRatio)`
 
@@ -173,9 +157,9 @@ public double getTimeOfFlight(double distance, double velocity, double hoodAngle
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `velocity` | `double` | velocity in meters per second **Parameter `circumference`:** circumference of wheel in meters **Parameter `gearRatio`:** gear ratio between Falcon and mechanism **Returns:** Falcon rotations per second |
-| `circumference` | `double` | circumference of wheel in meters **Parameter `gearRatio`:** gear ratio between Falcon and mechanism **Returns:** Falcon rotations per second |
-| `gearRatio` | `double` | gear ratio between Falcon and mechanism **Returns:** Falcon rotations per second |
+| `velocity` | `double` | Velocity/speed in the units required by this API and configuration. |
+| `circumference` | `double` | `double` input consumed by the implementation shown below. |
+| `gearRatio` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `double`. Exact return expressions are listed in the behavior section.
 
@@ -187,13 +171,6 @@ public double getTimeOfFlight(double distance, double velocity, double hoodAngle
       return rpmToRPS(wheelRPM, gearRatio);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    **Parameter `velocity`:** velocity in meters per second
-    **Parameter `circumference`:** circumference of wheel in meters
-    **Parameter `gearRatio`:** gear ratio between Falcon and mechanism
-    **Returns:** Falcon rotations per second
 
 ### `public static double rpmToFTS(double rpm, double circumference)`
 
@@ -208,8 +185,8 @@ public double getTimeOfFlight(double distance, double velocity, double hoodAngle
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `rpm` | `double` | RPM of the mechanism **Parameter `circumference`:** circumference of the wheel in feet **Returns:** linear velocity in feet per second |
-| `circumference` | `double` | circumference of the wheel in feet **Returns:** linear velocity in feet per second |
+| `rpm` | `double` | Rotational speed in revolutions per minute. |
+| `circumference` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `double`. Exact return expressions are listed in the behavior section.
 
@@ -220,12 +197,6 @@ public double getTimeOfFlight(double distance, double velocity, double hoodAngle
       return (circumference * rpm) / 60;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    **Parameter `rpm`:** RPM of the mechanism
-    **Parameter `circumference`:** circumference of the wheel in feet
-    **Returns:** linear velocity in feet per second
 
 ### `public static double linearDistanceToRotations(Length distance, Length circumference)`
 
@@ -242,8 +213,8 @@ public double getTimeOfFlight(double distance, double velocity, double hoodAngle
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `distance` | `Length` | linear distance traveled **Parameter `circumference`:** circumference per rotation **Returns:** number of rotations |
-| `circumference` | `Length` | circumference per rotation **Returns:** number of rotations |
+| `distance` | `Length` | `Length` input consumed by the implementation shown below. |
+| `circumference` | `Length` | `Length` input consumed by the implementation shown below. |
 
 **Result:** Returns `double`. Exact return expressions are listed in the behavior section.
 
@@ -254,12 +225,6 @@ public double getTimeOfFlight(double distance, double velocity, double hoodAngle
       return distance.getInches() / circumference.getInches();
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    **Parameter `distance`:** linear distance traveled
-    **Parameter `circumference`:** circumference per rotation
-    **Returns:** number of rotations
 
 ### `public static Length rotationsToLinearDistance(double rotations, Length circumference)`
 
@@ -275,8 +240,8 @@ public double getTimeOfFlight(double distance, double velocity, double hoodAngle
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `rotations` | `double` | number of rotations **Parameter `circumference`:** circumference per rotation **Returns:** linear distance traveled |
-| `circumference` | `Length` | circumference per rotation **Returns:** linear distance traveled |
+| `rotations` | `double` | Mechanism or rotor rotations; verify the configured ratio. |
+| `circumference` | `Length` | `Length` input consumed by the implementation shown below. |
 
 **Result:** Returns `Length`. Exact return expressions are listed in the behavior section.
 
@@ -287,12 +252,6 @@ public double getTimeOfFlight(double distance, double velocity, double hoodAngle
       return circumference.times(rotations);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    **Parameter `rotations`:** number of rotations
-    **Parameter `circumference`:** circumference per rotation
-    **Returns:** linear distance traveled
 
 ## Exposed fields and types
 

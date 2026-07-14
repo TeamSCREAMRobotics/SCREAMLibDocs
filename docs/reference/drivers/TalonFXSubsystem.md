@@ -43,15 +43,15 @@ Implement `TalonFXSubsystemGoal` as an enum. `target()` supplies the live target
 
 ### 4. Read state and determine completion
 
-`getPosition()` and `getVelocity()` return mechanism-side values; rotor-specific accessors return rotor-side values. `getError()` subtracts measured position/velocity from the cached setpoint according to the current mode. `atGoal()` uses the configuration tolerance, while `atGoal(absTolerance)` lets the caller override it.
+`getPosition()` and `getVelocity()` return mechanism-side values; rotor-specific accessors return rotor-side values. Each getter refreshes its Phoenix status signal when running on hardware and returns the stored simulated value when simulation is active. `getError()` subtracts measured position/velocity from the cached setpoint according to the current mode. `atGoal()` selects `positionThreshold` or `velocityThreshold` from the configuration, while `atGoal(absTolerance)` lets the caller override that absolute tolerance.
 
 ### 5. Safety, runtime reconfiguration, and simulation
 
-- `stop()` sends a neutral request. `stopAll(...)` applies it to multiple SCREAMLib mechanisms.
-- `emergencyStop()` latches the subsystem's emergency-stop flag and stops output; inspect `isActive()` before assuming later requests are accepted.
+- `stop()` directly calls `stopMotor()` on the master and every slave. `stopAll(...)` applies that operation to multiple SCREAMLib mechanisms.
+- `emergencyStop()` stops all motors, changes neutral mode to coast, latches `isEStopped`, and cancels the current command. There is no public method in this class that clears the latch; `isActive()` only reports whether rotor velocity is nonzero and is **not** an emergency-stop status check.
 - Checked configuration mutators route Phoenix status through `ErrorChecker`; `Unchecked` variants skip that reporting and should be used only when the caller handles failure.
-- `periodic()` refreshes cached signals, applies the active goal, and emits telemetry when enabled.
-- `simulationPeriodic()` advances the configured `SimWrapper`; `setSimState(...)` pushes simulated position/velocity back to the subsystem and registered callback.
+- A constructor supplied with a default goal installs `applyGoalCommand(goal)` as the WPILib default command. That command—not `periodic()`—reapplies the goal while scheduled. `periodic()` logs setpoint/measured/goal/active-command values, optionally calls `outputTelemetry()`, and supports live simulation-PID tuning in debug mode.
+- `simulationPeriodic()` calls `SimulationThread.update()` only for inline simulation. `SimulationThread` applies the supplied voltage, advances `SimWrapper`, and invokes `setSimState(...)` as its callback. `SimWrapper` normalizes supported backends to rotor rotations and rotor rotations-per-second; `getPosition()`/`getVelocity()` then divide by the configured gearing to expose mechanism-side simulation values.
 
 !!! warning "Units are configuration-dependent"
     Position and velocity setters use the mechanism units implied by the configured feedback ratios. Simulation backends also use different native units (for example meters for an elevator and rotations for a DC motor). Read the individual method's implementation notes below before mixing rotor, sensor, mechanism, or simulation values.
@@ -60,6 +60,9 @@ Implement `TalonFXSubsystemGoal` as an enum. `target()` supplies the live target
 ## Competition examples
 
 These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.
+
+!!! note "2025 package names"
+    The 2025 robot used SCREAMLib's earlier short packages such as `data`, `drivers`, and `util`. With SCREAMLib 26.3.7, prefix those imports with `com.teamscreamrobotics.`; the implementation pattern remains applicable.
 
 ### 2026: Configure a TalonFX mechanism, PID slot, limits, and Motion Magic
 
@@ -645,7 +648,7 @@ public class Elevator extends TalonFXSubsystem {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `motorConfig` | `TalonFXConfiguration` | - The config to apply to the master. |
+| `motorConfig` | `TalonFXConfiguration` | `TalonFXConfiguration` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -656,12 +659,6 @@ public class Elevator extends TalonFXSubsystem {
       DeviceConfig.configureTalonFX(config.name + " Master", master, motorConfig);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Configures the master motor with the given configuration.
-    
-    **Parameter `motorConfig`:** - The config to apply to the master.
 
 ### `public void configSlave(TalonFX slave, TalonFXConfiguration motorConfig)`
 
@@ -676,8 +673,8 @@ public class Elevator extends TalonFXSubsystem {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `slave` | `TalonFX` | - The slave to apply the config to. **Parameter `motorConfig`:** - The config to apply to the slave. |
-| `motorConfig` | `TalonFXConfiguration` | - The config to apply to the slave. |
+| `slave` | `TalonFX` | `TalonFX` input consumed by the implementation shown below. |
+| `motorConfig` | `TalonFXConfiguration` | `TalonFXConfiguration` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -688,13 +685,6 @@ public class Elevator extends TalonFXSubsystem {
       DeviceConfig.configureTalonFX(config.name + " Slave", slave, motorConfig);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Configures a slave motor with the given configuration.
-    
-    **Parameter `slave`:** - The slave to apply the config to.
-    **Parameter `motorConfig`:** - The config to apply to the slave.
 
 ### `public void setStatorCurrentLimit(double currentLimit, boolean enable)`
 
@@ -710,8 +700,8 @@ public class Elevator extends TalonFXSubsystem {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `currentLimit` | `double` | - Stator current limit to apply. **Parameter `enable`:** - Whether the current limit should be enabled. |
-| `enable` | `boolean` | - Whether the current limit should be enabled. |
+| `currentLimit` | `double` | `double` input consumed by the implementation shown below. |
+| `enable` | `boolean` | Enables the behavior when `true`; disables it when `false`. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -728,13 +718,6 @@ public class Elevator extends TalonFXSubsystem {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Reconfigures the motors with the given stator current limits.
-    
-    **Parameter `currentLimit`:** - Stator current limit to apply.
-    **Parameter `enable`:** - Whether the current limit should be enabled.
-
 ### `public void enableSoftLimits(boolean enable)`
 
 [Source lines 441–448](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/TalonFXSubsystem.java#L441)
@@ -749,7 +732,7 @@ public class Elevator extends TalonFXSubsystem {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `enable` | `boolean` | - Whether the soft limits should be enabled. |
+| `enable` | `boolean` | Enables the behavior when `true`; disables it when `false`. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -766,12 +749,6 @@ public class Elevator extends TalonFXSubsystem {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Reconfigures the motors to enable soft limits.
-    
-    **Parameter `enable`:** - Whether the soft limits should be enabled.
-
 ### `public void setNeutralMode(NeutralModeValue mode)`
 
 [Source lines 455–460](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/TalonFXSubsystem.java#L455)
@@ -785,7 +762,7 @@ public class Elevator extends TalonFXSubsystem {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `mode` | `NeutralModeValue` | - The neutral mode to apply to the motors. |
+| `mode` | `NeutralModeValue` | `NeutralModeValue` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -799,12 +776,6 @@ public class Elevator extends TalonFXSubsystem {
       }
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the neutral mode of the motors.
-    
-    **Parameter `mode`:** - The neutral mode to apply to the motors.
 
 ### `public synchronized void setSupplyCurrentLimit(double value, boolean enable)`
 
@@ -1837,8 +1808,8 @@ public class Elevator extends TalonFXSubsystem {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `position` | `double` | - DCMotorSim: Angular Position (Rotations) - ElevatorSim: Linear Position (Meters) - SingleJointedArmSim: Angular Position (Rotations) - FlywheelSim: N/A |
-| `velocity` | `double` | - DCMotorSim: Angular Velocity (rot/s) - ElevatorSim: Linear Velocity (m/s) - SingleJointedArmSim: Angular Velocity (rot/s) - FlywheelSim: Angular Velocity (rot/s) |
+| `position` | `double` | Rotor position in rotations produced by `SimWrapper`; mechanism position is recovered by dividing by configured gearing. |
+| `velocity` | `double` | Rotor velocity in rotations per second produced by `SimWrapper`; mechanism velocity is recovered by dividing by configured gearing. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -1852,26 +1823,6 @@ public class Elevator extends TalonFXSubsystem {
       }
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the simulation state for the subsystem.
-    
-    The units for each simulation type are as follows:
-    
-    **Parameter `position`:** 
-    
-    - DCMotorSim: Angular Position (Rotations)
-    - ElevatorSim: Linear Position (Meters)
-    - SingleJointedArmSim: Angular Position (Rotations)
-    - FlywheelSim: N/A
-    
-    **Parameter `velocity`:** 
-    
-    - DCMotorSim: Angular Velocity (rot/s)
-    - ElevatorSim: Linear Velocity (m/s)
-    - SingleJointedArmSim: Angular Velocity (rot/s)
-    - FlywheelSim: Angular Velocity (rot/s)
 
 ### `protected void setGoal(TalonFXSubsystemGoal goal)`
 
@@ -2156,10 +2107,6 @@ public class Elevator extends TalonFXSubsystem {
     public static record CANDevice(Integer id, String canbus)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this canonical constructor from the record header.
-
 ### `public Integer id()`
 
 [Source lines 82–82](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/TalonFXSubsystem.java#L82)
@@ -2178,10 +2125,6 @@ public class Elevator extends TalonFXSubsystem {
     public static record CANDevice(Integer id, String canbus)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `id` record component.
-
 ### `public String canbus()`
 
 [Source lines 82–82](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/TalonFXSubsystem.java#L82)
@@ -2199,10 +2142,6 @@ public class Elevator extends TalonFXSubsystem {
     ```java
     public static record CANDevice(Integer id, String canbus)
     ```
-
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `canbus` record component.
 
 ### `public TalonFXConstants(CANDevice device, InvertedValue invert)`
 
@@ -2227,10 +2166,6 @@ public class Elevator extends TalonFXSubsystem {
     public static record TalonFXConstants(CANDevice device, InvertedValue invert)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this canonical constructor from the record header.
-
 ### `public CANDevice device()`
 
 [Source lines 97–97](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/TalonFXSubsystem.java#L97)
@@ -2249,10 +2184,6 @@ public class Elevator extends TalonFXSubsystem {
     public static record TalonFXConstants(CANDevice device, InvertedValue invert)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `device` record component.
-
 ### `public InvertedValue invert()`
 
 [Source lines 97–97](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/TalonFXSubsystem.java#L97)
@@ -2270,10 +2201,6 @@ public class Elevator extends TalonFXSubsystem {
     ```java
     public static record TalonFXConstants(CANDevice device, InvertedValue invert)
     ```
-
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `invert` record component.
 
 ### `public CANCoderConstants(CANDevice device, CANcoderConfiguration config)`
 
@@ -2298,10 +2225,6 @@ public class Elevator extends TalonFXSubsystem {
     public static record CANCoderConstants(CANDevice device, CANcoderConfiguration config)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this canonical constructor from the record header.
-
 ### `public CANDevice device()`
 
 [Source lines 109–109](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/TalonFXSubsystem.java#L109)
@@ -2320,10 +2243,6 @@ public class Elevator extends TalonFXSubsystem {
     public static record CANCoderConstants(CANDevice device, CANcoderConfiguration config)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `device` record component.
-
 ### `public CANcoderConfiguration config()`
 
 [Source lines 109–109](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/TalonFXSubsystem.java#L109)
@@ -2341,10 +2260,6 @@ public class Elevator extends TalonFXSubsystem {
     ```java
     public static record CANCoderConstants(CANDevice device, CANcoderConfiguration config)
     ```
-
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `config` record component.
 
 ### `public TalonFXSubsystemSimConstants( SimWrapper sim, double gearing, ProfiledPIDController simController, boolean useSeparateThread, boolean limitVoltage)`
 
@@ -2372,10 +2287,6 @@ public class Elevator extends TalonFXSubsystem {
     public record TalonFXSubsystemSimConstants( SimWrapper sim, double gearing, ProfiledPIDController simController, boolean useSeparateThread, boolean limitVoltage)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this canonical constructor from the record header.
-
 ### `public SimWrapper sim()`
 
 [Source lines 121–121](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/TalonFXSubsystem.java#L121)
@@ -2393,10 +2304,6 @@ public class Elevator extends TalonFXSubsystem {
     ```java
     public record TalonFXSubsystemSimConstants( SimWrapper sim, double gearing, ProfiledPIDController simController, boolean useSeparateThread, boolean limitVoltage)
     ```
-
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `sim` record component.
 
 ### `public double gearing()`
 
@@ -2416,10 +2323,6 @@ public class Elevator extends TalonFXSubsystem {
     public record TalonFXSubsystemSimConstants( SimWrapper sim, double gearing, ProfiledPIDController simController, boolean useSeparateThread, boolean limitVoltage)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `gearing` record component.
-
 ### `public ProfiledPIDController simController()`
 
 [Source lines 121–121](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/TalonFXSubsystem.java#L121)
@@ -2437,10 +2340,6 @@ public class Elevator extends TalonFXSubsystem {
     ```java
     public record TalonFXSubsystemSimConstants( SimWrapper sim, double gearing, ProfiledPIDController simController, boolean useSeparateThread, boolean limitVoltage)
     ```
-
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `simController` record component.
 
 ### `public boolean useSeparateThread()`
 
@@ -2460,10 +2359,6 @@ public class Elevator extends TalonFXSubsystem {
     public record TalonFXSubsystemSimConstants( SimWrapper sim, double gearing, ProfiledPIDController simController, boolean useSeparateThread, boolean limitVoltage)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `useSeparateThread` record component.
-
 ### `public boolean limitVoltage()`
 
 [Source lines 121–121](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/TalonFXSubsystem.java#L121)
@@ -2482,10 +2377,6 @@ public class Elevator extends TalonFXSubsystem {
     public record TalonFXSubsystemSimConstants( SimWrapper sim, double gearing, ProfiledPIDController simController, boolean useSeparateThread, boolean limitVoltage)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `limitVoltage` record component.
-
 ## Exposed fields and types
 
 ### `public class TalonFXSubsystem extends SubsystemBase`
@@ -2494,45 +2385,11 @@ public class Elevator extends TalonFXSubsystem {
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    Base class for TalonFX based subsystems.
-    Defines subsystems as a set of motors on a mechanism that do the same thing.
-    This means that each DOF of a mechanism is represented as a separate subsystem.
-     Supports:
-    
-    -  1 master TalonFX
-    -  Any number of slave TalonFXs
-    -  1 CANCoder (Complex systems with multiple CANCoders should be handled externally)
-    -  Simple control requests -- both Motion Magic and non Motion Magic (Velocity, Position, Voltage, Duty Cycle)
-    -  User-defined control requests
-    -  Multi and single threaded simulation setup through configuration
-    -  Logging with DogLog
-
 ### `public static record CANDevice(Integer id, String canbus)`
 
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/TalonFXSubsystem.java#L82)*
 
 This exposed `record` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Creates a new CANDevice.
-    
-    **Parameter `id`:** ID of the device.
-    **Parameter `canbus`:** Name of the CAN bus this device is on. Possible CAN bus
-    strings are:
-    
-    - "rio" for the native roboRIO CAN bus
-    - CANivore name or serial number
-    - SocketCAN interface (non-FRC Linux only)
-    - "*" for any CANivore seen by the program
-    - empty string (default) to select the default for the
-    system:
-    
-    - "rio" on roboRIO
-    - "can0" on Linux
-    - "*" on Windows
 
 ### `public static record TalonFXConstants(CANDevice device, InvertedValue invert)`
 
@@ -2540,25 +2397,11 @@ This exposed `record` is part of the API surface. Its callable members are docum
 
 This exposed `record` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    Constants for a TalonFX motor controller.
-    
-    **Parameter `device`:** CANDevice constants.
-    **Parameter `invert`:** InvertedValue of the device.
-
 ### `public static record CANCoderConstants(CANDevice device, CANcoderConfiguration config)`
 
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/TalonFXSubsystem.java#L109)*
 
 This exposed `record` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Constants for a CANCoder.
-    
-    **Parameter `device`:** CANDevice constants.
-    **Parameter `config`:** Configuration for the device.
 
 ### `public interface TalonFXSubsystemGoal`
 

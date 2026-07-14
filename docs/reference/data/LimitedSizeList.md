@@ -26,7 +26,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `maxSize` | `int` | the maximum number of elements to retain |
+| `maxSize` | `int` | `int` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `LimitedSizeList` instance.
 
@@ -38,12 +38,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       this.maxSize = maxSize;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a new limited-size list.
-    
-    **Parameter `maxSize`:** the maximum number of elements to retain
 
 ### `public boolean add(T element)`
 
@@ -112,10 +106,3 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/LimitedSizeList.java#L12)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    A fixed-capacity deque that automatically evicts the oldest element when full.
-    Useful for rolling windows of sensor readings or log history.
-    
-    **Parameter `the`:** type of elements held in this list

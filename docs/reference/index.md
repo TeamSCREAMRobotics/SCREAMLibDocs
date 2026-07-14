@@ -4,7 +4,7 @@ Generated from SCREAMLib [`e3d2064`](https://github.com/TeamSCREAMRobotics/SCREA
 
 **42 Java source files · 656 public/protected callables · 251 exposed fields/types · 50 embedded competition examples**
 
-This reference is implementation-derived. Every callable includes its actual source body, control-flow/state/collaborator analysis, input and result details, and exact source lines. JavaDoc appears only as a secondary author note.
+This reference is implementation-derived. Every callable includes its actual source body, control-flow/state/collaborator analysis, input and result details, and exact source lines. JavaDoc is not treated as behavioral truth.
 
 ## config
 

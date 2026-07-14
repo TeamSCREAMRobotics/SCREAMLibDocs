@@ -10,6 +10,9 @@
 
 These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.
 
+!!! note "2025 package names"
+    The 2025 robot used SCREAMLib's earlier short packages such as `data`, `drivers`, and `util`. With SCREAMLib 26.3.7, prefix those imports with `com.teamscreamrobotics.`; the implementation pattern remains applicable.
+
 ### 2026: Select alliance-correct shooting and ferry targets
 
 [`src/main/java/frc2026/tars/subsystems/shooter/Shooter.java` lines 260–330](https://github.com/TeamSCREAMRobotics/4522_2026Competition/blob/e9d3ad1471c68ffa779655b75c4d56b9b7730325/src/main/java/frc2026/tars/subsystems/shooter/Shooter.java#L260-L330)
@@ -158,10 +161,6 @@ private void configureBindings() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns a supplier that is `true` when the robot is on the red alliance.
-
 ### `public static Rotation2d getFwdHeading()`
 
 [Source lines 29–31](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L29)
@@ -184,10 +183,6 @@ private void configureBindings() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns `0°` for blue alliance and `180°` for red — the forward-facing heading.
-
 ### `public static int getDirectionCoefficient()`
 
 [Source lines 34–36](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L34)
@@ -209,10 +204,6 @@ private void configureBindings() {
       return (int) get(1, -1);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns `+1` for blue and `-1` for red — useful for signed field-relative math.
 
 ### `public static &lt;T&gt; T get(T blueValue, T redValue)`
 
@@ -240,10 +231,6 @@ private void configureBindings() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns `blueValue` on blue alliance and `redValue` on red.
-
 ### `public static &lt;T&gt; T get(T blueValue, T redValue, boolean inverse)`
 
 [Source lines 50–54](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L50)
@@ -258,9 +245,9 @@ private void configureBindings() {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `blueValue` | `T` | the value to return for blue (or red when `inverse` is true) **Parameter `redValue`:** the value to return for red (or blue when `inverse` is true) **Parameter `inverse`:** if `true`, swaps which alliance gets which val… |
-| `redValue` | `T` | the value to return for red (or blue when `inverse` is true) **Parameter `inverse`:** if `true`, swaps which alliance gets which value |
-| `inverse` | `boolean` | if `true`, swaps which alliance gets which value |
+| `blueValue` | `T` | `T` input consumed by the implementation shown below. |
+| `redValue` | `T` | `T` input consumed by the implementation shown below. |
+| `inverse` | `boolean` | `boolean` input consumed by the implementation shown below. |
 
 **Result:** Returns `&lt;T&gt; T`. Exact return expressions are listed in the behavior section.
 
@@ -273,14 +260,6 @@ private void configureBindings() {
           : blueValue;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the alliance-appropriate value, optionally inverted.
-    
-    **Parameter `blueValue`:** the value to return for blue (or red when `inverse` is true)
-    **Parameter `redValue`:** the value to return for red (or blue when `inverse` is true)
-    **Parameter `inverse`:** if `true`, swaps which alliance gets which value
 
 ### `public static Rotation2d FlippedRotation2d(Rotation2d blueValue)`
 
@@ -307,10 +286,6 @@ private void configureBindings() {
       return get(blueValue, blueValue.plus(Rotation2d.k180deg));
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the blue rotation, or blue + 180° on red (rotationally-symmetric flip).
 
 ### `public static Rotation3d FlippedRotation3d(Rotation3d blueValue)`
 
@@ -340,10 +315,6 @@ private void configureBindings() {
           FlippedRotation2d(Rotation2d.fromRadians(blueValue.getZ())).getRadians());
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the blue rotation, or the Z-flipped equivalent on red (rotationally-symmetric flip).
 
 ### `public static Translation2d FlippedTranslation2d(Translation2d blueValue)`
 
@@ -375,10 +346,6 @@ private void configureBindings() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the blue translation, or `(fieldLength - x, fieldWidth - y)` on red.
-
 ### `public static Pose2d FlippedPose2d(Pose2d blueValue)`
 
 [Source lines 79–83](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L79)
@@ -406,10 +373,6 @@ private void configureBindings() {
           FlippedRotation2d(blueValue.getRotation()));
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the blue pose, or the rotationally-flipped equivalent on red.
 
 ### `public static Translation3d FlippedTranslation3d(Translation3d blueValue)`
 
@@ -442,10 +405,6 @@ private void configureBindings() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the blue translation3d, or `(fieldLength - x, fieldWidth - y, z)` on red.
-
 ### `public static Pose3d FlippedPose3d(Pose3d blueValue)`
 
 [Source lines 96–100](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L96)
@@ -474,10 +433,6 @@ private void configureBindings() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the blue pose3d, or the rotationally-flipped equivalent on red.
-
 ### `public static Rotation2d MirroredRotation2d(Rotation2d blueValue)`
 
 [Source lines 103–105](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L103)
@@ -503,10 +458,6 @@ private void configureBindings() {
       return get(blueValue, Rotation2d.k180deg.minus(blueValue));
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the blue rotation, or `180° - blueValue` on red (bilaterally-symmetric mirror).
 
 ### `public static Rotation3d MirroredRotation3d(Rotation3d blueValue)`
 
@@ -537,10 +488,6 @@ private void configureBindings() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the blue rotation3d, or the Z-mirrored equivalent on red (bilaterally-symmetric).
-
 ### `public static Translation2d MirroredTranslation2d(Translation2d blueValue)`
 
 [Source lines 116–119](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L116)
@@ -567,10 +514,6 @@ private void configureBindings() {
           blueValue, new Translation2d(FIELD_DIMENSIONS.getX() - blueValue.getX(), blueValue.getY()));
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the blue translation, or `(fieldLength - x, y)` on red (X-axis mirror only).
 
 ### `blueValue, new Translation2d(FIELD_DIMENSIONS.getX() - blueValue.getX(), blueValue.getY()))`
 
@@ -622,10 +565,6 @@ private void configureBindings() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the blue pose, or the X-axis-mirrored equivalent on red (bilaterally-symmetric).
-
 ### `public static Translation3d MirroredTranslation3d(Translation3d blueValue)`
 
 [Source lines 129–134](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L129)
@@ -655,10 +594,6 @@ private void configureBindings() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the blue translation3d, or `(fieldLength - x, y, z)` on red (X-axis mirror).
-
 ### `public static Pose3d MirroredPose3d(Pose3d blueValue)`
 
 [Source lines 137–141](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L137)
@@ -687,10 +622,6 @@ private void configureBindings() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the blue pose3d, or the X-axis-mirrored equivalent on red.
-
 ## Exposed fields and types
 
 ### `public final class AllianceFlipUtil`
@@ -699,19 +630,11 @@ private void configureBindings() {
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    Utility for flipping or mirroring field-relative geometry between blue and red alliance.
-
 ### `public static final Translation2d FIELD_DIMENSIONS = new Translation2d(16.541, 8.211)`
 
 *Exposed field · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L17)*
 
 This is a **static final public** field with an initializer. It is not reassigned after initialization. The declaring source references it 5 times, so changing it can affect every control path that reads `FIELD_DIMENSIONS`.
-
-??? note "Author note from JavaDoc"
-
-    Full field dimensions (length × width) in meters.
 
 ### `public static final double FIELD_WIDTH = FIELD_DIMENSIONS.getY()`
 
@@ -719,16 +642,8 @@ This is a **static final public** field with an initializer. It is not reassigne
 
 This is a **static final public** field with an initializer. It is not reassigned after initialization. The declaring source references it 3 times, so changing it can affect every control path that reads `FIELD_WIDTH`.
 
-??? note "Author note from JavaDoc"
-
-    Field width (Y axis) in meters.
-
 ### `public static final double FIELD_LENGTH = FIELD_DIMENSIONS.getX()`
 
 *Exposed field · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L21)*
 
 This is a **static final public** field with an initializer. It is not reassigned after initialization. The declaring source references it 3 times, so changing it can affect every control path that reads `FIELD_LENGTH`.
-
-??? note "Author note from JavaDoc"
-
-    Field length (X axis) in meters.

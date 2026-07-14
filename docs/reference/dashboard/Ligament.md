@@ -53,10 +53,6 @@ public class IntakeWrist extends TalonFXSubsystem {
     public Ligament(){}
     ```
 
-??? note "Author note from JavaDoc"
-
-    Creates a Ligament with default zero angle and length; configure with `with*` methods.
-
 ### `protected void initialize(int index, MechanismRoot2d measured, MechanismRoot2d setpoint)`
 
 [Source lines 32–37](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/dashboard/Ligament.java#L32)
@@ -146,11 +142,6 @@ public class IntakeWrist extends TalonFXSubsystem {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    When `true`, this ligament is appended directly to the root instead of its predecessor.
-    Useful for multi-branch mechanisms that share a common root but diverge.
-
 ### `public Ligament withStaticAngle(Rotation2d angle)`
 
 [Source lines 60–64](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/dashboard/Ligament.java#L60)
@@ -165,7 +156,7 @@ public class IntakeWrist extends TalonFXSubsystem {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `angle` | `Rotation2d` | the constant angle to display |
+| `angle` | `Rotation2d` | `Rotation2d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Ligament`. Exact return expressions are listed in the behavior section.
 
@@ -178,12 +169,6 @@ public class IntakeWrist extends TalonFXSubsystem {
       return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets a fixed angle for both the measured and setpoint ligaments.
-    
-    **Parameter `angle`:** the constant angle to display
 
 ### `public Ligament withDynamicAngle(Supplier&lt;Rotation2d&gt; measured, Supplier&lt;Rotation2d&gt; setpoint)`
 
@@ -199,8 +184,8 @@ public class IntakeWrist extends TalonFXSubsystem {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `measured` | `Supplier&lt;Rotation2d&gt;` | supplier for the actual/measured angle **Parameter `setpoint`:** supplier for the goal/setpoint angle |
-| `setpoint` | `Supplier&lt;Rotation2d&gt;` | supplier for the goal/setpoint angle |
+| `measured` | `Supplier&lt;Rotation2d&gt;` | Callback evaluated at use time rather than construction time. |
+| `setpoint` | `Supplier&lt;Rotation2d&gt;` | Callback evaluated at use time rather than construction time. |
 
 **Result:** Returns `Ligament`. Exact return expressions are listed in the behavior section.
 
@@ -213,13 +198,6 @@ public class IntakeWrist extends TalonFXSubsystem {
       return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets independent angle suppliers for the measured and setpoint ligaments.
-    
-    **Parameter `measured`:** supplier for the actual/measured angle
-    **Parameter `setpoint`:** supplier for the goal/setpoint angle
 
 ### `public Ligament withDynamicAngle(Supplier&lt;Rotation2d&gt; angle)`
 
@@ -235,7 +213,7 @@ public class IntakeWrist extends TalonFXSubsystem {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `angle` | `Supplier&lt;Rotation2d&gt;` | supplier for the angle to display |
+| `angle` | `Supplier&lt;Rotation2d&gt;` | Callback evaluated at use time rather than construction time. |
 
 **Result:** Returns `Ligament`. Exact return expressions are listed in the behavior section.
 
@@ -248,12 +226,6 @@ public class IntakeWrist extends TalonFXSubsystem {
       return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets a single angle supplier used for both measured and setpoint ligaments.
-    
-    **Parameter `angle`:** supplier for the angle to display
 
 ### `public Ligament withStaticLength(Length length)`
 
@@ -269,7 +241,7 @@ public class IntakeWrist extends TalonFXSubsystem {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `length` | `Length` | the constant length to display |
+| `length` | `Length` | `Length` input consumed by the implementation shown below. |
 
 **Result:** Returns `Ligament`. Exact return expressions are listed in the behavior section.
 
@@ -282,12 +254,6 @@ public class IntakeWrist extends TalonFXSubsystem {
       return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets a fixed length for both the measured and setpoint ligaments.
-    
-    **Parameter `length`:** the constant length to display
 
 ### `public Ligament withDynamicLength(Supplier&lt;Length&gt; measured, Supplier&lt;Length&gt; setpoint)`
 
@@ -303,8 +269,8 @@ public class IntakeWrist extends TalonFXSubsystem {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `measured` | `Supplier&lt;Length&gt;` | supplier for the actual/measured length **Parameter `setpoint`:** supplier for the goal/setpoint length |
-| `setpoint` | `Supplier&lt;Length&gt;` | supplier for the goal/setpoint length |
+| `measured` | `Supplier&lt;Length&gt;` | Callback evaluated at use time rather than construction time. |
+| `setpoint` | `Supplier&lt;Length&gt;` | Callback evaluated at use time rather than construction time. |
 
 **Result:** Returns `Ligament`. Exact return expressions are listed in the behavior section.
 
@@ -317,13 +283,6 @@ public class IntakeWrist extends TalonFXSubsystem {
       return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets independent length suppliers for the measured and setpoint ligaments.
-    
-    **Parameter `measured`:** supplier for the actual/measured length
-    **Parameter `setpoint`:** supplier for the goal/setpoint length
 
 ### `public Ligament withDynamicLength(Supplier&lt;Length&gt; length)`
 
@@ -339,7 +298,7 @@ public class IntakeWrist extends TalonFXSubsystem {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `length` | `Supplier&lt;Length&gt;` | supplier for the length to display |
+| `length` | `Supplier&lt;Length&gt;` | Callback evaluated at use time rather than construction time. |
 
 **Result:** Returns `Ligament`. Exact return expressions are listed in the behavior section.
 
@@ -352,12 +311,6 @@ public class IntakeWrist extends TalonFXSubsystem {
       return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets a single length supplier used for both measured and setpoint ligaments.
-    
-    **Parameter `length`:** supplier for the length to display
 
 ### `public void setAngle(Rotation2d angle)`
 
@@ -372,7 +325,7 @@ public class IntakeWrist extends TalonFXSubsystem {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `angle` | `Rotation2d` | the angle to display |
+| `angle` | `Rotation2d` | `Rotation2d` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -384,12 +337,6 @@ public class IntakeWrist extends TalonFXSubsystem {
       this.setpointAngle = () -> angle;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Imperatively sets the same fixed angle for both measured and setpoint ligaments.
-    
-    **Parameter `angle`:** the angle to display
 
 ### `public void setAngle(Rotation2d measured, Rotation2d setpoint)`
 
@@ -404,8 +351,8 @@ public class IntakeWrist extends TalonFXSubsystem {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `measured` | `Rotation2d` | the actual/measured angle **Parameter `setpoint`:** the goal/setpoint angle |
-| `setpoint` | `Rotation2d` | the goal/setpoint angle |
+| `measured` | `Rotation2d` | `Rotation2d` input consumed by the implementation shown below. |
+| `setpoint` | `Rotation2d` | `Rotation2d` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -417,13 +364,6 @@ public class IntakeWrist extends TalonFXSubsystem {
       this.setpointAngle = () -> setpoint;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Imperatively sets independent fixed angles for the measured and setpoint ligaments.
-    
-    **Parameter `measured`:** the actual/measured angle
-    **Parameter `setpoint`:** the goal/setpoint angle
 
 ### `public void setLength(Length length)`
 
@@ -438,7 +378,7 @@ public class IntakeWrist extends TalonFXSubsystem {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `length` | `Length` | the length to display |
+| `length` | `Length` | `Length` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -450,12 +390,6 @@ public class IntakeWrist extends TalonFXSubsystem {
       this.setpointLength = () -> length;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Imperatively sets the same fixed length for both measured and setpoint ligaments.
-    
-    **Parameter `length`:** the length to display
 
 ### `public void setLength(Length measured, Length setpoint)`
 
@@ -470,8 +404,8 @@ public class IntakeWrist extends TalonFXSubsystem {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `measured` | `Length` | the actual/measured length **Parameter `setpoint`:** the goal/setpoint length |
-| `setpoint` | `Length` | the goal/setpoint length |
+| `measured` | `Length` | `Length` input consumed by the implementation shown below. |
+| `setpoint` | `Length` | `Length` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -483,13 +417,6 @@ public class IntakeWrist extends TalonFXSubsystem {
       this.setpointLength = () -> setpoint;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Imperatively sets independent fixed lengths for the measured and setpoint ligaments.
-    
-    **Parameter `measured`:** the actual/measured length
-    **Parameter `setpoint`:** the goal/setpoint length
 
 ### `protected void update()`
 
@@ -523,12 +450,6 @@ public class IntakeWrist extends TalonFXSubsystem {
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/dashboard/Ligament.java#L17)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Represents a single joint segment in a `Mechanism`, tracking both a measured (red) and
-    setpoint (green) `MechanismLigament2d`. Use the `with*` builder methods to configure
-    angle and length sources, then attach to a `Mechanism`.
 
 ### `protected MechanismLigament2d measuredLig`
 

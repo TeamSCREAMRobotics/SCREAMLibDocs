@@ -10,6 +10,9 @@
 
 These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.
 
+!!! note "2025 package names"
+    The 2025 robot used SCREAMLib's earlier short packages such as `data`, `drivers`, and `util`. With SCREAMLib 26.3.7, prefix those imports with `com.teamscreamrobotics.`; the implementation pattern remains applicable.
+
 ### 2025: Keep field dimensions and zone sizes unit-safe (legacy package names)
 
 [`src/main/java/frc2025/constants/FieldConstants.java` lines 51–93](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/constants/FieldConstants.java#L51-L93)
@@ -100,10 +103,6 @@ public class FlywheelConstants {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Creates a zero-length value.
-
 ### `public Length(double inches)`
 
 [Source lines 25–27](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/Length.java#L25)
@@ -117,7 +116,7 @@ public class FlywheelConstants {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `inches` | `double` | the distance in inches |
+| `inches` | `double` | Linear value in inches. |
 
 **Result:** Constructs and initializes a `Length` instance.
 
@@ -128,12 +127,6 @@ public class FlywheelConstants {
       this.inches = inches;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a length from a raw inch value.
-    
-    **Parameter `inches`:** the distance in inches
 
 ### `public static Length fromInches(double inches)`
 
@@ -161,10 +154,6 @@ public class FlywheelConstants {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Creates a `Length` from a value in inches.
-
 ### `public static Length fromFeet(double feet)`
 
 [Source lines 35–37](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/Length.java#L35)
@@ -190,10 +179,6 @@ public class FlywheelConstants {
       return from(feet, 12.0);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a `Length` from a value in feet.
 
 ### `public static Length fromCentimeters(double centimeters)`
 
@@ -221,10 +206,6 @@ public class FlywheelConstants {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Creates a `Length` from a value in centimeters.
-
 ### `public static Length fromMeters(double meters)`
 
 [Source lines 45–47](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/Length.java#L45)
@@ -251,10 +232,6 @@ public class FlywheelConstants {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Creates a `Length` from a value in meters.
-
 ### `public static Length fromRotations(double rotations, Length circumference)`
 
 [Source lines 55–57](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/Length.java#L55)
@@ -269,8 +246,8 @@ public class FlywheelConstants {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `rotations` | `double` | number of full rotations **Parameter `circumference`:** the circumference per rotation |
-| `circumference` | `Length` | the circumference per rotation |
+| `rotations` | `double` | Mechanism or rotor rotations; verify the configured ratio. |
+| `circumference` | `Length` | `Length` input consumed by the implementation shown below. |
 
 **Result:** Returns `Length`. Exact return expressions are listed in the behavior section.
 
@@ -281,13 +258,6 @@ public class FlywheelConstants {
       return new Length(rotations * circumference.inches);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Converts a rotational distance to a linear distance given a wheel/spool circumference.
-    
-    **Parameter `rotations`:** number of full rotations
-    **Parameter `circumference`:** the circumference per rotation
 
 ### `public static Length from(double value, double inchConversionFactor)`
 
@@ -303,8 +273,8 @@ public class FlywheelConstants {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `value` | `double` | the measurement in the source unit **Parameter `inchConversionFactor`:** inches per source unit (e.g. `39.37` for meters) |
-| `inchConversionFactor` | `double` | inches per source unit (e.g. `39.37` for meters) |
+| `value` | `double` | `double` input consumed by the implementation shown below. |
+| `inchConversionFactor` | `double` | Linear value in inches. |
 
 **Result:** Returns `Length`. Exact return expressions are listed in the behavior section.
 
@@ -315,13 +285,6 @@ public class FlywheelConstants {
       return new Length(value * inchConversionFactor);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a `Length` from an arbitrary unit by supplying the inches-per-unit factor.
-    
-    **Parameter `value`:** the measurement in the source unit
-    **Parameter `inchConversionFactor`:** inches per source unit (e.g. `39.37` for meters)
 
 ### `public Length plus(Length other)`
 
@@ -350,10 +313,6 @@ public class FlywheelConstants {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns a new `Length` equal to `this + other`.
-
 ### `public Length minus(Length other)`
 
 [Source lines 75–77](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/Length.java#L75)
@@ -381,10 +340,6 @@ public class FlywheelConstants {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns a new `Length` equal to `this - other`.
-
 ### `public Length times(double scalar)`
 
 [Source lines 80–82](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/Length.java#L80)
@@ -410,10 +365,6 @@ public class FlywheelConstants {
       return new Length(this.inches * scalar);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns a new `Length` scaled by `scalar`.
 
 ### `public Length div(double scalar)`
 
@@ -441,10 +392,6 @@ public class FlywheelConstants {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns a new `Length` divided by `scalar`.
-
 ### `public Length times(Length scalar)`
 
 [Source lines 90–92](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/Length.java#L90)
@@ -470,10 +417,6 @@ public class FlywheelConstants {
       return new Length(this.inches * scalar.inches);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns a new `Length` whose inch value is the product of the two inch values.
 
 ### `public Length div(Length scalar)`
 
@@ -501,10 +444,6 @@ public class FlywheelConstants {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns a new `Length` whose inch value is `this.inches / scalar.inches`.
-
 ### `public Length squared()`
 
 [Source lines 100–102](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/Length.java#L100)
@@ -527,10 +466,6 @@ public class FlywheelConstants {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns a new `Length` whose inch value is `inches²`.
-
 ### `public double getInches()`
 
 [Source lines 105–107](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/Length.java#L105)
@@ -551,10 +486,6 @@ public class FlywheelConstants {
       return inches;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the length in inches.
 
 ### `public double getFeet()`
 
@@ -577,10 +508,6 @@ public class FlywheelConstants {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the length in feet.
-
 ### `public double getCentimeters()`
 
 [Source lines 115–117](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/Length.java#L115)
@@ -602,10 +529,6 @@ public class FlywheelConstants {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the length in centimeters.
-
 ### `public double getMeters()`
 
 [Source lines 120–122](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/Length.java#L120)
@@ -626,10 +549,6 @@ public class FlywheelConstants {
       return inches / 39.37;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the length in meters.
 
 ### `public boolean equals(Object obj)`
 
@@ -827,19 +746,11 @@ public class FlywheelConstants {
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    An immutable, unit-safe linear distance value. Stored internally in inches.
-
 ### `public static final Length kZero = new Length()`
 
 *Exposed field · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/Length.java#L11)*
 
 This is a **static final public** field with an initializer. It is not reassigned after initialization. The declaring source references it 1 time, so changing it can affect every control path that reads `kZero`.
-
-??? note "Author note from JavaDoc"
-
-    A zero-length constant.
 
 ### `public static final LengthStruct struct = new LengthStruct()`
 

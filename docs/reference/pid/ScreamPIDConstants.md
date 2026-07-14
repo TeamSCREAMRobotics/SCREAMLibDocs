@@ -127,10 +127,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     public ScreamPIDConstants() {}
     ```
 
-??? note "Author note from JavaDoc"
-
-    Creates a zeroed `ScreamPIDConstants` instance.
-
 ### `public ScreamPIDConstants(double p, double i, double d)`
 
 [Source lines 48–52](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L48)
@@ -144,9 +140,9 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `p` | `double` | proportional gain **Parameter `i`:** integral gain **Parameter `d`:** derivative gain |
-| `i` | `double` | integral gain **Parameter `d`:** derivative gain |
-| `d` | `double` | derivative gain |
+| `p` | `double` | `double` input consumed by the implementation shown below. |
+| `i` | `double` | `double` input consumed by the implementation shown below. |
+| `d` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `ScreamPIDConstants` instance.
 
@@ -159,14 +155,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       this.kD = d;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a `ScreamPIDConstants` with PID gains (F defaults to 0).
-    
-    **Parameter `p`:** proportional gain
-    **Parameter `i`:** integral gain
-    **Parameter `d`:** derivative gain
 
 ### `public ScreamPIDConstants(double p, double i, double d, double f)`
 
@@ -181,10 +169,10 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `p` | `double` | proportional gain **Parameter `i`:** integral gain **Parameter `d`:** derivative gain **Parameter `f`:** feedforward gain |
-| `i` | `double` | integral gain **Parameter `d`:** derivative gain **Parameter `f`:** feedforward gain |
-| `d` | `double` | derivative gain **Parameter `f`:** feedforward gain |
-| `f` | `double` | feedforward gain |
+| `p` | `double` | `double` input consumed by the implementation shown below. |
+| `i` | `double` | `double` input consumed by the implementation shown below. |
+| `d` | `double` | `double` input consumed by the implementation shown below. |
+| `f` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `ScreamPIDConstants` instance.
 
@@ -198,15 +186,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       this.kF = f;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a `ScreamPIDConstants` with PIDF gains.
-    
-    **Parameter `p`:** proportional gain
-    **Parameter `i`:** integral gain
-    **Parameter `d`:** derivative gain
-    **Parameter `f`:** feedforward gain
 
 ### `public void setPID(double p, double i, double d)`
 
@@ -236,10 +215,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       this.kD = d;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets P, I, and D gains in place.
 
 ### `public void setPIDF(double p, double i, double d, double f)`
 
@@ -272,10 +247,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Sets P, I, D, and F gains in place.
-
 ### `public void setPeriod(double period)`
 
 [Source lines 85–87](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L85)
@@ -300,10 +271,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       this.period = period;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the controller loop period in seconds (default `0.02`).
 
 ### `public void setP(double p)`
 
@@ -330,10 +297,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Sets the proportional gain.
-
 ### `public void setI(double i)`
 
 [Source lines 95–97](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L95)
@@ -358,10 +321,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       this.kI = i;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the integral gain.
 
 ### `public void setD(double d)`
 
@@ -388,10 +347,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Sets the derivative gain.
-
 ### `public void setF(double f)`
 
 [Source lines 105–107](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L105)
@@ -416,10 +371,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       this.kF = f;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the feedforward gain.
 
 ### `public void setIntegralZone(double Izone)`
 
@@ -446,10 +397,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Sets the integral zone — error must be within this bound for the integrator to accumulate.
-
 ### `public void setIntegralAccumulatorBounds(double max, double min)`
 
 [Source lines 120–123](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L120)
@@ -463,8 +410,8 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `max` | `double` | upper bound on the accumulator **Parameter `min`:** lower bound on the accumulator |
-| `min` | `double` | lower bound on the accumulator |
+| `max` | `double` | `double` input consumed by the implementation shown below. |
+| `min` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -476,13 +423,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       this.minIntegralAccumulator = min;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the integrator accumulator clamp bounds.
-    
-    **Parameter `max`:** upper bound on the accumulator
-    **Parameter `min`:** lower bound on the accumulator
 
 ### `public void setOutputBounds(double max, double min)`
 
@@ -497,8 +437,8 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `max` | `double` | maximum output value **Parameter `min`:** minimum output value |
-| `min` | `double` | minimum output value |
+| `max` | `double` | `double` input consumed by the implementation shown below. |
+| `min` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -510,13 +450,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       this.minOutput = min;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the controller output clamp bounds.
-    
-    **Parameter `max`:** maximum output value
-    **Parameter `min`:** minimum output value
 
 ### `public ScreamPIDConstants withPID(double p, double i, double d)`
 
@@ -548,10 +481,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets P, I, D and returns `this` for chaining.
 
 ### `public ScreamPIDConstants withPIDF(double p, double i, double d, double f)`
 
@@ -586,10 +515,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Sets P, I, D, F and returns `this` for chaining.
-
 ### `public ScreamPIDConstants withPeriod(double period)`
 
 [Source lines 154–157](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L154)
@@ -616,10 +541,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the loop period and returns `this` for chaining.
 
 ### `public ScreamPIDConstants withP(double p)`
 
@@ -648,10 +569,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Sets kP and returns `this` for chaining.
-
 ### `public ScreamPIDConstants withI(double i)`
 
 [Source lines 166–169](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L166)
@@ -678,10 +595,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets kI and returns `this` for chaining.
 
 ### `public ScreamPIDConstants withD(double d)`
 
@@ -710,10 +623,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Sets kD and returns `this` for chaining.
-
 ### `public ScreamPIDConstants withF(double f)`
 
 [Source lines 178–181](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L178)
@@ -741,10 +650,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Sets kF and returns `this` for chaining.
-
 ### `public ScreamPIDConstants withIntegralZone(double Izone)`
 
 [Source lines 184–187](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L184)
@@ -771,10 +676,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the integral zone and returns `this` for chaining.
 
 ### `public ScreamPIDConstants withIntegralAccumulatorBounds(double max, double min)`
 
@@ -805,10 +706,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Sets the integral accumulator bounds and returns `this` for chaining.
-
 ### `public ScreamPIDConstants withOutputBounds(double max, double min)`
 
 [Source lines 197–201](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L197)
@@ -838,10 +735,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Sets the output bounds and returns `this` for chaining.
-
 ### `public double period()`
 
 [Source lines 204–206](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L204)
@@ -862,10 +755,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       return period;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the loop period in seconds.
 
 ### `public double kP()`
 
@@ -888,10 +777,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the proportional gain.
-
 ### `public double kI()`
 
 [Source lines 214–216](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L214)
@@ -912,10 +797,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       return kI;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the integral gain.
 
 ### `public double kD()`
 
@@ -938,10 +819,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the derivative gain.
-
 ### `public double kF()`
 
 [Source lines 224–226](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L224)
@@ -962,10 +839,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       return kF;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the feedforward gain.
 
 ### `public double integralZone()`
 
@@ -988,10 +861,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the integral zone threshold.
-
 ### `public double maxIntegralAccumulator()`
 
 [Source lines 234–236](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L234)
@@ -1012,10 +881,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       return maxIntegralAccumulator;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the upper bound on the integral accumulator.
 
 ### `public double minIntegralAccumulator()`
 
@@ -1038,10 +903,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the lower bound on the integral accumulator.
-
 ### `public double maxOutput()`
 
 [Source lines 244–246](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L244)
@@ -1062,10 +923,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       return maxOutput;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the upper output clamp.
 
 ### `public double minOutput()`
 
@@ -1088,10 +945,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the lower output clamp.
-
 ### `public Slot0Configs getSlot0Configs(FeedforwardConstants ffConstants)`
 
 [Source lines 258–269](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L258)
@@ -1106,7 +959,7 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `ffConstants` | `FeedforwardConstants` | the feedforward gains and gravity type |
+| `ffConstants` | `FeedforwardConstants` | `FeedforwardConstants` input consumed by the implementation shown below. |
 
 **Result:** Returns `Slot0Configs`. Exact return expressions are listed in the behavior section.
 
@@ -1127,12 +980,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Builds a `Slot0Configs` combining these PID gains with the given feedforward constants.
-    
-    **Parameter `ffConstants`:** the feedforward gains and gravity type
-
 ### `public static ScreamPIDConstants fromSlot0Configs(Slot0Configs configs)`
 
 [Source lines 276–278](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L276)
@@ -1147,7 +994,7 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `configs` | `Slot0Configs` | the slot configs to extract P/I/D from |
+| `configs` | `Slot0Configs` | `Slot0Configs` input consumed by the implementation shown below. |
 
 **Result:** Returns `ScreamPIDConstants`. Exact return expressions are listed in the behavior section.
 
@@ -1158,12 +1005,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       return new ScreamPIDConstants(configs.kP, configs.kI, configs.kD);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a `ScreamPIDConstants` from the PID portion of a `Slot0Configs`.
-    
-    **Parameter `configs`:** the slot configs to extract P/I/D from
 
 ### `public Slot1Configs getSlot1Configs(FeedforwardConstants ffConstants)`
 
@@ -1179,7 +1020,7 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `ffConstants` | `FeedforwardConstants` | the feedforward gains |
+| `ffConstants` | `FeedforwardConstants` | `FeedforwardConstants` input consumed by the implementation shown below. |
 
 **Result:** Returns `Slot1Configs`. Exact return expressions are listed in the behavior section.
 
@@ -1199,12 +1040,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Builds a `Slot1Configs` combining these PID gains with the given feedforward constants.
-    
-    **Parameter `ffConstants`:** the feedforward gains
-
 ### `public static ScreamPIDConstants fromSlot1Configs(Slot1Configs configs)`
 
 [Source lines 302–304](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L302)
@@ -1219,7 +1054,7 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `configs` | `Slot1Configs` | the slot configs to extract P/I/D from |
+| `configs` | `Slot1Configs` | `Slot1Configs` input consumed by the implementation shown below. |
 
 **Result:** Returns `ScreamPIDConstants`. Exact return expressions are listed in the behavior section.
 
@@ -1230,12 +1065,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       return new ScreamPIDConstants(configs.kP, configs.kI, configs.kD);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a `ScreamPIDConstants` from the PID portion of a `Slot1Configs`.
-    
-    **Parameter `configs`:** the slot configs to extract P/I/D from
 
 ### `public Slot2Configs getSlot2Configs(FeedforwardConstants ffConstants)`
 
@@ -1251,7 +1080,7 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `ffConstants` | `FeedforwardConstants` | the feedforward gains |
+| `ffConstants` | `FeedforwardConstants` | `FeedforwardConstants` input consumed by the implementation shown below. |
 
 **Result:** Returns `Slot2Configs`. Exact return expressions are listed in the behavior section.
 
@@ -1271,12 +1100,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Builds a `Slot2Configs` combining these PID gains with the given feedforward constants.
-    
-    **Parameter `ffConstants`:** the feedforward gains
-
 ### `public static ScreamPIDConstants fromSlot2Configs(Slot2Configs configs)`
 
 [Source lines 328–330](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L328)
@@ -1291,7 +1114,7 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `configs` | `Slot2Configs` | the slot configs to extract P/I/D from |
+| `configs` | `Slot2Configs` | `Slot2Configs` input consumed by the implementation shown below. |
 
 **Result:** Returns `ScreamPIDConstants`. Exact return expressions are listed in the behavior section.
 
@@ -1302,12 +1125,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       return new ScreamPIDConstants(configs.kP, configs.kI, configs.kD);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a `ScreamPIDConstants` from the PID portion of a `Slot2Configs`.
-    
-    **Parameter `configs`:** the slot configs to extract P/I/D from
 
 ### `public PIDController getPIDController()`
 
@@ -1331,10 +1148,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Creates a WPILib `PIDController` from these constants.
-
 ### `public PIDController getPIDController(double minInput, double maxInput)`
 
 [Source lines 343–347](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L343)
@@ -1349,8 +1162,8 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `minInput` | `double` | lower bound of the continuous input range **Parameter `maxInput`:** upper bound of the continuous input range |
-| `maxInput` | `double` | upper bound of the continuous input range |
+| `minInput` | `double` | `double` input consumed by the implementation shown below. |
+| `maxInput` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `PIDController`. Exact return expressions are listed in the behavior section.
 
@@ -1363,13 +1176,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       return controller;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a WPILib `PIDController` with continuous input enabled over `[minInput, maxInput]`.
-    
-    **Parameter `minInput`:** lower bound of the continuous input range
-    **Parameter `maxInput`:** upper bound of the continuous input range
 
 ### `public ProfiledPIDController getProfiledPIDController(Constraints constraints)`
 
@@ -1385,7 +1191,7 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `constraints` | `Constraints` | max velocity and acceleration for the motion profile |
+| `constraints` | `Constraints` | `Constraints` input consumed by the implementation shown below. |
 
 **Result:** Returns `ProfiledPIDController`. Exact return expressions are listed in the behavior section.
 
@@ -1396,12 +1202,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       return new ProfiledPIDController(kP, kI, kD, constraints, period);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a WPILib `ProfiledPIDController` with the given motion constraints.
-    
-    **Parameter `constraints`:** max velocity and acceleration for the motion profile
 
 ### `public ProfiledPIDController getProfiledPIDController( Constraints constraints, double minInput, double maxInput)`
 
@@ -1417,9 +1217,9 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `constraints` | `Constraints` | max velocity and acceleration for the motion profile **Parameter `minInput`:** lower bound of the continuous input range **Parameter `maxInput`:** upper bound of the continuous input range |
-| `minInput` | `double` | lower bound of the continuous input range **Parameter `maxInput`:** upper bound of the continuous input range |
-| `maxInput` | `double` | upper bound of the continuous input range |
+| `constraints` | `Constraints` | `Constraints` input consumed by the implementation shown below. |
+| `minInput` | `double` | `double` input consumed by the implementation shown below. |
+| `maxInput` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `ProfiledPIDController`. Exact return expressions are listed in the behavior section.
 
@@ -1433,14 +1233,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       return controller;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a WPILib `ProfiledPIDController` with constraints and continuous input.
-    
-    **Parameter `constraints`:** max velocity and acceleration for the motion profile
-    **Parameter `minInput`:** lower bound of the continuous input range
-    **Parameter `maxInput`:** upper bound of the continuous input range
 
 ### `public PhoenixPIDController getPhoenixPIDController()`
 
@@ -1464,10 +1256,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Creates a CTRE `PhoenixPIDController` from these constants.
-
 ### `public PhoenixPIDController getPhoenixPIDController(double minInput, double maxInput)`
 
 [Source lines 383–387](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L383)
@@ -1482,8 +1270,8 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `minInput` | `double` | lower bound of the continuous input range **Parameter `maxInput`:** upper bound of the continuous input range |
-| `maxInput` | `double` | upper bound of the continuous input range |
+| `minInput` | `double` | `double` input consumed by the implementation shown below. |
+| `maxInput` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `PhoenixPIDController`. Exact return expressions are listed in the behavior section.
 
@@ -1496,13 +1284,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
       return controller;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a CTRE `PhoenixPIDController` with continuous input enabled.
-    
-    **Parameter `minInput`:** lower bound of the continuous input range
-    **Parameter `maxInput`:** upper bound of the continuous input range
 
 ### `public boolean equals(ScreamPIDConstants other)`
 
@@ -1539,10 +1320,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns `true` if all gains and bounds in `other` are identical to this instance.
-
 ### `public ScreamPIDConstants clone()`
 
 [Source lines 404–417](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L404)
@@ -1576,10 +1353,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns a deep copy of these constants.
-
 ### `public MotionMagicConstants(double cruiseVelocity, double acceleration, int jerk)`
 
 [Source lines 16–16](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L16)
@@ -1604,10 +1377,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     public record MotionMagicConstants(double cruiseVelocity, double acceleration, int jerk)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this canonical constructor from the record header.
-
 ### `public double cruiseVelocity()`
 
 [Source lines 16–16](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L16)
@@ -1625,10 +1394,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     ```java
     public record MotionMagicConstants(double cruiseVelocity, double acceleration, int jerk)
     ```
-
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `cruiseVelocity` record component.
 
 ### `public double acceleration()`
 
@@ -1648,10 +1413,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     public record MotionMagicConstants(double cruiseVelocity, double acceleration, int jerk)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `acceleration` record component.
-
 ### `public int jerk()`
 
 [Source lines 16–16](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L16)
@@ -1669,10 +1430,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     ```java
     public record MotionMagicConstants(double cruiseVelocity, double acceleration, int jerk)
     ```
-
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `jerk` record component.
 
 ### `public FeedforwardConstants( double kV, double kS, double kG, double kA, GravityTypeValue gravityType)`
 
@@ -1700,10 +1457,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     public record FeedforwardConstants( double kV, double kS, double kG, double kA, GravityTypeValue gravityType)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this canonical constructor from the record header.
-
 ### `public double kV()`
 
 [Source lines 19–19](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L19)
@@ -1721,10 +1474,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     ```java
     public record FeedforwardConstants( double kV, double kS, double kG, double kA, GravityTypeValue gravityType)
     ```
-
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `kV` record component.
 
 ### `public double kS()`
 
@@ -1744,10 +1493,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     public record FeedforwardConstants( double kV, double kS, double kG, double kA, GravityTypeValue gravityType)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `kS` record component.
-
 ### `public double kG()`
 
 [Source lines 19–19](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L19)
@@ -1765,10 +1510,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     ```java
     public record FeedforwardConstants( double kV, double kS, double kG, double kA, GravityTypeValue gravityType)
     ```
-
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `kG` record component.
 
 ### `public double kA()`
 
@@ -1788,10 +1529,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     public record FeedforwardConstants( double kV, double kS, double kG, double kA, GravityTypeValue gravityType)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `kA` record component.
-
 ### `public GravityTypeValue gravityType()`
 
 [Source lines 19–19](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L19)
@@ -1810,10 +1547,6 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
     public record FeedforwardConstants( double kV, double kS, double kG, double kA, GravityTypeValue gravityType)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `gravityType` record component.
-
 ## Exposed fields and types
 
 ### `public class ScreamPIDConstants implements Cloneable`
@@ -1822,26 +1555,14 @@ HOOD_CONFIG.cruiseVelocity = 30.0;
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    A container class for PID constants, along with additional methods.
-
 ### `public record MotionMagicConstants(double cruiseVelocity, double acceleration, int jerk)`
 
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L16)*
 
 This exposed `record` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    Motion Magic cruise velocity (rot/s), acceleration (rot/s²), and jerk (rot/s³) limits.
-
 ### `public record FeedforwardConstants( double kV, double kS, double kG, double kA, GravityTypeValue gravityType)`
 
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/pid/ScreamPIDConstants.java#L19)*
 
 This exposed `record` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Feedforward gains (kV, kS, kG, kA) plus the gravity model type for a TalonFX slot.

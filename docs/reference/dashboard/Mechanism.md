@@ -71,8 +71,8 @@ private final SysIdRoutine m_sysIdRoutineSteer =
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `key` | `String` | identifier used as the root name in the `Mechanism2d` widget **Parameter `ligaments`:** one or more ligaments, in chain order from root outward |
-| `ligaments` | `Ligament...` | one or more ligaments, in chain order from root outward |
+| `key` | `String` | `String` input consumed by the implementation shown below. |
+| `ligaments` | `Ligament...` | `Ligament...` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `Mechanism` instance.
 
@@ -84,13 +84,6 @@ private final SysIdRoutine m_sysIdRoutineSteer =
       this.ligaments = ligaments;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a mechanism with the given dashboard key and ordered ligament chain.
-    
-    **Parameter `key`:** identifier used as the root name in the `Mechanism2d` widget
-    **Parameter `ligaments`:** one or more ligaments, in chain order from root outward
 
 ### `protected void initialize(Mechanism2d measured, Mechanism2d setpoint)`
 
@@ -150,7 +143,7 @@ private final SysIdRoutine m_sysIdRoutineSteer =
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `position` | `Translation2d` | the constant (x, y) position of the root |
+| `position` | `Translation2d` | Position in the units required by this API and configuration. |
 
 **Result:** Returns `Mechanism`. Exact return expressions are listed in the behavior section.
 
@@ -162,12 +155,6 @@ private final SysIdRoutine m_sysIdRoutineSteer =
       return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets a fixed root position for the mechanism in the 2D widget.
-    
-    **Parameter `position`:** the constant (x, y) position of the root
 
 ### `public Mechanism withDynamicPosition(Supplier&lt;Translation2d&gt; position)`
 
@@ -183,7 +170,7 @@ private final SysIdRoutine m_sysIdRoutineSteer =
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `position` | `Supplier&lt;Translation2d&gt;` | supplier for the (x, y) root position |
+| `position` | `Supplier&lt;Translation2d&gt;` | Position in the units required by this API and configuration. |
 
 **Result:** Returns `Mechanism`. Exact return expressions are listed in the behavior section.
 
@@ -195,12 +182,6 @@ private final SysIdRoutine m_sysIdRoutineSteer =
       return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets a dynamic root position supplier, updated each periodic cycle.
-    
-    **Parameter `position`:** supplier for the (x, y) root position
 
 ### `public void setPosition(Translation2d position)`
 
@@ -215,7 +196,7 @@ private final SysIdRoutine m_sysIdRoutineSteer =
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `position` | `Translation2d` | the new (x, y) root position |
+| `position` | `Translation2d` | Position in the units required by this API and configuration. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -226,12 +207,6 @@ private final SysIdRoutine m_sysIdRoutineSteer =
       this.position = () -> position;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Imperatively overrides the root position with a new fixed value.
-    
-    **Parameter `position`:** the new (x, y) root position
 
 ### `protected void update()`
 
@@ -266,12 +241,6 @@ private final SysIdRoutine m_sysIdRoutineSteer =
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/dashboard/Mechanism.java#L13)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    A named group of `Ligament`s forming a kinematic chain for `MechanismVisualizer`.
-    The first ligament is anchored at a root; subsequent ones chain from their predecessor unless
-    `Ligament#withOverrideAppend(boolean)` is set.
 
 ### `public Mechanism2d measured`
 

@@ -49,10 +49,10 @@ public RobotContainer() {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `measuredMechanism` | `Mechanism2d` | the `Mechanism2d` widget for actual state (typically logged red) **Parameter `setpointMechanism`:** the `Mechanism2d` widget for setpoint state (typically logged green) **Parameter `telemetryConsumer`:** called each per… |
-| `setpointMechanism` | `Mechanism2d` | the `Mechanism2d` widget for setpoint state (typically logged green) **Parameter `telemetryConsumer`:** called each periodic cycle with (measured, setpoint) to publish data **Parameter `mechanisms`:** one or more `Mecha… |
-| `telemetryConsumer` | `BiConsumer&lt;Mechanism2d, Mechanism2d&gt;` | called each periodic cycle with (measured, setpoint) to publish data **Parameter `mechanisms`:** one or more `Mechanism`s to update and display |
-| `mechanisms` | `Mechanism...` | one or more `Mechanism`s to update and display |
+| `measuredMechanism` | `Mechanism2d` | `Mechanism2d` input consumed by the implementation shown below. |
+| `setpointMechanism` | `Mechanism2d` | `Mechanism2d` input consumed by the implementation shown below. |
+| `telemetryConsumer` | `BiConsumer&lt;Mechanism2d, Mechanism2d&gt;` | `BiConsumer<Mechanism2d, Mechanism2d>` input consumed by the implementation shown below. |
+| `mechanisms` | `Mechanism...` | `Mechanism...` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `MechanismVisualizer` instance.
 
@@ -71,15 +71,6 @@ public RobotContainer() {
       this.mechanisms.forEach((mech) -> mech.initialize(MEASURED_MECHANISM, SETPOINT_MECHANISM));
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates the visualizer and initializes all mechanisms.
-    
-    **Parameter `measuredMechanism`:** the `Mechanism2d` widget for actual state (typically logged red)
-    **Parameter `setpointMechanism`:** the `Mechanism2d` widget for setpoint state (typically logged green)
-    **Parameter `telemetryConsumer`:** called each periodic cycle with (measured, setpoint) to publish data
-    **Parameter `mechanisms`:** one or more `Mechanism`s to update and display
 
 ### `public void setEnabled(boolean enabled)`
 
@@ -105,10 +96,6 @@ public RobotContainer() {
       this.enabled = enabled;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Enables or disables periodic updates. Disable to suppress logging overhead when not needed.
 
 ### `public void periodic()`
 
@@ -142,11 +129,6 @@ public RobotContainer() {
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/dashboard/MechanismVisualizer.java#L13)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    A WPILib subsystem that periodically updates one or more `Mechanism`s and publishes
-    their measured and setpoint `Mechanism2d` widgets via a telemetry consumer.
 
 ### `public Mechanism2d MEASURED_MECHANISM`
 

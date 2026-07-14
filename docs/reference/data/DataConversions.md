@@ -26,7 +26,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `pose` | `Pose2d` | the pose to convert |
+| `pose` | `Pose2d` | `Pose2d` input consumed by the implementation shown below. |
 
 **Result:** Returns `double[]`. Exact return expressions are listed in the behavior section.
 
@@ -37,12 +37,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       return new double[] {pose.getX(), pose.getY(), pose.getRotation().getDegrees()};
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Converts a `Pose2d` to a `[x, y, headingDegrees]` array.
-    
-    **Parameter `pose`:** the pose to convert
 
 ### `public static double[] translation3dToArray(Translation3d translation)`
 
@@ -58,7 +52,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `translation` | `Translation3d` | the translation to convert |
+| `translation` | `Translation3d` | `Translation3d` input consumed by the implementation shown below. |
 
 **Result:** Returns `double[]`. Exact return expressions are listed in the behavior section.
 
@@ -69,13 +63,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       return new double[] {translation.getX(), translation.getY(), translation.getZ(), 0, 0, 0, 0};
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Converts a `Translation3d` to a 7-element array `[x, y, z, 0, 0, 0, 0]`
-    (position only, quaternion zeroed).
-    
-    **Parameter `translation`:** the translation to convert
 
 ### `public static double[] translation3dToArray(Translation3d translation, Rotation3d rot)`
 
@@ -91,8 +78,8 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `translation` | `Translation3d` | the position **Parameter `rot`:** the rotation (converted to quaternion) |
-| `rot` | `Rotation3d` | the rotation (converted to quaternion) |
+| `translation` | `Translation3d` | `Translation3d` input consumed by the implementation shown below. |
+| `rot` | `Rotation3d` | `Rotation3d` input consumed by the implementation shown below. |
 
 **Result:** Returns `double[]`. Exact return expressions are listed in the behavior section.
 
@@ -113,14 +100,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Converts a `Translation3d` and `Rotation3d` to a 7-element pose array
-    `[x, y, z, qx, qy, qz, qw]`.
-    
-    **Parameter `translation`:** the position
-    **Parameter `rot`:** the rotation (converted to quaternion)
-
 ### `public static Translation3d pose3dArrayToTranslation3d(double[] array)`
 
 [Source lines 57–59](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/DataConversions.java#L57)
@@ -135,7 +114,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `array` | `double[]` | array with at least 3 elements: `[x, y, z, ...]` |
+| `array` | `double[]` | `double[]` input consumed by the implementation shown below. |
 
 **Result:** Returns `Translation3d`. Exact return expressions are listed in the behavior section.
 
@@ -146,12 +125,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       return new Translation3d(array[0], array[1], array[2]);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Extracts the first three elements of a pose array as a `Translation3d`.
-    
-    **Parameter `array`:** array with at least 3 elements: `[x, y, z, ...]`
 
 ### `public static double[] translation3dArrayToNumArray(Translation3d[] translations)`
 
@@ -168,7 +141,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `translations` | `Translation3d[]` | the translations to pack |
+| `translations` | `Translation3d[]` | `Translation3d[]` input consumed by the implementation shown below. |
 
 **Result:** Returns `double[]`. Exact return expressions are listed in the behavior section.
 
@@ -196,13 +169,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Packs an array of `Translation3d` objects into a flat `double[]` with 7 slots per
-    translation (x, y, z at indices 0–2; remaining 4 slots zeroed).
-    
-    **Parameter `translations`:** the translations to pack
-
 ### `public static double[] translation2dArrayToNumArray(Translation2d[] translations)`
 
 [Source lines 93–105](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/DataConversions.java#L93)
@@ -218,7 +184,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `translations` | `Translation2d[]` | the translations to pack |
+| `translations` | `Translation2d[]` | `Translation2d[]` input consumed by the implementation shown below. |
 
 **Result:** Returns `double[]`. Exact return expressions are listed in the behavior section.
 
@@ -240,13 +206,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Packs an array of `Translation2d` objects into a flat `double[]` with 7 slots per
-    translation (x, y at indices 0–1; remaining 5 slots zeroed).
-    
-    **Parameter `translations`:** the translations to pack
-
 ### `public static double[] translation2dArrayToNumArray(Translation2d[] translations, double z)`
 
 [Source lines 114–127](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/DataConversions.java#L114)
@@ -262,8 +221,8 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `translations` | `Translation2d[]` | the translations to pack **Parameter `z`:** z value to insert at index 2 of each slot |
-| `z` | `double` | z value to insert at index 2 of each slot |
+| `translations` | `Translation2d[]` | `Translation2d[]` input consumed by the implementation shown below. |
+| `z` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `double[]`. Exact return expressions are listed in the behavior section.
 
@@ -286,14 +245,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Packs an array of `Translation2d` objects into a flat `double[]` with 7 slots per
-    translation, inserting a constant `z` value at index 2.
-    
-    **Parameter `translations`:** the translations to pack
-    **Parameter `z`:** z value to insert at index 2 of each slot
-
 ### `public static double[] chassisSpeedsToArray(ChassisSpeeds speeds)`
 
 [Source lines 134–138](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/DataConversions.java#L134)
@@ -307,7 +258,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `speeds` | `ChassisSpeeds` | the chassis speeds to convert |
+| `speeds` | `ChassisSpeeds` | Velocity/speed in the units required by this API and configuration. |
 
 **Result:** Returns `double[]`. Exact return expressions are listed in the behavior section.
 
@@ -320,12 +271,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       };
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Converts a `ChassisSpeeds` to a `[vx, vy, omega]` array.
-    
-    **Parameter `speeds`:** the chassis speeds to convert
 
 ### `public static Translation2d projectTo2d(Translation3d translation)`
 
@@ -341,7 +286,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `translation` | `Translation3d` | the 3D translation to project |
+| `translation` | `Translation3d` | `Translation3d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Translation2d`. Exact return expressions are listed in the behavior section.
 
@@ -352,12 +297,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       return new Translation2d(translation.getX(), translation.getZ());
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Projects a `Translation3d` onto the XZ plane, returning `(x, z)` as a `Translation2d`.
-    
-    **Parameter `translation`:** the 3D translation to project
 
 ### `public static Translation3d projectTo3d(Translation2d translation)`
 
@@ -373,7 +312,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `translation` | `Translation2d` | the 2D translation to lift |
+| `translation` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Translation3d`. Exact return expressions are listed in the behavior section.
 
@@ -385,12 +324,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Lifts a `Translation2d` into 3D as `(x, 0, y)`.
-    
-    **Parameter `translation`:** the 2D translation to lift
-
 ## Exposed fields and types
 
 ### `public class DataConversions`
@@ -398,7 +331,3 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/DataConversions.java#L11)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Utility methods for converting geometry and kinematics objects to primitive arrays and back.

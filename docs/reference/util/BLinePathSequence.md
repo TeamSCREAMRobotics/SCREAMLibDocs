@@ -52,9 +52,9 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `builder` | `FollowPath.Builder` | the `FollowPath.Builder` used to build each path-following command **Parameter `flipType`:** how paths should be mirrored for the red alliance — see `FlipType` **Parameter `pathNames`:** one or more BLine path names to … |
+| `builder` | `FollowPath.Builder` | `FollowPath.Builder` input consumed by the implementation shown below. |
 | `fieldSymmetry` | `FieldSymmetry` | `FieldSymmetry` input consumed by the implementation shown below. |
-| `pathNames` | `String...` | one or more BLine path names to load, in order **Throws `InvalidParameterException`:** if no path names are supplied |
+| `pathNames` | `String...` | `String...` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `BLinePathSequence` instance.
 
@@ -76,17 +76,6 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Loads and prepares a sequence of BLine paths for autonomous use.
-    Alliance flipping is deferred to retrieval time so the correct alliance
-    is used even if the object is constructed before the DS reports alliance.
-    
-    **Parameter `builder`:** the `FollowPath.Builder` used to build each path-following command
-    **Parameter `flipType`:** how paths should be mirrored for the red alliance — see `FlipType`
-    **Parameter `pathNames`:** one or more BLine path names to load, in order
-    **Throws `InvalidParameterException`:** if no path names are supplied
-
 ### `public static boolean isRunningPath()`
 
 [Source lines 91–93](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L91)
@@ -107,10 +96,6 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
         return isRunningPath;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns `true` while any path command from this class is executing.
 
 ### `public Pose2d getStartingPose()`
 
@@ -135,10 +120,6 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
             .getStartPose();
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the starting pose of the first path — use this to reset odometry before auto.
 
 ### `public Command getStart()`
 
@@ -166,10 +147,6 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns a command that follows the first path in the sequence.
-
 ### `public Command getEnd()`
 
 [Source lines 121–123](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L121)
@@ -192,10 +169,6 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns a command that follows the last path in the sequence.
-
 ### `public int getSize()`
 
 [Source lines 126–128](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L126)
@@ -217,10 +190,6 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
         return entries.size();
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the total number of paths in this sequence.
 
 ### `public Command getNext()`
 
@@ -256,12 +225,6 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Advances the internal cursor and returns a command for the next path.
-    Starts at index 1 on first call (use `#getStart()` for index 0).
-    Returns a no-op `InstantCommand` and logs a DS warning if already at the last path.
-
 ### `public Command getAll()`
 
 [Source lines 150–156](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L150)
@@ -289,10 +252,6 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns a `SequentialCommandGroup` that runs all paths in order.
-
 ### `public Command getIndex(int index)`
 
 [Source lines 164–174](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L164)
@@ -309,7 +268,7 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `index` | `int` | zero-based path index |
+| `index` | `int` | `int` input consumed by the implementation shown below. |
 
 **Result:** Returns `Command`. Exact return expressions are listed in the behavior section.
 
@@ -329,13 +288,6 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns a command for the path at `index`.
-    Returns a no-op `InstantCommand` and logs a DS warning if out of bounds.
-    
-    **Parameter `index`:** zero-based path index
-
 ### `public Optional&lt;Path&gt; getPath(int index)`
 
 [Source lines 183–193](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L183)
@@ -352,7 +304,7 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `index` | `int` | zero-based path index |
+| `index` | `int` | `int` input consumed by the implementation shown below. |
 
 **Result:** Returns `Optional&lt;Path&gt;`. Exact return expressions are listed in the behavior section.
 
@@ -372,14 +324,6 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the raw `Path` at `index`, or `Optional#empty()` if out of bounds.
-    The path is flipped according to the current alliance at call time.
-    Use this when you need direct path access rather than a follow command.
-    
-    **Parameter `index`:** zero-based path index
-
 ### `public BLinePathSequence withAdditional(String... pathNames)`
 
 [Source lines 201–206](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L201)
@@ -395,7 +339,7 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `pathNames` | `String...` | one or more BLine path names to append **Returns:** `this`, for chaining |
+| `pathNames` | `String...` | `String...` input consumed by the implementation shown below. |
 
 **Result:** Returns `BLinePathSequence`. Exact return expressions are listed in the behavior section.
 
@@ -409,13 +353,6 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
         return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Appends additional paths to the end of this sequence.
-    
-    **Parameter `pathNames`:** one or more BLine path names to append
-    **Returns:** `this`, for chaining
 
 ### `public BLinePathSequence mirror()`
 
@@ -439,15 +376,6 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns a new `BLinePathSequence` with all paths mirrored across the field
-    width centerline (`y -> fieldSizeY - y`), regardless of alliance.
-    Use this when reusing a path designed for one half of the field on the other
-    (e.g. top wall path -> bottom wall path).
-    
-    **Returns:** a new `BLinePathSequence` with mirrored paths
-
 ### `public BLinePathSequence withName(String name)`
 
 [Source lines 226–229](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L226)
@@ -462,7 +390,7 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `name` | `String` | the name to assign to this sequence **Returns:** `this`, for chaining |
+| `name` | `String` | `String` input consumed by the implementation shown below. |
 
 **Result:** Returns `BLinePathSequence`. Exact return expressions are listed in the behavior section.
 
@@ -474,13 +402,6 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
         return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the name of this path sequence.
-    
-    **Parameter `name`:** the name to assign to this sequence
-    **Returns:** `this`, for chaining
 
 ### `public String getName()`
 
@@ -502,12 +423,6 @@ routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbum
         return name;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the name of this path sequence.
-    
-    **Returns:** the sequence name, or `null` if no name has been set
 
 ## Exposed fields and types
 

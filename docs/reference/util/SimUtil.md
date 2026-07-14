@@ -26,9 +26,9 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `gearbox` | `DCMotor` | the motor gearbox model **Parameter `gearing`:** gear ratio (input/output) **Parameter `JKgMetersSquaredMOI`:** moment of inertia at the mechanism in kg·m² |
-| `gearing` | `double` | gear ratio (input/output) **Parameter `JKgMetersSquaredMOI`:** moment of inertia at the mechanism in kg·m² |
-| `JKgMetersSquaredMOI` | `double` | moment of inertia at the mechanism in kg·m² |
+| `gearbox` | `DCMotor` | `DCMotor` input consumed by the implementation shown below. |
+| `gearing` | `double` | `double` input consumed by the implementation shown below. |
+| `JKgMetersSquaredMOI` | `double` | Linear value in meters. |
 
 **Result:** Returns `DCMotorSim`. Exact return expressions are listed in the behavior section.
 
@@ -41,14 +41,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
           LinearSystemId.createDCMotorSystem(gearbox, JKgMetersSquaredMOI, gearing), gearbox);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a `DCMotorSim` for the given gearbox and moment of inertia.
-    
-    **Parameter `gearbox`:** the motor gearbox model
-    **Parameter `gearing`:** gear ratio (input/output)
-    **Parameter `JKgMetersSquaredMOI`:** moment of inertia at the mechanism in kg·m²
 
 ### `public static DCMotorSim createDCMotorSim( DCMotor gearbox, double gearing, double JKgMetersSquaredMOI, double positionStdDev, double velocityStdDev)`
 
@@ -64,11 +56,11 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `gearbox` | `DCMotor` | the motor gearbox model **Parameter `gearing`:** gear ratio (input/output) **Parameter `JKgMetersSquaredMOI`:** moment of inertia at the mechanism in kg·m² **Parameter `positionStdDev`:** standard deviation of position … |
-| `gearing` | `double` | gear ratio (input/output) **Parameter `JKgMetersSquaredMOI`:** moment of inertia at the mechanism in kg·m² **Parameter `positionStdDev`:** standard deviation of position measurement noise (rotations) **Parameter `veloci… |
-| `JKgMetersSquaredMOI` | `double` | moment of inertia at the mechanism in kg·m² **Parameter `positionStdDev`:** standard deviation of position measurement noise (rotations) **Parameter `velocityStdDev`:** standard deviation of velocity measurement noise (… |
-| `positionStdDev` | `double` | standard deviation of position measurement noise (rotations) **Parameter `velocityStdDev`:** standard deviation of velocity measurement noise (RPS) |
-| `velocityStdDev` | `double` | standard deviation of velocity measurement noise (RPS) |
+| `gearbox` | `DCMotor` | `DCMotor` input consumed by the implementation shown below. |
+| `gearing` | `double` | `double` input consumed by the implementation shown below. |
+| `JKgMetersSquaredMOI` | `double` | Linear value in meters. |
+| `positionStdDev` | `double` | Position in the units required by this API and configuration. |
+| `velocityStdDev` | `double` | Velocity/speed in the units required by this API and configuration. |
 
 **Result:** Returns `DCMotorSim`. Exact return expressions are listed in the behavior section.
 
@@ -89,16 +81,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Creates a `DCMotorSim` with measurement noise.
-    
-    **Parameter `gearbox`:** the motor gearbox model
-    **Parameter `gearing`:** gear ratio (input/output)
-    **Parameter `JKgMetersSquaredMOI`:** moment of inertia at the mechanism in kg·m²
-    **Parameter `positionStdDev`:** standard deviation of position measurement noise (rotations)
-    **Parameter `velocityStdDev`:** standard deviation of velocity measurement noise (RPS)
-
 ### `public static FlywheelSim createFlywheelSim( DCMotor gearbox, double gearing, double JKgMetersSquaredMOI)`
 
 [Source lines 53–57](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/SimUtil.java#L53)
@@ -113,9 +95,9 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `gearbox` | `DCMotor` | the motor gearbox model **Parameter `gearing`:** gear ratio (input/output) **Parameter `JKgMetersSquaredMOI`:** moment of inertia at the flywheel in kg·m² |
-| `gearing` | `double` | gear ratio (input/output) **Parameter `JKgMetersSquaredMOI`:** moment of inertia at the flywheel in kg·m² |
-| `JKgMetersSquaredMOI` | `double` | moment of inertia at the flywheel in kg·m² |
+| `gearbox` | `DCMotor` | `DCMotor` input consumed by the implementation shown below. |
+| `gearing` | `double` | `double` input consumed by the implementation shown below. |
+| `JKgMetersSquaredMOI` | `double` | Linear value in meters. |
 
 **Result:** Returns `FlywheelSim`. Exact return expressions are listed in the behavior section.
 
@@ -128,14 +110,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
           LinearSystemId.createFlywheelSystem(gearbox, JKgMetersSquaredMOI, gearing), gearbox);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a `FlywheelSim` for the given gearbox and moment of inertia.
-    
-    **Parameter `gearbox`:** the motor gearbox model
-    **Parameter `gearing`:** gear ratio (input/output)
-    **Parameter `JKgMetersSquaredMOI`:** moment of inertia at the flywheel in kg·m²
 
 ### `public static FlywheelSim createFlywheelSim( DCMotor gearbox, double gearing, double JKgMetersSquaredMOI, double positionStdDev, double velocityStdDev)`
 
@@ -151,11 +125,11 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `gearbox` | `DCMotor` | the motor gearbox model **Parameter `gearing`:** gear ratio (input/output) **Parameter `JKgMetersSquaredMOI`:** moment of inertia at the flywheel in kg·m² **Parameter `positionStdDev`:** standard deviation of position m… |
-| `gearing` | `double` | gear ratio (input/output) **Parameter `JKgMetersSquaredMOI`:** moment of inertia at the flywheel in kg·m² **Parameter `positionStdDev`:** standard deviation of position measurement noise (rotations) **Parameter `velocit… |
-| `JKgMetersSquaredMOI` | `double` | moment of inertia at the flywheel in kg·m² **Parameter `positionStdDev`:** standard deviation of position measurement noise (rotations) **Parameter `velocityStdDev`:** standard deviation of velocity measurement noise (R… |
-| `positionStdDev` | `double` | standard deviation of position measurement noise (rotations) **Parameter `velocityStdDev`:** standard deviation of velocity measurement noise (RPS) |
-| `velocityStdDev` | `double` | standard deviation of velocity measurement noise (RPS) |
+| `gearbox` | `DCMotor` | `DCMotor` input consumed by the implementation shown below. |
+| `gearing` | `double` | `double` input consumed by the implementation shown below. |
+| `JKgMetersSquaredMOI` | `double` | Linear value in meters. |
+| `positionStdDev` | `double` | Position in the units required by this API and configuration. |
+| `velocityStdDev` | `double` | Velocity/speed in the units required by this API and configuration. |
 
 **Result:** Returns `FlywheelSim`. Exact return expressions are listed in the behavior section.
 
@@ -176,16 +150,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Creates a `FlywheelSim` with measurement noise.
-    
-    **Parameter `gearbox`:** the motor gearbox model
-    **Parameter `gearing`:** gear ratio (input/output)
-    **Parameter `JKgMetersSquaredMOI`:** moment of inertia at the flywheel in kg·m²
-    **Parameter `positionStdDev`:** standard deviation of position measurement noise (rotations)
-    **Parameter `velocityStdDev`:** standard deviation of velocity measurement noise (RPS)
-
 ## Exposed fields and types
 
 ### `public class SimUtil`
@@ -193,7 +157,3 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/SimUtil.java#L9)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Convenience factory methods for creating WPILib simulation objects.

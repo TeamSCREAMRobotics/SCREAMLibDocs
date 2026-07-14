@@ -30,10 +30,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     public void log();
     ```
 
-??? note "Author note from JavaDoc"
-
-    Publishes all relevant telemetry for this object.
-
 ## Exposed fields and types
 
 ### `public class LoggingUtils`
@@ -42,16 +38,8 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    Shared logging utilities and marker interfaces.
-
 ### `public interface Loggable`
 
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/LoggingUtils.java#L7)*
 
 This exposed `interface` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Implemented by subsystems or components that publish their own telemetry.

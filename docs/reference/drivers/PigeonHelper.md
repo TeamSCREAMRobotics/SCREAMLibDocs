@@ -25,7 +25,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `pigeon` | `Pigeon2` | the Pigeon2 IMU to wrap |
+| `pigeon` | `Pigeon2` | `Pigeon2` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `PigeonHelper` instance.
 
@@ -39,12 +39,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
         velocityZ = pigeon.getAngularVelocityZWorld();
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a helper wrapping the given Pigeon2 and caches its angular velocity signals.
-    
-    **Parameter `pigeon`:** the Pigeon2 IMU to wrap
 
 ### `public double getVelocityX()`
 
@@ -69,10 +63,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Get the angular velocity around the X axis in degrees per second
-
 ### `public double getVelocityY()`
 
 [Source lines 38–41](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/PigeonHelper.java#L38)
@@ -96,10 +86,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Get the angular velocity around the Y axis in degrees per second
-
 ### `public double getVelocityZ()`
 
 [Source lines 46–49](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/PigeonHelper.java#L46)
@@ -122,10 +108,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
         return velocityZ.getValueAsDouble();
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Get the angular velocity around the Z axis (yaw rate) in degrees per second
 
 ### `public double[] getAllVelocities()`
 
@@ -158,11 +140,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Get all velocity values at once
-    Returns array: [velocityX, velocityY, velocityZ]
-
 ### `public double getYawRate()`
 
 [Source lines 71–73](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/PigeonHelper.java#L71)
@@ -184,10 +161,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
         return getVelocityZ();
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Get the yaw rate (most commonly used for drivetrain)
 
 ### `public double getYawRateRadians()`
 
@@ -212,10 +185,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Get yaw rate in radians per second (useful for some calculations)
-
 ## Exposed fields and types
 
 ### `public class PigeonHelper`
@@ -223,7 +192,3 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/drivers/PigeonHelper.java#L9)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Wraps a `Pigeon2` to provide convenient angular velocity accessors.

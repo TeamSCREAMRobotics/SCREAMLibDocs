@@ -10,6 +10,9 @@
 
 These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.
 
+!!! note "2025 package names"
+    The 2025 robot used SCREAMLib's earlier short packages such as `data`, `drivers`, and `util`. With SCREAMLib 26.3.7, prefix those imports with `com.teamscreamrobotics.`; the implementation pattern remains applicable.
+
 ### 2025: Use `SimWrapper` in `IntakeConstants.java`
 
 [`src/main/java/frc2025/subsystems/intake/IntakeConstants.java` lines 48–63](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/subsystems/intake/IntakeConstants.java#L48-L63)
@@ -93,7 +96,7 @@ WRIST_CONFIG.sensorToMechRatio = INTAKE_REDUCTION;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `sim` | `DCMotorSim` | the DC motor simulation model |
+| `sim` | `DCMotorSim` | `DCMotorSim` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `SimWrapper` instance.
 
@@ -108,14 +111,6 @@ WRIST_CONFIG.sensorToMechRatio = INTAKE_REDUCTION;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Wraps a `DCMotorSim`. Position and velocity are scaled by the model's internal gearing
-    to produce rotor rotations/RPS. Use the explicit-gearing overload if `sim` was built
-    with `gearing = 1.0` and gearing is tracked separately.
-    
-    **Parameter `sim`:** the DC motor simulation model
-
 ### `public SimWrapper(DCMotorSim sim, double gearing)`
 
 [Source lines 50–55](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/sim/SimWrapper.java#L50)
@@ -129,8 +124,8 @@ WRIST_CONFIG.sensorToMechRatio = INTAKE_REDUCTION;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `sim` | `DCMotorSim` | the DC motor simulation model **Parameter `gearing`:** gear ratio from mechanism to motor (motor rotations per mechanism rotation) |
-| `gearing` | `double` | gear ratio from mechanism to motor (motor rotations per mechanism rotation) |
+| `sim` | `DCMotorSim` | `DCMotorSim` input consumed by the implementation shown below. |
+| `gearing` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `SimWrapper` instance.
 
@@ -144,14 +139,6 @@ WRIST_CONFIG.sensorToMechRatio = INTAKE_REDUCTION;
       velocitySupplier = () -> (sim.getAngularVelocityRPM() / 60.0) * gearing;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Wraps a `DCMotorSim` with an explicit gear ratio. Use this when the sim model was
-    constructed with `gearing = 1.0` and the ratio is tracked in `TalonFXSubsystemSimConstants`.
-    
-    **Parameter `sim`:** the DC motor simulation model
-    **Parameter `gearing`:** gear ratio from mechanism to motor (motor rotations per mechanism rotation)
 
 ### `public SimWrapper(ElevatorSim sim, Length spoolCircumference, double gearing)`
 
@@ -167,9 +154,9 @@ WRIST_CONFIG.sensorToMechRatio = INTAKE_REDUCTION;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `sim` | `ElevatorSim` | the elevator simulation model **Parameter `spoolCircumference`:** circumference of the elevator spool **Parameter `gearing`:** gear ratio between motor and spool |
-| `spoolCircumference` | `Length` | circumference of the elevator spool **Parameter `gearing`:** gear ratio between motor and spool |
-| `gearing` | `double` | gear ratio between motor and spool |
+| `sim` | `ElevatorSim` | `ElevatorSim` input consumed by the implementation shown below. |
+| `spoolCircumference` | `Length` | `Length` input consumed by the implementation shown below. |
+| `gearing` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `SimWrapper` instance.
 
@@ -183,15 +170,6 @@ WRIST_CONFIG.sensorToMechRatio = INTAKE_REDUCTION;
       velocitySupplier = () -> (sim.getVelocityMetersPerSecond() / spoolCircumference.getMeters()) * gearing;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Wraps an `ElevatorSim`. Position and velocity are converted from meters to rotations/RPS
-    using the spool circumference and gear ratio.
-    
-    **Parameter `sim`:** the elevator simulation model
-    **Parameter `spoolCircumference`:** circumference of the elevator spool
-    **Parameter `gearing`:** gear ratio between motor and spool
 
 ### `public SimWrapper(SingleJointedArmSim sim, double gearing)`
 
@@ -207,8 +185,8 @@ WRIST_CONFIG.sensorToMechRatio = INTAKE_REDUCTION;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `sim` | `SingleJointedArmSim` | the arm simulation model **Parameter `gearing`:** gear ratio between motor and arm joint |
-| `gearing` | `double` | gear ratio between motor and arm joint |
+| `sim` | `SingleJointedArmSim` | `SingleJointedArmSim` input consumed by the implementation shown below. |
+| `gearing` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `SimWrapper` instance.
 
@@ -223,14 +201,6 @@ WRIST_CONFIG.sensorToMechRatio = INTAKE_REDUCTION;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Wraps a `SingleJointedArmSim`. Position and velocity are converted from radians to
-    rotations/RPS using the gear ratio.
-    
-    **Parameter `sim`:** the arm simulation model
-    **Parameter `gearing`:** gear ratio between motor and arm joint
-
 ### `public SimWrapper(FlywheelSim sim)`
 
 [Source lines 92–97](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/sim/SimWrapper.java#L92)
@@ -244,7 +214,7 @@ WRIST_CONFIG.sensorToMechRatio = INTAKE_REDUCTION;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `sim` | `FlywheelSim` | the flywheel simulation model |
+| `sim` | `FlywheelSim` | `FlywheelSim` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `SimWrapper` instance.
 
@@ -259,13 +229,6 @@ WRIST_CONFIG.sensorToMechRatio = INTAKE_REDUCTION;
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Wraps a `FlywheelSim`. Position always returns `0.0`; velocity is in RPS scaled
-    by the model's internal gearing. Use the explicit-gearing overload if the model gearing is 1.0.
-    
-    **Parameter `sim`:** the flywheel simulation model
-
 ### `public SimWrapper(FlywheelSim sim, double gearing)`
 
 [Source lines 106–111](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/sim/SimWrapper.java#L106)
@@ -279,8 +242,8 @@ WRIST_CONFIG.sensorToMechRatio = INTAKE_REDUCTION;
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `sim` | `FlywheelSim` | the flywheel simulation model **Parameter `gearing`:** gear ratio from mechanism to motor |
-| `gearing` | `double` | gear ratio from mechanism to motor |
+| `sim` | `FlywheelSim` | `FlywheelSim` input consumed by the implementation shown below. |
+| `gearing` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `SimWrapper` instance.
 
@@ -294,14 +257,6 @@ WRIST_CONFIG.sensorToMechRatio = INTAKE_REDUCTION;
       velocitySupplier = () -> (sim.getAngularVelocityRPM() / 60.0) * gearing;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Wraps a `FlywheelSim` with an explicit gear ratio. Use this when the sim model was
-    constructed with `gearing = 1.0` and the ratio is tracked in `TalonFXSubsystemSimConstants`.
-    
-    **Parameter `sim`:** the flywheel simulation model
-    **Parameter `gearing`:** gear ratio from mechanism to motor
 
 ### `public void update(double deltaTime)`
 
@@ -404,8 +359,3 @@ WRIST_CONFIG.sensorToMechRatio = INTAKE_REDUCTION;
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/sim/SimWrapper.java#L17)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Adapts WPILib simulation models (`DCMotorSim`, `ElevatorSim`, etc.) to the
-    `SimInterface` contract, normalizing position and velocity to rotations / rotations-per-second.

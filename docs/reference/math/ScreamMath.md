@@ -10,6 +10,9 @@
 
 These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.
 
+!!! note "2025 package names"
+    The 2025 robot used SCREAMLib's earlier short packages such as `data`, `drivers`, and `util`. With SCREAMLib 26.3.7, prefix those imports with `com.teamscreamrobotics.`; the implementation pattern remains applicable.
+
 ### 2025: Use `ScreamMath` in `DriveToPose.java`
 
 [`src/main/java/frc2025/commands/DriveToPose.java` lines 101–116](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/commands/DriveToPose.java#L101-L116)
@@ -119,7 +122,7 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `nums` | `double...` | the values to average |
+| `nums` | `double...` | `double...` input consumed by the implementation shown below. |
 
 **Result:** Returns `double`. Exact return expressions are listed in the behavior section.
 
@@ -137,12 +140,6 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the arithmetic mean of the given values, or `0.0` if the array is empty.
-    
-    **Parameter `nums`:** the values to average
-
 ### `public static double mapRange( double value, double fromLow, double fromHigh, double toLow, double toHigh)`
 
 [Source lines 44–51](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/math/ScreamMath.java#L44)
@@ -159,11 +156,11 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `value` | `double` | the input value in the source range **Parameter `fromLow`:** lower bound of the source range **Parameter `fromHigh`:** upper bound of the source range **Parameter `toLow`:** lower bound of the target range **Parameter `… |
-| `fromLow` | `double` | lower bound of the source range **Parameter `fromHigh`:** upper bound of the source range **Parameter `toLow`:** lower bound of the target range **Parameter `toHigh`:** upper bound of the target range **Throws `IllegalA… |
-| `fromHigh` | `double` | upper bound of the source range **Parameter `toLow`:** lower bound of the target range **Parameter `toHigh`:** upper bound of the target range **Throws `IllegalArgumentException`:** if the source range has zero width |
-| `toLow` | `double` | lower bound of the target range **Parameter `toHigh`:** upper bound of the target range **Throws `IllegalArgumentException`:** if the source range has zero width |
-| `toHigh` | `double` | upper bound of the target range **Throws `IllegalArgumentException`:** if the source range has zero width |
+| `value` | `double` | `double` input consumed by the implementation shown below. |
+| `fromLow` | `double` | `double` input consumed by the implementation shown below. |
+| `fromHigh` | `double` | `double` input consumed by the implementation shown below. |
+| `toLow` | `double` | `double` input consumed by the implementation shown below. |
+| `toHigh` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `double`. Exact return expressions are listed in the behavior section.
 
@@ -180,17 +177,6 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Linearly maps `value` from one range to another.
-    
-    **Parameter `value`:** the input value in the source range
-    **Parameter `fromLow`:** lower bound of the source range
-    **Parameter `fromHigh`:** upper bound of the source range
-    **Parameter `toLow`:** lower bound of the target range
-    **Parameter `toHigh`:** upper bound of the target range
-    **Throws `IllegalArgumentException`:** if the source range has zero width
-
 ### `public static double getLinearVelocity(ChassisSpeeds speeds)`
 
 [Source lines 58–60](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/math/ScreamMath.java#L58)
@@ -205,7 +191,7 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `speeds` | `ChassisSpeeds` | the chassis speed |
+| `speeds` | `ChassisSpeeds` | Velocity/speed in the units required by this API and configuration. |
 
 **Result:** Returns `double`. Exact return expressions are listed in the behavior section.
 
@@ -216,12 +202,6 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
       return Math.hypot(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the translational speed magnitude (vx² + vy²)^½ from a `ChassisSpeeds`.
-    
-    **Parameter `speeds`:** the chassis speed
 
 ### `public static Translation3d rotatePoint(Translation3d point, Rotation2d yaw)`
 
@@ -237,8 +217,8 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `point` | `Translation3d` | the point to rotate **Parameter `yaw`:** the rotation angle around the Z-axis |
-| `yaw` | `Rotation2d` | the rotation angle around the Z-axis |
+| `point` | `Translation3d` | `Translation3d` input consumed by the implementation shown below. |
+| `yaw` | `Rotation2d` | `Rotation2d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Translation3d`. Exact return expressions are listed in the behavior section.
 
@@ -257,13 +237,6 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Rotates a 3D point around the Z-axis by `yaw`, preserving Z.
-    
-    **Parameter `point`:** the point to rotate
-    **Parameter `yaw`:** the rotation angle around the Z-axis
-
 ### `public static Translation2d rotatePoint(Translation2d point, Rotation2d yaw)`
 
 [Source lines 85–88](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/math/ScreamMath.java#L85)
@@ -278,8 +251,8 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `point` | `Translation2d` | the point to rotate **Parameter `yaw`:** the rotation angle |
-| `yaw` | `Rotation2d` | the rotation angle |
+| `point` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
+| `yaw` | `Rotation2d` | `Rotation2d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Translation2d`. Exact return expressions are listed in the behavior section.
 
@@ -291,13 +264,6 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
       return t3d.toTranslation2d();
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Rotates a 2D point by `yaw`.
-    
-    **Parameter `point`:** the point to rotate
-    **Parameter `yaw`:** the rotation angle
 
 ### `public static Rotation2d calculateAngleToPoint(Translation2d current, Translation2d target)`
 
@@ -313,8 +279,8 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `current` | `Translation2d` | the observer position **Parameter `target`:** the target position |
-| `target` | `Translation2d` | the target position |
+| `current` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
+| `target` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Rotation2d`. Exact return expressions are listed in the behavior section.
 
@@ -327,13 +293,6 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
       return Rotation2d.fromRadians(Math.atan2(targetY, targetX));
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the bearing angle from `current` to `target`.
-    
-    **Parameter `current`:** the observer position
-    **Parameter `target`:** the target position
 
 ### `public static Rotation2d clamp(Rotation2d rotation, Rotation2d high, Rotation2d low)`
 
@@ -350,9 +309,9 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `rotation` | `Rotation2d` | the rotation to clamp **Parameter `high`:** the upper bound **Parameter `low`:** the lower bound |
-| `high` | `Rotation2d` | the upper bound **Parameter `low`:** the lower bound |
-| `low` | `Rotation2d` | the lower bound |
+| `rotation` | `Rotation2d` | Mechanism or rotor rotations; verify the configured ratio. |
+| `high` | `Rotation2d` | `Rotation2d` input consumed by the implementation shown below. |
+| `low` | `Rotation2d` | `Rotation2d` input consumed by the implementation shown below. |
 
 **Result:** Returns `Rotation2d`. Exact return expressions are listed in the behavior section.
 
@@ -364,14 +323,6 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
           MathUtil.clamp(rotation.getRadians(), low.getRadians(), high.getRadians()));
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Clamps `rotation` to the range `[low, high]` in radians.
-    
-    **Parameter `rotation`:** the rotation to clamp
-    **Parameter `high`:** the upper bound
-    **Parameter `low`:** the lower bound
 
 ### `public static double square(double n)`
 
@@ -399,10 +350,6 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns `n²`.
-
 ### `public static MomentOfInertia parallelAxisTheorem(MomentOfInertia moi, Mass mass, Length distance)`
 
 [Source lines 127–129](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/math/ScreamMath.java#L127)
@@ -418,9 +365,9 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `moi` | `MomentOfInertia` | moment of inertia about the center of mass **Parameter `mass`:** mass of the object **Parameter `distance`:** distance from the center of mass to the new axis **Returns:** the moment of inertia about the new parallel ax… |
-| `mass` | `Mass` | mass of the object **Parameter `distance`:** distance from the center of mass to the new axis **Returns:** the moment of inertia about the new parallel axis |
-| `distance` | `Length` | distance from the center of mass to the new axis **Returns:** the moment of inertia about the new parallel axis |
+| `moi` | `MomentOfInertia` | `MomentOfInertia` input consumed by the implementation shown below. |
+| `mass` | `Mass` | `Mass` input consumed by the implementation shown below. |
+| `distance` | `Length` | `Length` input consumed by the implementation shown below. |
 
 **Result:** Returns `MomentOfInertia`. Exact return expressions are listed in the behavior section.
 
@@ -432,15 +379,6 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Applies the parallel axis theorem: `I = I_cm + m * d²`.
-    
-    **Parameter `moi`:** moment of inertia about the center of mass
-    **Parameter `mass`:** mass of the object
-    **Parameter `distance`:** distance from the center of mass to the new axis
-    **Returns:** the moment of inertia about the new parallel axis
-
 ## Exposed fields and types
 
 ### `public class ScreamMath`
@@ -449,16 +387,8 @@ public void scaledTarget(Color color, double currentValue, double targetValue) {
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    General-purpose math utilities for FRC calculations.
-
 ### `public static final double METERS_PER_INCH = 0.0254`
 
 *Exposed field · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/math/ScreamMath.java#L17)*
 
 This is a **static final public** field with an initializer. It is not reassigned after initialization. The declaring source references it 1 time, so changing it can affect every control path that reads `METERS_PER_INCH`.
-
-??? note "Author note from JavaDoc"
-
-    Conversion factor: meters per inch ({@value} m/in).

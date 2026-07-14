@@ -25,7 +25,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `vertices` | `List&lt;Translation2d&gt;` | polygon corners in field coordinates (meters), ordered consistently (CW or CCW) |
+| `vertices` | `List&lt;Translation2d&gt;` | `List<Translation2d>` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `PolygonalPoseArea` instance.
 
@@ -36,12 +36,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       this.vertices = vertices;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a polygonal zone from an ordered list of vertices.
-    
-    **Parameter `vertices`:** polygon corners in field coordinates (meters), ordered consistently (CW or CCW)
 
 ### `public boolean contains(Pose2d pose)`
 
@@ -68,10 +62,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       return contains(pose.getTranslation());
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns `true` if the pose's translation is inside the polygon.
 
 ### `public boolean contains(Translation2d point)`
 
@@ -112,10 +102,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       return result;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns `true` if the point is inside the polygon (ray-casting algorithm).
 
 ### `public Translation2d getCenter()`
 
@@ -165,10 +151,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the geometric centroid of the polygon in field coordinates.
-
 ## Exposed fields and types
 
 ### `public class PolygonalPoseArea`
@@ -176,7 +158,3 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/PolygonalPoseArea.java#L8)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    An arbitrary convex or concave 2D polygon zone on the field used for pose containment checks.

@@ -10,6 +10,9 @@
 
 These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.
 
+!!! note "2025 package names"
+    The 2025 robot used SCREAMLib's earlier short packages such as `data`, `drivers`, and `util`. With SCREAMLib 26.3.7, prefix those imports with `com.teamscreamrobotics.`; the implementation pattern remains applicable.
+
 ### 2025: Use `DashboardBoolean` in `Dashboard.java`
 
 [`src/main/java/frc2025/Dashboard.java` lines 49–64](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/Dashboard.java#L49-L64)
@@ -93,9 +96,9 @@ public static void initialize() {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `tableName` | `String` | NetworkTables table to publish under **Parameter `key`:** entry key within the table **Parameter `defaultValue`:** initial value written to the table |
-| `key` | `String` | entry key within the table **Parameter `defaultValue`:** initial value written to the table |
-| `defaultValue` | `boolean` | initial value written to the table |
+| `tableName` | `String` | `String` input consumed by the implementation shown below. |
+| `key` | `String` | `String` input consumed by the implementation shown below. |
+| `defaultValue` | `boolean` | `boolean` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `DashboardBoolean` instance.
 
@@ -109,14 +112,6 @@ public static void initialize() {
       entry.setDefaultBoolean(defaultValue);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a dashboard-linked boolean.
-    
-    **Parameter `tableName`:** NetworkTables table to publish under
-    **Parameter `key`:** entry key within the table
-    **Parameter `defaultValue`:** initial value written to the table
 
 ### `public void set(boolean value)`
 
@@ -144,10 +139,6 @@ public static void initialize() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Pushes `value` to the dashboard and caches it locally.
-
 ### `public boolean get()`
 
 [Source lines 33–35](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/dashboard/DashboardBoolean.java#L33)
@@ -170,10 +161,6 @@ public static void initialize() {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the current dashboard value, falling back to the last locally set value.
-
 ## Exposed fields and types
 
 ### `public class DashboardBoolean`
@@ -181,7 +168,3 @@ public static void initialize() {
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/dashboard/DashboardBoolean.java#L8)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    A boolean value backed by a NetworkTables entry for dashboard interaction.

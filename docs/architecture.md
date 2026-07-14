@@ -41,7 +41,7 @@ The reference catalog is generated from Java declarations and implementations. I
 - public and protected fields, records, enums, interfaces, and nested classes;
 - detailed behavior derived from each method body, including branches, state writes, return paths, external calls, and explicit failures;
 - the complete implementation body in a collapsible source block;
-- nearby Javadocs, clearly separated as secondary author notes;
+- input/result descriptions derived from signatures and implementations rather than trusting potentially stale JavaDoc;
 - exact GitHub source lines;
 - embedded code examples from files in the 2025 and 2026 robots that use that class.
 

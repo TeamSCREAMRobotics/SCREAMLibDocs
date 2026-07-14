@@ -59,10 +59,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     public static record Dimensions(double height, double width)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this canonical constructor from the record header.
-
 ### `public double height()`
 
 [Source lines 12–12](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/DataHelpers.java#L12)
@@ -81,10 +77,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     public static record Dimensions(double height, double width)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `height` record component.
-
 ### `public double width()`
 
 [Source lines 12–12](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/DataHelpers.java#L12)
@@ -102,10 +94,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     ```java
     public static record Dimensions(double height, double width)
     ```
-
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `width` record component.
 
 ### `public LoggedOutput(String key, T value)`
 
@@ -130,10 +118,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     public static record LoggedOutput<T>(String key, T value)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this canonical constructor from the record header.
-
 ### `public String key()`
 
 [Source lines 15–15](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/DataHelpers.java#L15)
@@ -151,10 +135,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     ```java
     public static record LoggedOutput<T>(String key, T value)
     ```
-
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `key` record component.
 
 ### `public T value()`
 
@@ -174,10 +154,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     public static record LoggedOutput<T>(String key, T value)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `value` record component.
-
 ## Exposed fields and types
 
 ### `public class DataHelpers`
@@ -186,19 +162,11 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    Miscellaneous data types and functional interfaces used across the library.
-
 ### `public static interface TriConsumer&lt;T1, T2, T3&gt;`
 
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/DataHelpers.java#L7)*
 
 This exposed `interface` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    A functional interface for a consumer accepting three arguments.
 
 ### `public static record Dimensions(double height, double width)`
 
@@ -206,16 +174,8 @@ This exposed `interface` is part of the API surface. Its callable members are do
 
 This exposed `record` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    A simple (height, width) size pair.
-
 ### `public static record LoggedOutput&lt;T&gt;(String key, T value)`
 
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/data/DataHelpers.java#L15)*
 
 This exposed `record` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Associates a log key with a typed value for structured telemetry output.

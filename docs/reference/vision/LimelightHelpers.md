@@ -893,10 +893,6 @@ private void addPoseEstimate(
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Makes a PoseEstimate object with default values
-
 ### `public PoseEstimate( Pose2d pose, double timestampSeconds, double latency, int tagCount, double tagSpan, double avgTagDist, double avgTagArea, RawFiducial[] rawFiducials)`
 
 [Source lines 461–479](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/vision/LimelightHelpers.java#L461)
@@ -1031,7 +1027,7 @@ private void addPoseEstimate(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `pose` | `Pose3d` | The Pose3d object to convert. **Returns:** The array of doubles representing the pose. |
+| `pose` | `Pose3d` | `Pose3d` input consumed by the implementation shown below. |
 
 **Result:** Returns `double[]`. Exact return expressions are listed in the behavior section.
 
@@ -1050,13 +1046,6 @@ private void addPoseEstimate(
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Converts a Pose3d object to an array of doubles.
-    
-    **Parameter `pose`:** The Pose3d object to convert.
-    **Returns:** The array of doubles representing the pose.
-
 ### `public static double[] pose2dToArray(Pose2d pose)`
 
 [Source lines 540–549](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/vision/LimelightHelpers.java#L540)
@@ -1072,7 +1061,7 @@ private void addPoseEstimate(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `pose` | `Pose2d` | The Pose2d object to convert. **Returns:** The array of doubles representing the pose. |
+| `pose` | `Pose2d` | `Pose2d` input consumed by the implementation shown below. |
 
 **Result:** Returns `double[]`. Exact return expressions are listed in the behavior section.
 
@@ -1090,13 +1079,6 @@ private void addPoseEstimate(
       return result;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Converts a Pose2d object to an array of doubles.
-    
-    **Parameter `pose`:** The Pose2d object to convert.
-    **Returns:** The array of doubles representing the pose.
 
 ### `public static RawFiducial[] getRawFiducials(String limelightName)`
 
@@ -1972,7 +1954,7 @@ private void addPoseEstimate(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `limelightName` | `String` | **return |
+| `limelightName` | `String` | `String` input consumed by the implementation shown below. |
 
 **Result:** Returns `double[]`. Exact return expressions are listed in the behavior section.
 
@@ -1983,13 +1965,6 @@ private void addPoseEstimate(
       return getLimelightNTDoubleArray(limelightName, "botpose");
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Switch to getBotPose
-    
-    **Parameter `limelightName`:** 
-    **return
 
 ### `public static double[] getBotpose_wpiRed(String limelightName)`
 
@@ -2005,7 +1980,7 @@ private void addPoseEstimate(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `limelightName` | `String` | **return |
+| `limelightName` | `String` | `String` input consumed by the implementation shown below. |
 
 **Result:** Returns `double[]`. Exact return expressions are listed in the behavior section.
 
@@ -2016,13 +1991,6 @@ private void addPoseEstimate(
       return getLimelightNTDoubleArray(limelightName, "botpose_wpired");
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Switch to getBotPose_wpiRed
-    
-    **Parameter `limelightName`:** 
-    **return
 
 ### `public static double[] getBotpose_wpiBlue(String limelightName)`
 
@@ -2038,7 +2006,7 @@ private void addPoseEstimate(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `limelightName` | `String` | **return |
+| `limelightName` | `String` | `String` input consumed by the implementation shown below. |
 
 **Result:** Returns `double[]`. Exact return expressions are listed in the behavior section.
 
@@ -2049,13 +2017,6 @@ private void addPoseEstimate(
       return getLimelightNTDoubleArray(limelightName, "botpose_wpiblue");
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Switch to getBotPose_wpiBlue
-    
-    **Parameter `limelightName`:** 
-    **return
 
 ### `public static double[] getBotPose(String limelightName)`
 
@@ -2573,7 +2534,7 @@ private void addPoseEstimate(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `limelightName` | `String` | **return |
+| `limelightName` | `String` | `String` input consumed by the implementation shown below. |
 
 **Result:** Returns `Pose2d`. Exact return expressions are listed in the behavior section.
 
@@ -2586,13 +2547,6 @@ private void addPoseEstimate(
       return toPose2D(result);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Gets the Pose2d for easy use with Odometry vision pose estimator (addVisionMeasurement)
-    
-    **Parameter `limelightName`:** 
-    **return
 
 ### `public static PoseEstimate getBotPoseEstimate_wpiBlue(String limelightName)`
 
@@ -2608,7 +2562,7 @@ private void addPoseEstimate(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `limelightName` | `String` | **return |
+| `limelightName` | `String` | `String` input consumed by the implementation shown below. |
 
 **Result:** Returns `PoseEstimate`. Exact return expressions are listed in the behavior section.
 
@@ -2619,14 +2573,6 @@ private void addPoseEstimate(
       return getBotPoseEstimate(limelightName, "botpose_wpiblue");
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Gets the Pose2d and timestamp for use with WPILib pose estimator (addVisionMeasurement) when
-    you are on the BLUE alliance
-    
-    **Parameter `limelightName`:** 
-    **return
 
 ### `public static PoseEstimate getBotPoseEstimate_wpiBlue_MegaTag2(String limelightName)`
 
@@ -2642,7 +2588,7 @@ private void addPoseEstimate(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `limelightName` | `String` | **return |
+| `limelightName` | `String` | `String` input consumed by the implementation shown below. |
 
 **Result:** Returns `PoseEstimate`. Exact return expressions are listed in the behavior section.
 
@@ -2653,14 +2599,6 @@ private void addPoseEstimate(
       return getBotPoseEstimate(limelightName, "botpose_orb_wpiblue");
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Gets the Pose2d and timestamp for use with WPILib pose estimator (addVisionMeasurement) when
-    you are on the BLUE alliance
-    
-    **Parameter `limelightName`:** 
-    **return
 
 ### `public static Pose2d getBotPose2d_wpiRed(String limelightName)`
 
@@ -2676,7 +2614,7 @@ private void addPoseEstimate(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `limelightName` | `String` | **return |
+| `limelightName` | `String` | `String` input consumed by the implementation shown below. |
 
 **Result:** Returns `Pose2d`. Exact return expressions are listed in the behavior section.
 
@@ -2689,13 +2627,6 @@ private void addPoseEstimate(
       return toPose2D(result);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Gets the Pose2d for easy use with Odometry vision pose estimator (addVisionMeasurement)
-    
-    **Parameter `limelightName`:** 
-    **return
 
 ### `public static PoseEstimate getBotPoseEstimate_wpiRed(String limelightName)`
 
@@ -2711,7 +2642,7 @@ private void addPoseEstimate(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `limelightName` | `String` | **return |
+| `limelightName` | `String` | `String` input consumed by the implementation shown below. |
 
 **Result:** Returns `PoseEstimate`. Exact return expressions are listed in the behavior section.
 
@@ -2722,14 +2653,6 @@ private void addPoseEstimate(
       return getBotPoseEstimate(limelightName, "botpose_wpired");
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Gets the Pose2d and timestamp for use with WPILib pose estimator (addVisionMeasurement) when
-    you are on the RED alliance
-    
-    **Parameter `limelightName`:** 
-    **return
 
 ### `public static PoseEstimate getBotPoseEstimate_wpiRed_MegaTag2(String limelightName)`
 
@@ -2745,7 +2668,7 @@ private void addPoseEstimate(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `limelightName` | `String` | **return |
+| `limelightName` | `String` | `String` input consumed by the implementation shown below. |
 
 **Result:** Returns `PoseEstimate`. Exact return expressions are listed in the behavior section.
 
@@ -2756,14 +2679,6 @@ private void addPoseEstimate(
       return getBotPoseEstimate(limelightName, "botpose_orb_wpired");
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Gets the Pose2d and timestamp for use with WPILib pose estimator (addVisionMeasurement) when
-    you are on the RED alliance
-    
-    **Parameter `limelightName`:** 
-    **return
 
 ### `public static Pose2d getBotPose2d(String limelightName)`
 
@@ -2779,7 +2694,7 @@ private void addPoseEstimate(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `limelightName` | `String` | **return |
+| `limelightName` | `String` | `String` input consumed by the implementation shown below. |
 
 **Result:** Returns `Pose2d`. Exact return expressions are listed in the behavior section.
 
@@ -2792,13 +2707,6 @@ private void addPoseEstimate(
       return toPose2D(result);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Gets the Pose2d for easy use with Odometry vision pose estimator (addVisionMeasurement)
-    
-    **Parameter `limelightName`:** 
-    **return
 
 ### `public static boolean getTV(String limelightName)`
 
@@ -2902,10 +2810,6 @@ private void addPoseEstimate(
       setLimelightNTDouble(limelightName, "ledMode", 0);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    The LEDs will be controlled by Limelight pipeline settings, and not by robot code.
 
 ### `public static void setLEDMode_ForceOff(String limelightName)`
 
@@ -3092,11 +2996,6 @@ private void addPoseEstimate(
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Sets the crop window. The crop window in the UI must be completely open for dynamic cropping to
-    work.
-
 ### `public static void setFiducial3DOffset( String limelightName, double offsetX, double offsetY, double offsetZ)`
 
 [Source lines 1090–1097](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/vision/LimelightHelpers.java#L1090)
@@ -3129,10 +3028,6 @@ private void addPoseEstimate(
       setLimelightNTDoubleArray(limelightName, "fiducial_offset_set", entries);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets 3D offset point for easy 3D targeting.
 
 ### `public static void SetRobotOrientation( String limelightName, double yaw, double yawRate, double pitch, double pitchRate, double roll, double rollRate)`
 
@@ -3446,10 +3341,6 @@ private void addPoseEstimate(
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Asynchronously take snapshot.
-
 ### `public static LimelightResults getLatestResults(String limelightName)`
 
 [Source lines 1245–1268](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/vision/LimelightHelpers.java#L1245)
@@ -3497,10 +3388,6 @@ private void addPoseEstimate(
       return results;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Parses Limelight's JSON results dump into a LimelightResults Object
 
 ## Exposed fields and types
 

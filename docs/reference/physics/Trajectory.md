@@ -34,10 +34,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the cross-sectional area of the game piece in m² (used for drag calculation).
-
 ### `public TrajectoryConfig setShotVelocity(double velocity)`
 
 [Source lines 81–84](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L81)
@@ -64,10 +60,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
         return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the muzzle velocity of the shot in m/s.
 
 ### `public TrajectoryConfig setShotAngle(double angle)`
 
@@ -96,10 +88,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Sets the launch angle in degrees (above horizontal).
-
 ### `public TrajectoryConfig setRobotVelocity(double velocity)`
 
 [Source lines 93–96](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L93)
@@ -126,10 +114,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
         return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the robot's forward velocity in m/s (added to shot velocity for moving shots).
 
 ### `public TrajectoryConfig setRobotAngle(double angle)`
 
@@ -158,10 +142,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Sets the robot's travel direction in degrees relative to the shot direction.
-
 ### `public TrajectoryConfig setTargetDistance(double distance)`
 
 [Source lines 105–108](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L105)
@@ -188,10 +168,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
         return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the horizontal distance to the target in meters.
 
 ### `public TrajectoryConfig setTargetHeight(double height)`
 
@@ -220,10 +196,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Sets the height of the target opening in meters.
-
 ### `public TrajectoryConfig setInitialHeight(double height)`
 
 [Source lines 117–120](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L117)
@@ -250,10 +222,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
         return this;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the launch height above the ground in meters.
 
 ### `public TrajectoryConfig setGamePiece(GamePiece piece)`
 
@@ -282,10 +250,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Sets the game piece type to use for physics calculations.
-
 ### `public TrajectoryConfig setCustomGamePiece(double massKg, double diameterMeters, double dragCoefficient)`
 
 [Source lines 134–140](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L134)
@@ -300,9 +264,9 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `massKg` | `double` | Mass in kilograms **Parameter `diameterMeters`:** Diameter in meters **Parameter `dragCoefficient`:** Drag coefficient (sphere ≈ 0.47) |
-| `diameterMeters` | `double` | Diameter in meters **Parameter `dragCoefficient`:** Drag coefficient (sphere ≈ 0.47) |
-| `dragCoefficient` | `double` | Drag coefficient (sphere ≈ 0.47) |
+| `massKg` | `double` | `double` input consumed by the implementation shown below. |
+| `diameterMeters` | `double` | Linear value in meters. |
+| `dragCoefficient` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `TrajectoryConfig`. Exact return expressions are listed in the behavior section.
 
@@ -318,13 +282,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Set custom game piece properties
-    **Parameter `massKg`:** Mass in kilograms
-    **Parameter `diameterMeters`:** Diameter in meters
-    **Parameter `dragCoefficient`:** Drag coefficient (sphere ≈ 0.47)
-
 ### `public TrajectoryConfig setCustomGamePieceImperial(double massLbs, double diameterInches, double dragCoefficient)`
 
 [Source lines 148–154](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L148)
@@ -339,9 +296,9 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `massLbs` | `double` | Mass in pounds **Parameter `diameterInches`:** Diameter in inches **Parameter `dragCoefficient`:** Drag coefficient |
-| `diameterInches` | `double` | Diameter in inches **Parameter `dragCoefficient`:** Drag coefficient |
-| `dragCoefficient` | `double` | Drag coefficient |
+| `massLbs` | `double` | `double` input consumed by the implementation shown below. |
+| `diameterInches` | `double` | Linear value in meters. |
+| `dragCoefficient` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `TrajectoryConfig`. Exact return expressions are listed in the behavior section.
 
@@ -357,13 +314,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Convenience method to set custom game piece from imperial units
-    **Parameter `massLbs`:** Mass in pounds
-    **Parameter `diameterInches`:** Diameter in inches
-    **Parameter `dragCoefficient`:** Drag coefficient
-
 ### `public TrajectoryPoint(double time, double x, double y, double vx, double vy)`
 
 [Source lines 198–204](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L198)
@@ -377,11 +327,11 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `time` | `double` | time since launch (s) **Parameter `x`:** horizontal position (m) **Parameter `y`:** vertical position (m) **Parameter `vx`:** horizontal velocity (m/s) **Parameter `vy`:** vertical velocity (m/s) |
-| `x` | `double` | horizontal position (m) **Parameter `y`:** vertical position (m) **Parameter `vx`:** horizontal velocity (m/s) **Parameter `vy`:** vertical velocity (m/s) |
-| `y` | `double` | vertical position (m) **Parameter `vx`:** horizontal velocity (m/s) **Parameter `vy`:** vertical velocity (m/s) |
-| `vx` | `double` | horizontal velocity (m/s) **Parameter `vy`:** vertical velocity (m/s) |
-| `vy` | `double` | vertical velocity (m/s) |
+| `time` | `double` | `double` input consumed by the implementation shown below. |
+| `x` | `double` | `double` input consumed by the implementation shown below. |
+| `y` | `double` | `double` input consumed by the implementation shown below. |
+| `vx` | `double` | `double` input consumed by the implementation shown below. |
+| `vy` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Constructs and initializes a `TrajectoryPoint` instance.
 
@@ -396,16 +346,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
         this.vy = vy;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Creates a trajectory sample point.
-    
-    **Parameter `time`:** time since launch (s)
-    **Parameter `x`:** horizontal position (m)
-    **Parameter `y`:** vertical position (m)
-    **Parameter `vx`:** horizontal velocity (m/s)
-    **Parameter `vy`:** vertical velocity (m/s)
 
 ### `public String toString()`
 
@@ -451,10 +391,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Get the configuration builder
-
 ### `public static TrajectoryConfig getConfig()`
 
 [Source lines 223–225](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L223)
@@ -475,10 +411,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
         return config;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Get the current configuration (read-only access)
 
 ### `public static List&lt;TrajectoryPoint&gt; getDesiredTrajectory()`
 
@@ -512,11 +444,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Main method to get the desired trajectory based on current configuration
-    **Returns:** List of trajectory points
-
 ### `public static double getOptimalAngle()`
 
 [Source lines 249–261](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L249)
@@ -549,11 +476,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Get the optimal angle to hit the configured target
-    **Returns:** Optimal angle in degrees, or -1 if no solution found
-
 ### `public static double getRequiredVelocity()`
 
 [Source lines 267–279](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L267)
@@ -585,11 +507,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
         );
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Get the required velocity to hit the configured target at the configured angle
-    **Returns:** Required velocity in m/s, or -1 if no solution found
 
 ### `public static double getTimeOfFlight()`
 
@@ -628,11 +545,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Get the time of flight for the configured shot
-    **Returns:** Time in seconds
-
 ## Exposed fields and types
 
 ### `public class Trajectory`
@@ -640,21 +552,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L22)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Trajectory calculator for projectile motion with air resistance
-    Designed for scoring with a ball
-    
-    Usage:
-    Trajectory.configure()
-    .setShotVelocity(12.0)
-    .setShotAngle(45.0)
-    .setTargetDistance(4.0)
-    .setGamePiece(GamePiece.FUEL);
-    
-    List path = Trajectory.getDesiredTrajectory();
-    double angle = Trajectory.getOptimalAngle();
 
 ### `public static final double HUB_HEIGHT = Units.inchesToMeters(72.0)`
 
@@ -674,19 +571,11 @@ This is a **static final public** field with an initializer. It is not reassigne
 
 This exposed `enum` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    Game piece types with their physical properties
-
 ### `public final double mass`
 
 *Exposed field · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L44)*
 
 This is a **final public** field without an inline initializer. It is not reassigned after initialization. The declaring source references it 16 times, so changing it can affect every control path that reads `mass`.
-
-??? note "Author note from JavaDoc"
-
-    Mass of the game piece in kilograms.
 
 ### `public final double diameter`
 
@@ -694,19 +583,11 @@ This is a **final public** field without an inline initializer. It is not reassi
 
 This is a **final public** field without an inline initializer. It is not reassigned after initialization. The declaring source references it 7 times, so changing it can affect every control path that reads `diameter`.
 
-??? note "Author note from JavaDoc"
-
-    Diameter of the game piece in meters.
-
 ### `public final double dragCoefficient`
 
 *Exposed field · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L48)*
 
 This is a **final public** field without an inline initializer. It is not reassigned after initialization. The declaring source references it 11 times, so changing it can affect every control path that reads `dragCoefficient`.
-
-??? note "Author note from JavaDoc"
-
-    Aerodynamic drag coefficient (sphere ≈ 0.47).
 
 ### `public static class TrajectoryConfig`
 
@@ -714,19 +595,11 @@ This is a **final public** field without an inline initializer. It is not reassi
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    Configuration builder for trajectory calculations
-
 ### `public static class TrajectoryPoint`
 
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L177)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Represents a point in the trajectory
 
 ### `public final double time`
 
@@ -734,19 +607,11 @@ This exposed `class` is part of the API surface. Its callable members are docume
 
 This is a **final public** field without an inline initializer. It is not reassigned after initialization. The declaring source references it 11 times, so changing it can affect every control path that reads `time`.
 
-??? note "Author note from JavaDoc"
-
-    Time since launch in seconds.
-
 ### `public final double x`
 
 *Exposed field · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L181)*
 
 This is a **final public** field without an inline initializer. It is not reassigned after initialization. The declaring source references it 20 times, so changing it can affect every control path that reads `x`.
-
-??? note "Author note from JavaDoc"
-
-    Horizontal distance traveled in meters.
 
 ### `public final double y`
 
@@ -754,26 +619,14 @@ This is a **final public** field without an inline initializer. It is not reassi
 
 This is a **final public** field without an inline initializer. It is not reassigned after initialization. The declaring source references it 20 times, so changing it can affect every control path that reads `y`.
 
-??? note "Author note from JavaDoc"
-
-    Height above ground in meters.
-
 ### `public final double vx`
 
 *Exposed field · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L185)*
 
 This is a **final public** field without an inline initializer. It is not reassigned after initialization. The declaring source references it 21 times, so changing it can affect every control path that reads `vx`.
 
-??? note "Author note from JavaDoc"
-
-    Horizontal velocity component in m/s.
-
 ### `public final double vy`
 
 *Exposed field · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/physics/Trajectory.java#L187)*
 
 This is a **final public** field without an inline initializer. It is not reassigned after initialization. The declaring source references it 21 times, so changing it can affect every control path that reads `vy`.
-
-??? note "Author note from JavaDoc"
-
-    Vertical velocity component in m/s.

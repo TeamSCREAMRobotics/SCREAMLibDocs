@@ -10,6 +10,9 @@
 
 These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.
 
+!!! note "2025 package names"
+    The 2025 robot used SCREAMLib's earlier short packages such as `data`, `drivers`, and `util`. With SCREAMLib 26.3.7, prefix those imports with `com.teamscreamrobotics.`; the implementation pattern remains applicable.
+
 ### 2025: Use `PPUtil` in `DrivetrainConstants.java`
 
 [`src/main/java/frc2025/subsystems/drivetrain/DrivetrainConstants.java` lines 53–60](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/subsystems/drivetrain/DrivetrainConstants.java#L53-L60)
@@ -41,7 +44,7 @@ new RobotConfig(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `screamPIDConstants` | `ScreamPIDConstants` | the source constants |
+| `screamPIDConstants` | `ScreamPIDConstants` | `ScreamPIDConstants` input consumed by the implementation shown below. |
 
 **Result:** Returns `PIDConstants`. Exact return expressions are listed in the behavior section.
 
@@ -58,12 +61,6 @@ new RobotConfig(
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Converts a `ScreamPIDConstants` to PathPlanner's `PIDConstants`.
-    
-    **Parameter `screamPIDConstants`:** the source constants
-
 ### `public static Optional&lt;PathPlannerPath&gt; loadPathFile(String pathName)`
 
 [Source lines 31–39](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/PPUtil.java#L31)
@@ -79,7 +76,7 @@ new RobotConfig(
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `pathName` | `String` | the path name (no file extension) |
+| `pathName` | `String` | `String` input consumed by the implementation shown below. |
 
 **Result:** Returns `Optional&lt;PathPlannerPath&gt;`. Exact return expressions are listed in the behavior section.
 
@@ -97,12 +94,6 @@ new RobotConfig(
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Loads a PathPlanner path file, returning `Optional#empty()` and logging a DS error on failure.
-    
-    **Parameter `pathName`:** the path name (no file extension)
-
 ## Exposed fields and types
 
 ### `public class PPUtil`
@@ -110,7 +101,3 @@ new RobotConfig(
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/PPUtil.java#L10)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Utilities for integrating `ScreamPIDConstants` and PathPlanner.

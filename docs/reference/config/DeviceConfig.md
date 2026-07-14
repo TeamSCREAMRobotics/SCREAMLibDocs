@@ -27,9 +27,9 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `name` | `String` | readable label used in DS error messages **Parameter `fx`:** the TalonFX to configure **Parameter `config`:** the configuration to apply |
-| `fx` | `TalonFX` | the TalonFX to configure **Parameter `config`:** the configuration to apply |
-| `config` | `TalonFXConfiguration` | the configuration to apply |
+| `name` | `String` | `String` input consumed by the implementation shown below. |
+| `fx` | `TalonFX` | `TalonFX` input consumed by the implementation shown below. |
+| `config` | `TalonFXConfiguration` | `TalonFXConfiguration` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -57,14 +57,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
           true);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Applies a `TalonFXConfiguration` to a TalonFX, retrying until success or timeout.
-    
-    **Parameter `name`:** readable label used in DS error messages
-    **Parameter `fx`:** the TalonFX to configure
-    **Parameter `config`:** the configuration to apply
 
 ### `public boolean configureSettings()`
 
@@ -105,9 +97,9 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `name` | `String` | readable label used in DS error messages **Parameter `encoder`:** the CANcoder to configure **Parameter `config`:** the configuration to apply |
-| `encoder` | `CANcoder` | the CANcoder to configure **Parameter `config`:** the configuration to apply |
-| `config` | `CANcoderConfiguration` | the configuration to apply |
+| `name` | `String` | `String` input consumed by the implementation shown below. |
+| `encoder` | `CANcoder` | `CANcoder` input consumed by the implementation shown below. |
+| `config` | `CANcoderConfiguration` | `CANcoderConfiguration` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -135,14 +127,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
           true);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Applies a `CANcoderConfiguration` to a CANcoder, retrying until success or timeout.
-    
-    **Parameter `name`:** readable label used in DS error messages
-    **Parameter `encoder`:** the CANcoder to configure
-    **Parameter `config`:** the configuration to apply
 
 ### `public boolean configureSettings()`
 
@@ -182,10 +166,10 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `name` | `String` | human-readable label used in DS error messages **Parameter `pigeon`:** the Pigeon2 to configure **Parameter `config`:** the configuration to apply **Parameter `updateFrequencyHz`:** signal update frequency in Hz for yaw… |
-| `pigeon` | `Pigeon2` | the Pigeon2 to configure **Parameter `config`:** the configuration to apply **Parameter `updateFrequencyHz`:** signal update frequency in Hz for yaw, pitch, roll, and supply voltage |
-| `config` | `Pigeon2Configuration` | the configuration to apply **Parameter `updateFrequencyHz`:** signal update frequency in Hz for yaw, pitch, roll, and supply voltage |
-| `updateFrequencyHz` | `double` | signal update frequency in Hz for yaw, pitch, roll, and supply voltage |
+| `name` | `String` | `String` input consumed by the implementation shown below. |
+| `pigeon` | `Pigeon2` | `Pigeon2` input consumed by the implementation shown below. |
+| `config` | `Pigeon2Configuration` | `Pigeon2Configuration` input consumed by the implementation shown below. |
+| `updateFrequencyHz` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
 
@@ -211,15 +195,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
           deviceConfig, name + " " + pigeon.getDeviceID() + " version " + pigeon.getVersion(), true);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Applies a `Pigeon2Configuration` and sets yaw/pitch/roll signal update rates.
-    
-    **Parameter `name`:** human-readable label used in DS error messages
-    **Parameter `pigeon`:** the Pigeon2 to configure
-    **Parameter `config`:** the configuration to apply
-    **Parameter `updateFrequencyHz`:** signal update frequency in Hz for yaw, pitch, roll, and supply voltage
 
 ### `public boolean configureSettings()`
 
@@ -264,9 +239,9 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `beepOnBoot` | `boolean` | whether the motor beeps on boot **Parameter `beepOnConfig`:** whether the motor beeps on configuration **Parameter `allowMusicDuringDisabled`:** whether Orchestra playback is allowed while disabled |
-| `beepOnConfig` | `boolean` | whether the motor beeps on configuration **Parameter `allowMusicDuringDisabled`:** whether Orchestra playback is allowed while disabled |
-| `allowMusicDuringDisabled` | `boolean` | whether Orchestra playback is allowed while disabled |
+| `beepOnBoot` | `boolean` | `boolean` input consumed by the implementation shown below. |
+| `beepOnConfig` | `boolean` | `boolean` input consumed by the implementation shown below. |
+| `allowMusicDuringDisabled` | `boolean` | `boolean` input consumed by the implementation shown below. |
 
 **Result:** Returns `AudioConfigs`. Exact return expressions are listed in the behavior section.
 
@@ -283,14 +258,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Builds an `AudioConfigs` object for a TalonFX.
-    
-    **Parameter `beepOnBoot`:** whether the motor beeps on boot
-    **Parameter `beepOnConfig`:** whether the motor beeps on configuration
-    **Parameter `allowMusicDuringDisabled`:** whether Orchestra playback is allowed while disabled
-
 ### `public static MotorOutputConfigs FXMotorOutputConfig( InvertedValue invert, NeutralModeValue neutralMode)`
 
 [Source lines 138–144](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/config/DeviceConfig.java#L138)
@@ -305,8 +272,8 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `invert` | `InvertedValue` | `InvertedValue` for motor direction **Parameter `neutralMode`:** `NeutralModeValue` (brake or coast) when output is zero |
-| `neutralMode` | `NeutralModeValue` | `NeutralModeValue` (brake or coast) when output is zero |
+| `invert` | `InvertedValue` | `InvertedValue` input consumed by the implementation shown below. |
+| `neutralMode` | `NeutralModeValue` | `NeutralModeValue` input consumed by the implementation shown below. |
 
 **Result:** Returns `MotorOutputConfigs`. Exact return expressions are listed in the behavior section.
 
@@ -322,13 +289,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Builds a `MotorOutputConfigs` for direction and neutral behavior.
-    
-    **Parameter `invert`:** `InvertedValue` for motor direction
-    **Parameter `neutralMode`:** `NeutralModeValue` (brake or coast) when output is zero
-
 ### `public static FeedbackConfigs FXFeedbackConfig( FeedbackSensorSourceValue sensor, int remoteSensorID, double sensorToMechGR, double rotorToSensorGR, Rotation2d sensorOffset)`
 
 [Source lines 155–168](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/config/DeviceConfig.java#L155)
@@ -343,11 +303,11 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `sensor` | `FeedbackSensorSourceValue` | the feedback sensor source **Parameter `remoteSensorID`:** CAN ID of the remote sensor (ignored if not using a remote sensor) **Parameter `sensorToMechGR`:** gear ratio from sensor to mechanism output **Parameter `rotor… |
-| `remoteSensorID` | `int` | CAN ID of the remote sensor (ignored if not using a remote sensor) **Parameter `sensorToMechGR`:** gear ratio from sensor to mechanism output **Parameter `rotorToSensorGR`:** gear ratio from rotor to sensor **Parameter … |
-| `sensorToMechGR` | `double` | gear ratio from sensor to mechanism output **Parameter `rotorToSensorGR`:** gear ratio from rotor to sensor **Parameter `sensorOffset`:** rotational offset applied to the feedback sensor reading |
-| `rotorToSensorGR` | `double` | gear ratio from rotor to sensor **Parameter `sensorOffset`:** rotational offset applied to the feedback sensor reading |
-| `sensorOffset` | `Rotation2d` | rotational offset applied to the feedback sensor reading |
+| `sensor` | `FeedbackSensorSourceValue` | `FeedbackSensorSourceValue` input consumed by the implementation shown below. |
+| `remoteSensorID` | `int` | `int` input consumed by the implementation shown below. |
+| `sensorToMechGR` | `double` | `double` input consumed by the implementation shown below. |
+| `rotorToSensorGR` | `double` | `double` input consumed by the implementation shown below. |
+| `sensorOffset` | `Rotation2d` | `Rotation2d` input consumed by the implementation shown below. |
 
 **Result:** Returns `FeedbackConfigs`. Exact return expressions are listed in the behavior section.
 
@@ -370,16 +330,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Builds a `FeedbackConfigs` for sensor source and gear ratios.
-    
-    **Parameter `sensor`:** the feedback sensor source
-    **Parameter `remoteSensorID`:** CAN ID of the remote sensor (ignored if not using a remote sensor)
-    **Parameter `sensorToMechGR`:** gear ratio from sensor to mechanism output
-    **Parameter `rotorToSensorGR`:** gear ratio from rotor to sensor
-    **Parameter `sensorOffset`:** rotational offset applied to the feedback sensor reading
-
 ### `public static Slot0Configs FXPIDConfig( ScreamPIDConstants constants, FeedforwardConstants ffConstants)`
 
 [Source lines 176–179](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/config/DeviceConfig.java#L176)
@@ -394,8 +344,8 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `constants` | `ScreamPIDConstants` | PID gains **Parameter `ffConstants`:** feedforward constants (kV, kS, kG, kA, gravity type) |
-| `ffConstants` | `FeedforwardConstants` | feedforward constants (kV, kS, kG, kA, gravity type) |
+| `constants` | `ScreamPIDConstants` | `ScreamPIDConstants` input consumed by the implementation shown below. |
+| `ffConstants` | `FeedforwardConstants` | `FeedforwardConstants` input consumed by the implementation shown below. |
 
 **Result:** Returns `Slot0Configs`. Exact return expressions are listed in the behavior section.
 
@@ -407,13 +357,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       return constants.getSlot0Configs(ffConstants);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Builds `Slot0Configs` from PID and feedforward constants.
-    
-    **Parameter `constants`:** PID gains
-    **Parameter `ffConstants`:** feedforward constants (kV, kS, kG, kA, gravity type)
 
 ### `public static Slot0Configs FXPIDConfig(ScreamPIDConstants constants)`
 
@@ -429,7 +372,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `constants` | `ScreamPIDConstants` | PID gains |
+| `constants` | `ScreamPIDConstants` | `ScreamPIDConstants` input consumed by the implementation shown below. |
 
 **Result:** Returns `Slot0Configs`. Exact return expressions are listed in the behavior section.
 
@@ -440,12 +383,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       return constants.getSlot0Configs(new FeedforwardConstants());
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Builds `Slot0Configs` from PID constants with zeroed feedforward values.
-    
-    **Parameter `constants`:** PID gains
 
 ### `public static OpenLoopRampsConfigs FXOpenLoopRampConfig(double ramp)`
 
@@ -461,7 +398,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `ramp` | `double` | time in seconds from 0 to full output |
+| `ramp` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `OpenLoopRampsConfigs`. Exact return expressions are listed in the behavior section.
 
@@ -474,12 +411,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       return config;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Builds an `OpenLoopRampsConfigs` with the given duty-cycle ramp period.
-    
-    **Parameter `ramp`:** time in seconds from 0 to full output
 
 ### `public static ClosedLoopRampsConfigs FXClosedLoopRampConfig(double ramp)`
 
@@ -495,7 +426,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `ramp` | `double` | time in seconds from 0 to full output |
+| `ramp` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `ClosedLoopRampsConfigs`. Exact return expressions are listed in the behavior section.
 
@@ -508,12 +439,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       return config;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Builds a `ClosedLoopRampsConfigs` with the given duty-cycle ramp period.
-    
-    **Parameter `ramp`:** time in seconds from 0 to full output
 
 ### `public static CurrentLimitsConfigs FXSupplyCurrentLimitsConfig( boolean enable, double lowerLimit, double limit, double limitTime)`
 
@@ -529,10 +454,10 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `enable` | `boolean` | whether supply current limiting is enabled **Parameter `lowerLimit`:** supply current lower limit (amps) — the steady-state limit **Parameter `limit`:** peak supply current limit (amps) **Parameter `limitTime`:** time (… |
-| `lowerLimit` | `double` | supply current lower limit (amps) — the steady-state limit **Parameter `limit`:** peak supply current limit (amps) **Parameter `limitTime`:** time (seconds) supply current may exceed `lowerLimit` before throttling |
-| `limit` | `double` | peak supply current limit (amps) **Parameter `limitTime`:** time (seconds) supply current may exceed `lowerLimit` before throttling |
-| `limitTime` | `double` | time (seconds) supply current may exceed `lowerLimit` before throttling |
+| `enable` | `boolean` | Enables the behavior when `true`; disables it when `false`. |
+| `lowerLimit` | `double` | `double` input consumed by the implementation shown below. |
+| `limit` | `double` | `double` input consumed by the implementation shown below. |
+| `limitTime` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `CurrentLimitsConfigs`. Exact return expressions are listed in the behavior section.
 
@@ -550,15 +475,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Builds a `CurrentLimitsConfigs` for supply current limiting only.
-    
-    **Parameter `enable`:** whether supply current limiting is enabled
-    **Parameter `lowerLimit`:** supply current lower limit (amps) — the steady-state limit
-    **Parameter `limit`:** peak supply current limit (amps)
-    **Parameter `limitTime`:** time (seconds) supply current may exceed `lowerLimit` before throttling
-
 ### `public static CurrentLimitsConfigs FXCurrentLimitsConfig( boolean supplyEnable, double supplyLowerLimit, double supplyLimit, double supplyLimitTime, boolean statorEnable, double statorLimit)`
 
 [Source lines 240–255](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/config/DeviceConfig.java#L240)
@@ -573,12 +489,12 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `supplyEnable` | `boolean` | whether supply current limiting is enabled **Parameter `supplyLowerLimit`:** supply current lower (steady-state) limit in amps **Parameter `supplyLimit`:** peak supply current limit in amps **Parameter `supplyLimitTime`… |
-| `supplyLowerLimit` | `double` | supply current lower (steady-state) limit in amps **Parameter `supplyLimit`:** peak supply current limit in amps **Parameter `supplyLimitTime`:** time (seconds) supply current may exceed `supplyLowerLimit` **Parameter `… |
-| `supplyLimit` | `double` | peak supply current limit in amps **Parameter `supplyLimitTime`:** time (seconds) supply current may exceed `supplyLowerLimit` **Parameter `statorEnable`:** whether stator current limiting is enabled **Parameter `stator… |
-| `supplyLimitTime` | `double` | time (seconds) supply current may exceed `supplyLowerLimit` **Parameter `statorEnable`:** whether stator current limiting is enabled **Parameter `statorLimit`:** stator current limit in amps |
-| `statorEnable` | `boolean` | whether stator current limiting is enabled **Parameter `statorLimit`:** stator current limit in amps |
-| `statorLimit` | `double` | stator current limit in amps |
+| `supplyEnable` | `boolean` | Enables the behavior when `true`; disables it when `false`. |
+| `supplyLowerLimit` | `double` | `double` input consumed by the implementation shown below. |
+| `supplyLimit` | `double` | `double` input consumed by the implementation shown below. |
+| `supplyLimitTime` | `double` | `double` input consumed by the implementation shown below. |
+| `statorEnable` | `boolean` | Enables the behavior when `true`; disables it when `false`. |
+| `statorLimit` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `CurrentLimitsConfigs`. Exact return expressions are listed in the behavior section.
 
@@ -603,17 +519,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Builds a `CurrentLimitsConfigs` for both supply and stator current limiting.
-    
-    **Parameter `supplyEnable`:** whether supply current limiting is enabled
-    **Parameter `supplyLowerLimit`:** supply current lower (steady-state) limit in amps
-    **Parameter `supplyLimit`:** peak supply current limit in amps
-    **Parameter `supplyLimitTime`:** time (seconds) supply current may exceed `supplyLowerLimit`
-    **Parameter `statorEnable`:** whether stator current limiting is enabled
-    **Parameter `statorLimit`:** stator current limit in amps
-
 ### `public static ClosedLoopGeneralConfigs FXClosedLoopGeneralConfig(boolean continuousWrap)`
 
 [Source lines 263–267](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/config/DeviceConfig.java#L263)
@@ -628,7 +533,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `continuousWrap` | `boolean` | whether to enable continuous wrap for the closed-loop setpoint |
+| `continuousWrap` | `boolean` | `boolean` input consumed by the implementation shown below. |
 
 **Result:** Returns `ClosedLoopGeneralConfigs`. Exact return expressions are listed in the behavior section.
 
@@ -641,13 +546,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
       return config;
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Builds a `ClosedLoopGeneralConfigs` with continuous wrap enabled or disabled.
-    Enable for mechanisms that rotate continuously (e.g. swerve steer); disable for limited-range arms.
-    
-    **Parameter `continuousWrap`:** whether to enable continuous wrap for the closed-loop setpoint
 
 ### `public static SoftwareLimitSwitchConfigs FXSoftwareLimitSwitchConfig( boolean enable, double forwardLimit, double reverseLimit)`
 
@@ -663,9 +561,9 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `enable` | `boolean` | whether both forward and reverse software limits are active **Parameter `forwardLimit`:** forward soft limit threshold in mechanism rotations **Parameter `reverseLimit`:** reverse soft limit threshold in mechanism rotat… |
-| `forwardLimit` | `double` | forward soft limit threshold in mechanism rotations **Parameter `reverseLimit`:** reverse soft limit threshold in mechanism rotations |
-| `reverseLimit` | `double` | reverse soft limit threshold in mechanism rotations |
+| `enable` | `boolean` | Enables the behavior when `true`; disables it when `false`. |
+| `forwardLimit` | `double` | `double` input consumed by the implementation shown below. |
+| `reverseLimit` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `SoftwareLimitSwitchConfigs`. Exact return expressions are listed in the behavior section.
 
@@ -683,14 +581,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Builds a `SoftwareLimitSwitchConfigs` that applies the same enable state to both directions.
-    
-    **Parameter `enable`:** whether both forward and reverse software limits are active
-    **Parameter `forwardLimit`:** forward soft limit threshold in mechanism rotations
-    **Parameter `reverseLimit`:** reverse soft limit threshold in mechanism rotations
-
 ### `public static HardwareLimitSwitchConfigs FXHardwareLimitSwitchConfig( boolean forwardEnable, boolean reverseEnable, double forwardPosition, double reversePosition)`
 
 [Source lines 294–305](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/config/DeviceConfig.java#L294)
@@ -705,10 +595,10 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `forwardEnable` | `boolean` | whether the forward limit switch auto-sets position **Parameter `reverseEnable`:** whether the reverse limit switch auto-sets position **Parameter `forwardPosition`:** position (rotations) set when the forward limit is … |
-| `reverseEnable` | `boolean` | whether the reverse limit switch auto-sets position **Parameter `forwardPosition`:** position (rotations) set when the forward limit is triggered **Parameter `reversePosition`:** position (rotations) set when the revers… |
-| `forwardPosition` | `double` | position (rotations) set when the forward limit is triggered **Parameter `reversePosition`:** position (rotations) set when the reverse limit is triggered |
-| `reversePosition` | `double` | position (rotations) set when the reverse limit is triggered |
+| `forwardEnable` | `boolean` | Enables the behavior when `true`; disables it when `false`. |
+| `reverseEnable` | `boolean` | Enables the behavior when `true`; disables it when `false`. |
+| `forwardPosition` | `double` | Position in the units required by this API and configuration. |
+| `reversePosition` | `double` | Position in the units required by this API and configuration. |
 
 **Result:** Returns `HardwareLimitSwitchConfigs`. Exact return expressions are listed in the behavior section.
 
@@ -729,15 +619,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Builds a `HardwareLimitSwitchConfigs` that auto-sets position on limit switch trigger.
-    
-    **Parameter `forwardEnable`:** whether the forward limit switch auto-sets position
-    **Parameter `reverseEnable`:** whether the reverse limit switch auto-sets position
-    **Parameter `forwardPosition`:** position (rotations) set when the forward limit is triggered
-    **Parameter `reversePosition`:** position (rotations) set when the reverse limit is triggered
-
 ### `public static MotionMagicConfigs FXMotionMagicConfig(MotionMagicConstants constants)`
 
 [Source lines 312–318](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/config/DeviceConfig.java#L312)
@@ -752,7 +633,7 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `constants` | `MotionMagicConstants` | cruise velocity, acceleration, and jerk limits |
+| `constants` | `MotionMagicConstants` | `MotionMagicConstants` input consumed by the implementation shown below. |
 
 **Result:** Returns `MotionMagicConfigs`. Exact return expressions are listed in the behavior section.
 
@@ -768,12 +649,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Builds a `MotionMagicConfigs` from a `MotionMagicConstants` record.
-    
-    **Parameter `constants`:** cruise velocity, acceleration, and jerk limits
-
 ### `public static VoltageConfigs FXVoltageConfig( double peakForwardVoltage, double peakReverseVoltage, double supplyVoltageTimeConstant)`
 
 [Source lines 327–334](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/config/DeviceConfig.java#L327)
@@ -788,9 +663,9 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `peakForwardVoltage` | `double` | maximum forward output voltage **Parameter `peakReverseVoltage`:** maximum reverse output voltage (typically negative) **Parameter `supplyVoltageTimeConstant`:** low-pass filter time constant for supply voltage measurem… |
-| `peakReverseVoltage` | `double` | maximum reverse output voltage (typically negative) **Parameter `supplyVoltageTimeConstant`:** low-pass filter time constant for supply voltage measurement |
-| `supplyVoltageTimeConstant` | `double` | low-pass filter time constant for supply voltage measurement |
+| `peakForwardVoltage` | `double` | Voltage value in volts. |
+| `peakReverseVoltage` | `double` | Voltage value in volts. |
+| `supplyVoltageTimeConstant` | `double` | Voltage value in volts. |
 
 **Result:** Returns `VoltageConfigs`. Exact return expressions are listed in the behavior section.
 
@@ -807,14 +682,6 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Builds a `VoltageConfigs` for peak output and supply filtering.
-    
-    **Parameter `peakForwardVoltage`:** maximum forward output voltage
-    **Parameter `peakReverseVoltage`:** maximum reverse output voltage (typically negative)
-    **Parameter `supplyVoltageTimeConstant`:** low-pass filter time constant for supply voltage measurement
-
 ## Exposed fields and types
 
 ### `public class DeviceConfig`
@@ -822,7 +689,3 @@ No direct reference to this class was found in the pinned 2025 or 2026 competiti
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/config/DeviceConfig.java#L31)*
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    Factory methods for building CTRE Phoenix 6 configuration objects and configuring devices.

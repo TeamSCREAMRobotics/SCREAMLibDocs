@@ -1,8 +1,9 @@
 """Generate implementation-derived MkDocs API pages for SCREAMLib.
 
-The generator treats Java source as the authority. JavaDoc is retained only as a
-secondary author note; behavior, side effects, branches, calls, and examples are
-derived from method bodies and competition call sites.
+The generator treats executable Java source as the authority. Behavior, side
+effects, branches, calls, and examples are derived from method bodies and
+competition call sites; JavaDoc is parsed only to keep declaration association
+stable and is not emitted as behavioral truth.
 """
 
 from __future__ import annotations
@@ -25,6 +26,7 @@ COMPETITIONS = {
     "2025": GITHUB_ROOT / "4522_2025Competition",
     "2026": GITHUB_ROOT / "4522_2026Competition",
 }
+COMPETITION_SOURCE_CACHE: dict[tuple[str, str], dict[str, list[str]]] = {}
 
 CURATED_EXAMPLES: dict[str, list[tuple[str, str, int, int, str]]] = {
     "TalonFXSubsystem": [
@@ -181,15 +183,15 @@ Implement `TalonFXSubsystemGoal` as an enum. `target()` supplies the live target
 
 ### 4. Read state and determine completion
 
-`getPosition()` and `getVelocity()` return mechanism-side values; rotor-specific accessors return rotor-side values. `getError()` subtracts measured position/velocity from the cached setpoint according to the current mode. `atGoal()` uses the configuration tolerance, while `atGoal(absTolerance)` lets the caller override it.
+`getPosition()` and `getVelocity()` return mechanism-side values; rotor-specific accessors return rotor-side values. Each getter refreshes its Phoenix status signal when running on hardware and returns the stored simulated value when simulation is active. `getError()` subtracts measured position/velocity from the cached setpoint according to the current mode. `atGoal()` selects `positionThreshold` or `velocityThreshold` from the configuration, while `atGoal(absTolerance)` lets the caller override that absolute tolerance.
 
 ### 5. Safety, runtime reconfiguration, and simulation
 
-- `stop()` sends a neutral request. `stopAll(...)` applies it to multiple SCREAMLib mechanisms.
-- `emergencyStop()` latches the subsystem's emergency-stop flag and stops output; inspect `isActive()` before assuming later requests are accepted.
+- `stop()` directly calls `stopMotor()` on the master and every slave. `stopAll(...)` applies that operation to multiple SCREAMLib mechanisms.
+- `emergencyStop()` stops all motors, changes neutral mode to coast, latches `isEStopped`, and cancels the current command. There is no public method in this class that clears the latch; `isActive()` only reports whether rotor velocity is nonzero and is **not** an emergency-stop status check.
 - Checked configuration mutators route Phoenix status through `ErrorChecker`; `Unchecked` variants skip that reporting and should be used only when the caller handles failure.
-- `periodic()` refreshes cached signals, applies the active goal, and emits telemetry when enabled.
-- `simulationPeriodic()` advances the configured `SimWrapper`; `setSimState(...)` pushes simulated position/velocity back to the subsystem and registered callback.
+- A constructor supplied with a default goal installs `applyGoalCommand(goal)` as the WPILib default command. That command—not `periodic()`—reapplies the goal while scheduled. `periodic()` logs setpoint/measured/goal/active-command values, optionally calls `outputTelemetry()`, and supports live simulation-PID tuning in debug mode.
+- `simulationPeriodic()` calls `SimulationThread.update()` only for inline simulation. `SimulationThread` applies the supplied voltage, advances `SimWrapper`, and invokes `setSimState(...)` as its callback. `SimWrapper` normalizes supported backends to rotor rotations and rotor rotations-per-second; `getPosition()`/`getVelocity()` then divide by the configured gearing to expose mechanism-side simulation values.
 
 !!! warning "Units are configuration-dependent"
     Position and velocity setters use the mechanism units implied by the configured feedback ratios. Simulation backends also use different native units (for example meters for an elevator and rotations for a DC motor). Read the individual method's implementation notes below before mixing rotor, sensor, mechanism, or simulation values.
@@ -235,6 +237,50 @@ def git_sha(repo: Path) -> str:
     return subprocess.check_output(
         ["git", "-C", str(repo), "rev-parse", "HEAD"], text=True
     ).strip()
+
+
+def committed_competition_sources(year: str, sha: str) -> dict[str, list[str]]:
+    """Read the exact committed source used by generated GitHub links.
+
+    Competition worktrees may contain in-progress robot changes. Reading blobs
+    from the pinned commit prevents a displayed snippet from disagreeing with
+    the linked GitHub revision or from changing during documentation builds.
+    """
+    key = (year, sha)
+    if key in COMPETITION_SOURCE_CACHE:
+        return COMPETITION_SOURCE_CACHE[key]
+    repo = COMPETITIONS[year]
+    paths = subprocess.check_output(
+        [
+            "git",
+            "-C",
+            str(repo),
+            "ls-tree",
+            "-r",
+            "--name-only",
+            sha,
+            "--",
+            "src/main/java",
+        ],
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    ).splitlines()
+    sources: dict[str, list[str]] = {}
+    for path in paths:
+        if not path.endswith(".java"):
+            continue
+        result = subprocess.run(
+            ["git", "-C", str(repo), "show", f"{sha}:{path}"],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            check=True,
+        )
+        sources[path] = result.stdout.splitlines()
+    COMPETITION_SOURCE_CACHE[key] = sources
+    return sources
 
 
 def clean_javadoc(block: str) -> str:
@@ -540,13 +586,6 @@ def compact(expression: str, limit: int = 180) -> str:
 
 
 def parameter_detail(name: str, java_type: str, docs: str) -> str:
-    documented = re.search(
-        rf"\*\*Parameter `{re.escape(name)}`:\*\*\s*(.*?)(?=\n\n\*\*|$)",
-        docs,
-        re.DOTALL,
-    )
-    if documented and documented.group(1).strip():
-        return compact(documented.group(1), 220)
     lower = name.lower()
     unit_rules = [
         (("volt", "voltage"), "Voltage value in volts."),
@@ -704,8 +743,16 @@ def render_callable(member: Member, source_url: str, class_name: str, field_name
     if params:
         body.extend(["**Inputs**", "", "| Parameter | Type | Meaning |", "| --- | --- | --- |"])
         for java_type, param_name in params:
+            if class_name == "TalonFXSubsystem" and name == "setSimState":
+                detail = (
+                    "Rotor position in rotations produced by `SimWrapper`; mechanism position is recovered by dividing by configured gearing."
+                    if param_name == "position"
+                    else "Rotor velocity in rotations per second produced by `SimWrapper`; mechanism velocity is recovered by dividing by configured gearing."
+                )
+            else:
+                detail = parameter_detail(param_name, java_type, member.docs)
             body.append(
-                f"| `{param_name}` | `{html.escape(java_type)}` | {parameter_detail(param_name, java_type, member.docs)} |"
+                f"| `{param_name}` | `{html.escape(java_type)}` | {detail} |"
             )
         body.append("")
     else:
@@ -719,9 +766,6 @@ def render_callable(member: Member, source_url: str, class_name: str, field_name
         body.extend([f"**Result:** Returns `{html.escape(result_type)}`. Exact return expressions are listed in the behavior section.", ""])
 
     body.append(render_implementation(member))
-    if member.docs:
-        indented_docs = "\n".join("    " + line for line in member.docs.splitlines())
-        body.extend(['??? note "Author note from JavaDoc"', "", indented_docs, ""])
     return "\n".join(body)
 
 
@@ -753,9 +797,6 @@ def render_exposed(member: Member, source_url: str, source: str) -> str:
             f"This exposed `{type_kind}` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.",
             "",
         ])
-    if member.docs:
-        indented_docs = "\n".join("    " + line for line in member.docs.splitlines())
-        body.extend(['??? note "Author note from JavaDoc"', "", indented_docs, ""])
     return "\n".join(body)
 
 
@@ -766,10 +807,10 @@ def github_url(repo: Path, sha: str, path: str, start: int, end: int | None = No
 
 def make_example(year: str, path: str, start: int, end: int, title: str, sha: str) -> UsageExample | None:
     repo = COMPETITIONS[year]
-    file_path = repo / Path(path)
-    if not file_path.exists():
+    source_files = committed_competition_sources(year, sha)
+    if path not in source_files:
         return None
-    lines = file_path.read_text(encoding="utf-8").splitlines()
+    lines = source_files[path]
     start = max(1, start)
     end = min(len(lines), end)
     code = textwrap.dedent("\n".join(lines[start - 1 : end])).strip()
@@ -788,10 +829,10 @@ def find_examples(class_name: str, competition_shas: dict[str, str]) -> list[Usa
     pattern = re.compile(rf"\b{re.escape(class_name)}\b")
     examples: list[UsageExample] = []
     for year, repo in COMPETITIONS.items():
-        source_root = repo / "src" / "main" / "java"
+        source_files = committed_competition_sources(year, competition_shas[year])
         candidates: list[tuple[int, Path, int]] = []
-        for java_file in sorted(source_root.rglob("*.java")):
-            lines = java_file.read_text(encoding="utf-8", errors="replace").splitlines()
+        for relative, lines in sorted(source_files.items()):
+            java_file = Path(relative)
             for index, line in enumerate(lines, 1):
                 stripped = line.strip()
                 if not pattern.search(line) or stripped.startswith("import ") or stripped.startswith("//"):
@@ -811,8 +852,8 @@ def find_examples(class_name: str, competition_shas: dict[str, str]) -> list[Usa
             if java_file in seen_files:
                 continue
             seen_files.add(java_file)
-            relative = java_file.relative_to(repo).as_posix()
-            lines = java_file.read_text(encoding="utf-8", errors="replace").splitlines()
+            relative = java_file.as_posix()
+            lines = source_files[relative]
             start = max(1, line_number - 5)
             end = min(len(lines), line_number + 10)
             example = make_example(
@@ -839,6 +880,12 @@ def render_examples(examples: list[UsageExample]) -> str:
             "",
         ])
     body = ["## Competition examples", "", "These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.", ""]
+    if any(example.year == "2025" for example in examples):
+        body.extend([
+            "!!! note \"2025 package names\"",
+            "    The 2025 robot used SCREAMLib's earlier short packages such as `data`, `drivers`, and `util`. With SCREAMLib 26.3.7, prefix those imports with `com.teamscreamrobotics.`; the implementation pattern remains applicable.",
+            "",
+        ])
     for example in examples:
         body.extend([
             f"### {example.year}: {example.title}",
@@ -924,7 +971,7 @@ def main() -> None:
         "",
         f"**{len(index_rows)} Java source files · {total_callables} public/protected callables · {total_exposed} exposed fields/types · {total_examples} embedded competition examples**",
         "",
-        "This reference is implementation-derived. Every callable includes its actual source body, control-flow/state/collaborator analysis, input and result details, and exact source lines. JavaDoc appears only as a secondary author note.",
+        "This reference is implementation-derived. Every callable includes its actual source body, control-flow/state/collaborator analysis, input and result details, and exact source lines. JavaDoc is not treated as behavioral truth.",
         "",
     ]
     for group, rows in sorted(groups.items()):

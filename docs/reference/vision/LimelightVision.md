@@ -74,10 +74,6 @@ public class VisionManager {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the horizontal offset angle (TX) to the primary target in degrees.
-
 ### `public static double getTY(Limelight limelight)`
 
 [Source lines 30–32](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/vision/LimelightVision.java#L30)
@@ -102,10 +98,6 @@ public class VisionManager {
       return LimelightHelpers.getTY(limelight.name);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the vertical offset angle (TY) to the primary target in degrees.
 
 ### `public static double getTA(Limelight limelight)`
 
@@ -132,10 +124,6 @@ public class VisionManager {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the target area (TA) as a percentage of the image (0–100).
-
 ### `public static boolean getTV(Limelight limelight)`
 
 [Source lines 40–42](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/vision/LimelightVision.java#L40)
@@ -160,10 +148,6 @@ public class VisionManager {
       return LimelightHelpers.getTV(limelight.name);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns `true` if the camera has a valid target.
 
 ### `public static double getLatency_Pipeline(Limelight limelight)`
 
@@ -190,10 +174,6 @@ public class VisionManager {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns pipeline processing latency in milliseconds.
-
 ### `public static double getLatency_Capture(Limelight limelight)`
 
 [Source lines 50–52](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/vision/LimelightVision.java#L50)
@@ -218,10 +198,6 @@ public class VisionManager {
       return LimelightHelpers.getLatency_Capture(limelight.name);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns image capture latency in milliseconds.
 
 ### `public static double getLatency(Limelight limelight)`
 
@@ -249,10 +225,6 @@ public class VisionManager {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns total latency (pipeline + capture) in milliseconds.
-
 ### `public static PoseEstimate getPoseEstimate_MT2( Limelight limelight, double robotHeadingDegrees, double yawRateDps)`
 
 [Source lines 65–70](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/vision/LimelightVision.java#L65)
@@ -268,8 +240,8 @@ public class VisionManager {
 | Parameter | Type | Meaning |
 | --- | --- | --- |
 | `limelight` | `Limelight` | `Limelight` input consumed by the implementation shown below. |
-| `robotHeadingDegrees` | `double` | current robot yaw in degrees **Parameter `yawRateDps`:** current yaw rate in degrees per second |
-| `yawRateDps` | `double` | current yaw rate in degrees per second |
+| `robotHeadingDegrees` | `double` | Angular value in degrees. |
+| `yawRateDps` | `double` | `double` input consumed by the implementation shown below. |
 
 **Result:** Returns `PoseEstimate`. Exact return expressions are listed in the behavior section.
 
@@ -283,13 +255,6 @@ public class VisionManager {
       return LimelightHelpers.getBotPoseEstimate_wpiBlue(limelight.name);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets robot orientation and returns a MegaTag2 pose estimate in WPILib blue-origin coordinates.
-    
-    **Parameter `robotHeadingDegrees`:** current robot yaw in degrees
-    **Parameter `yawRateDps`:** current yaw rate in degrees per second
 
 ### `public static Length getDistanceToTargetTYBased(Length targetHeight, Limelight limelight)`
 
@@ -306,8 +271,8 @@ public class VisionManager {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `targetHeight` | `Length` | the known height of the target **Parameter `limelight`:** the camera to use |
-| `limelight` | `Limelight` | the camera to use |
+| `targetHeight` | `Length` | `Length` input consumed by the implementation shown below. |
+| `limelight` | `Limelight` | `Limelight` input consumed by the implementation shown below. |
 
 **Result:** Returns `Length`. Exact return expressions are listed in the behavior section.
 
@@ -322,13 +287,6 @@ public class VisionManager {
       return Length.fromMeters(height_diff / Math.tan(goal_theta));
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Estimates horizontal ground distance to a target using the TY angle and known heights.
-    
-    **Parameter `targetHeight`:** the known height of the target
-    **Parameter `limelight`:** the camera to use
 
 ### `public static Length get3D_DistanceToTarget(Limelight limelight)`
 
@@ -357,10 +315,6 @@ public class VisionManager {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the 3D Euclidean distance to the primary target in camera space.
-
 ### `public static Rotation2d getAngleToTargetTXBased(Limelight limelight)`
 
 [Source lines 92–95](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/vision/LimelightVision.java#L92)
@@ -388,10 +342,6 @@ public class VisionManager {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Returns the robot-relative horizontal angle to the target, accounting for camera offset.
-
 ### `public static int getCurrentPipeline(Limelight limelight)`
 
 [Source lines 98–100](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/vision/LimelightVision.java#L98)
@@ -417,10 +367,6 @@ public class VisionManager {
       return (int) LimelightHelpers.getCurrentPipelineIndex(limelight.name);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Returns the currently active pipeline index.
 
 ### `public static void setLEDMode(LEDMode ledMode, Limelight limelight)`
 
@@ -458,10 +404,6 @@ public class VisionManager {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Sets the camera LED to the given `LEDMode`.
-
 ### `public static void setPriorityTagID(int id, Limelight limelight)`
 
 [Source lines 118–120](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/vision/LimelightVision.java#L118)
@@ -486,10 +428,6 @@ public class VisionManager {
       LimelightHelpers.setPriorityTagID(limelight.name, id);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the AprilTag ID that the camera should prioritize when multiple tags are visible.
 
 ### `public static void setPipeline(int index, Limelight limelight)`
 
@@ -517,10 +455,6 @@ public class VisionManager {
     }
     ```
 
-??? note "Author note from JavaDoc"
-
-    Switches the camera to the pipeline at the given zero-based index.
-
 ### `public static void setCropWindow( double cropXMin, double cropXMax, double cropYMin, double cropYMax, Limelight limelight)`
 
 [Source lines 135–138](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/vision/LimelightVision.java#L135)
@@ -533,10 +467,10 @@ public class VisionManager {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `cropXMin` | `double` | left edge (−1 to 1) **Parameter `cropXMax`:** right edge (−1 to 1) **Parameter `cropYMin`:** bottom edge (−1 to 1) **Parameter `cropYMax`:** top edge (−1 to 1) |
-| `cropXMax` | `double` | right edge (−1 to 1) **Parameter `cropYMin`:** bottom edge (−1 to 1) **Parameter `cropYMax`:** top edge (−1 to 1) |
-| `cropYMin` | `double` | bottom edge (−1 to 1) **Parameter `cropYMax`:** top edge (−1 to 1) |
-| `cropYMax` | `double` | top edge (−1 to 1) |
+| `cropXMin` | `double` | `double` input consumed by the implementation shown below. |
+| `cropXMax` | `double` | `double` input consumed by the implementation shown below. |
+| `cropYMin` | `double` | `double` input consumed by the implementation shown below. |
+| `cropYMax` | `double` | `double` input consumed by the implementation shown below. |
 | `limelight` | `Limelight` | `Limelight` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
@@ -549,15 +483,6 @@ public class VisionManager {
       LimelightHelpers.setCropWindow(limelight.name, cropXMin, cropXMax, cropYMin, cropYMax);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Restricts the active image region to reduce processing load.
-    
-    **Parameter `cropXMin`:** left edge (−1 to 1)
-    **Parameter `cropXMax`:** right edge (−1 to 1)
-    **Parameter `cropYMin`:** bottom edge (−1 to 1)
-    **Parameter `cropYMax`:** top edge (−1 to 1)
 
 ### `public static void setThrottle(int skipFrames, Limelight limelight)`
 
@@ -573,7 +498,7 @@ public class VisionManager {
 
 | Parameter | Type | Meaning |
 | --- | --- | --- |
-| `skipFrames` | `int` | number of frames to skip between processed frames (0 = no throttle) |
+| `skipFrames` | `int` | `int` input consumed by the implementation shown below. |
 | `limelight` | `Limelight` | `Limelight` input consumed by the implementation shown below. |
 
 **Result:** No return value; observable behavior comes from the state changes and calls listed above.
@@ -586,12 +511,6 @@ public class VisionManager {
       llt.getEntry("throttle_set").setNumber(skipFrames);
     }
     ```
-
-??? note "Author note from JavaDoc"
-
-    Sets the camera frame throttle — higher values skip more frames to reduce CPU load.
-    
-    **Parameter `skipFrames`:** number of frames to skip between processed frames (0 = no throttle)
 
 ### `public Limelight(String name, Pose3d relativePosition)`
 
@@ -616,10 +535,6 @@ public class VisionManager {
     public record Limelight(String name, Pose3d relativePosition)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this canonical constructor from the record header.
-
 ### `public String name()`
 
 [Source lines 15–15](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/vision/LimelightVision.java#L15)
@@ -637,10 +552,6 @@ public class VisionManager {
     ```java
     public record Limelight(String name, Pose3d relativePosition)
     ```
-
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `name` record component.
 
 ### `public Pose3d relativePosition()`
 
@@ -660,10 +571,6 @@ public class VisionManager {
     public record Limelight(String name, Pose3d relativePosition)
     ```
 
-??? note "Author note from JavaDoc"
-
-    Java generates this accessor for the `relativePosition` record component.
-
 ## Exposed fields and types
 
 ### `public class LimelightVision`
@@ -672,26 +579,14 @@ public class VisionManager {
 
 This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    Typed wrapper around `LimelightHelpers` providing vision measurements and camera control.
-
 ### `public record Limelight(String name, Pose3d relativePosition)`
 
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/vision/LimelightVision.java#L15)*
 
 This exposed `record` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
 
-??? note "Author note from JavaDoc"
-
-    Identifies a Limelight camera by NetworkTables name and its pose relative to the robot.
-
 ### `public enum LEDMode`
 
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/vision/LimelightVision.java#L18)*
 
 This exposed `enum` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
-
-??? note "Author note from JavaDoc"
-
-    LED control modes supported by Limelight cameras.
