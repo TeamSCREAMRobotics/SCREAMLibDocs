@@ -1,0 +1,19 @@
+:root {
+  --md-primary-fg-color: #c8102e;
+  --md-primary-fg-color--light: #ed174c;
+  --md-primary-fg-color--dark: #8a0b20;
+}
+
+.md-typeset h1 {
+  font-weight: 750;
+}
+
+.api-signature code {
+  white-space: pre-wrap;
+}
+
+.snapshot {
+  color: var(--md-default-fg-color--light);
+  font-size: 0.82rem;
+}
+
