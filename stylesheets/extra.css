@@ -1,0 +1,184 @@
+:root {
+  --md-primary-fg-color: #efb422;
+  --md-primary-fg-color--light: #f6cc67;
+  --md-primary-fg-color--dark: #c78f0d;
+  --md-accent-fg-color: #efb422;
+  --md-default-bg-color: #090909;
+  --md-default-fg-color: #ffffff;
+  --md-default-fg-color--light: #d6d6d6;
+  --md-default-fg-color--lighter: #a8a8a8;
+  --md-default-fg-color--lightest: #303030;
+  --md-typeset-a-color: #ffffff;
+  --md-code-bg-color: #121212;
+  --md-code-fg-color: #ffffff;
+  --md-code-hl-color: #2a230f;
+  --md-code-hl-number-color: #efb422;
+  --md-code-hl-special-color: #f6cc67;
+  --md-code-hl-function-color: #ffffff;
+  --md-code-hl-constant-color: #efb422;
+  --md-code-hl-keyword-color: #efb422;
+  --md-code-hl-string-color: #ffffff;
+  --md-code-hl-name-color: #ffffff;
+  --md-code-hl-operator-color: #efb422;
+  --md-code-hl-punctuation-color: #d6d6d6;
+  --md-code-hl-comment-color: #a8a8a8;
+  --md-code-hl-generic-color: #ffffff;
+  --md-code-hl-variable-color: #ffffff;
+}
+
+html,
+body,
+.md-main,
+.md-container {
+  background: #090909;
+}
+
+.md-header {
+  background-color: #efb422 !important;
+  color: #181a20;
+}
+
+.md-header .md-header__button,
+.md-header .md-header__title,
+.md-header .md-search__input::placeholder {
+  color: #181a20;
+}
+
+.md-header .md-logo img {
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+}
+
+.md-typeset a:not(.md-button) {
+  color: #ffffff;
+  text-decoration-color: #efb422;
+  text-underline-offset: 0.15em;
+}
+
+.md-typeset a:not(.md-button):hover,
+.md-nav__link:hover,
+.md-nav__link--active {
+  color: #efb422 !important;
+}
+
+.md-typeset .md-button {
+  border-color: #efb422;
+  color: #ffffff;
+}
+
+.md-typeset .md-button--primary,
+.md-typeset .md-button:hover {
+  background-color: #efb422;
+  border-color: #efb422;
+  color: #090909;
+}
+
+.md-tabs,
+.md-footer,
+.md-footer-meta {
+  background-color: #090909;
+}
+
+.md-sidebar,
+.md-nav,
+.md-nav__title {
+  background-color: #090909 !important;
+  box-shadow: none !important;
+}
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-color: #efb422 !important;
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+  background-color: rgba(239, 180, 34, 0.13) !important;
+}
+
+.md-typeset .admonition-title::before,
+.md-typeset summary::before {
+  background-color: #efb422 !important;
+}
+
+.md-search__form {
+  background-color: rgba(0, 0, 0, 0.28);
+}
+
+.md-search__input,
+.md-search__input::placeholder {
+  color: #090909 !important;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: #1a1a1a;
+  color: #efb422;
+}
+
+.md-typeset table:not([class]) td,
+.md-typeset table:not([class]) th {
+  border-color: #343434;
+}
+
+.md-typeset code {
+  border: 1px solid #282828;
+}
+
+/* Use the viewport width instead of Material's centered 61rem grid. This
+   anchors the navigator to the left edge and leaves API signatures room. */
+.md-grid {
+  max-width: none;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.md-main__inner {
+  width: 100%;
+  max-width: none;
+}
+
+.md-content {
+  min-width: 0;
+  max-width: none;
+}
+
+@media screen and (min-width: 76.25em) {
+  .md-sidebar--primary {
+    width: 13rem;
+    padding-left: 0.35rem;
+  }
+
+  .md-sidebar--secondary {
+    display: none !important;
+  }
+
+  .md-content {
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+  }
+}
+
+.md-typeset h1 {
+  font-weight: 750;
+  color: #ffffff;
+}
+
+.api-signature code {
+  white-space: pre-wrap;
+}
+
+.snapshot {
+  color: var(--md-default-fg-color--light);
+  font-size: 0.82rem;
+}
+
+/* Read the Docs injects a bottom-right version flyout. The site has its own
+   navigation and deliberately does not display the "latest" badge/flyout. */
+readthedocs-flyout,
+#readthedocs-flyout,
+.readthedocs-flyout,
+.rst-versions,
+.injected-rtd-flyout {
+  display: none !important;
+}

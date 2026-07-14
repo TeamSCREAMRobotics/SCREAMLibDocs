@@ -1,0 +1,3519 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Team SCREAM Robotics' shared Java library for FRC robot projects">
+      
+      
+      
+        <link rel="canonical" href="https://screamlib.readthedocs.io/reference/util/GeomUtil/">
+      
+      
+        <link rel="prev" href="../BLineUtil/">
+      
+      
+        <link rel="next" href="../Logger/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/4522-yellow.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>GeomUtil - SCREAMLib</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#geomutil" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="SCREAMLib" class="md-header__button md-logo" aria-label="SCREAMLib" data-md-component="logo">
+      
+  <img src="../../../assets/4522-yellow.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SCREAMLib
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GeomUtil
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/TeamSCREAMRobotics/SCREAMLib" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TeamSCREAMRobotics/SCREAMLib
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="SCREAMLib" class="md-nav__button md-logo" aria-label="SCREAMLib" data-md-component="logo">
+      
+  <img src="../../../assets/4522-yellow.png" alt="logo">
+
+    </a>
+    SCREAMLib
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/TeamSCREAMRobotics/SCREAMLib" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TeamSCREAMRobotics/SCREAMLib
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SCREAMLib
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Config
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/DeviceConfig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceConfig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/ErrorChecker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ErrorChecker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Dashboard
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard/DashboardBoolean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DashboardBoolean
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard/DashboardNumber/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DashboardNumber
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard/DashboardString/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DashboardString
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard/Ligament/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ligament
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard/Mechanism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mechanism
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard/MechanismVisualizer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MechanismVisualizer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/DataConversions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DataConversions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/DataHelpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DataHelpers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/Length/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Length
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/LimitedSizeList/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LimitedSizeList
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drivers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Drivers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../drivers/OrchestraUtil/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OrchestraUtil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../drivers/PhoenixSwerveHelper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PhoenixSwerveHelper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../drivers/PigeonHelper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PigeonHelper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../drivers/TalonFXSubsystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TalonFXSubsystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Math
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Math
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/Conversions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conversions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/IKSolver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IKSolver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/ScreamMath/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ScreamMath
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Physics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../physics/Trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pid
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pid
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pid/ScreamPIDConstants/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ScreamPIDConstants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sim
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sim
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sim/SimInterface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SimInterface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sim/SimStateCallback/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SimStateCallback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sim/SimWrapper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SimWrapper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sim/SimulationThread/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SimulationThread
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Util
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Util
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AllianceFlipUtil/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AllianceFlipUtil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BLinePathSequence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BLinePathSequence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BLineUtil/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BLineUtil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GeomUtil
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GeomUtil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#competition-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Competition examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Competition examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2026-compose-robot-turret-hood-and-shooter-transforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026: Compose robot, turret, hood, and shooter transforms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2025-convert-translations-into-transforms-while-calculating-an-alignment-setpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2025: Convert translations into transforms while calculating an alignment setpoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-and-protected-callables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public and protected callables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public and protected callables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#public-static-transform2d-translationtotransformtranslation2d-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Transform2d translationToTransform(Translation2d translation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-transform2d-translationtotransformdouble-x-double-y" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Transform2d translationToTransform(double x, double y)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-transform2d-rotationtotransformrotation2d-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Transform2d rotationToTransform(Rotation2d rotation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-transform2d-posetotransformpose2d-pose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Transform2d poseToTransform(Pose2d pose)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-pose2d-transformtoposetransform2d-transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Pose2d transformToPose(Transform2d transform)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-pose2d-translationtoposetranslation2d-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Pose2d translationToPose(Translation2d translation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-pose2d-rotationtoposerotation2d-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Pose2d rotationToPose(Rotation2d rotation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-twist2d-multiplytwisttwist2d-twist-double-factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Twist2d multiplyTwist(Twist2d twist, double factor)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-transform3d-pose3dtotransform3dpose3d-pose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Transform3d pose3dToTransform3d(Pose3d pose)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-pose3d-transform3dtopose3dtransform3d-transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Pose3d transform3dToPose3d(Transform3d transform)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-translation2d-translation3dto2dxytranslation3d-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Translation2d translation3dTo2dXY(Translation3d translation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-translation2d-translation3dto2dxztranslation3d-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Translation2d translation3dTo2dXZ(Translation3d translation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-pose3d-translationtopose3dtranslation2d-translation-double-z" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Pose3d translationToPose3d(Translation2d translation, double z)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-translation2d-normalizetranslation2d-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Translation2d normalize(Translation2d translation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-translation2d-findclosesttranslation2d-origin-translation2d-others" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Translation2d findClosest(Translation2d origin, Translation2d... others)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exposed-fields-and-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exposed fields and types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exposed fields and types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#public-class-geomutil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public class GeomUtil
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Logger/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logger
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LoggingUtils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LoggingUtils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PPPathSequence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PPPathSequence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PPUtil/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PPUtil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RunnableUtil/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RunnableUtil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ScreamUtil/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ScreamUtil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SimUtil/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SimUtil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_11" id="__nav_4_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Vision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vision/LimelightHelpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LimelightHelpers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vision/LimelightVision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LimelightVision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_12" id="__nav_4_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zones
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Zones
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../zones/CircularPoseArea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CircularPoseArea
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../zones/HexagonalPoseArea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HexagonalPoseArea
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../zones/PolygonalPoseArea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PolygonalPoseArea
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../zones/RectangularPoseArea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RectangularPoseArea
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#competition-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Competition examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Competition examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2026-compose-robot-turret-hood-and-shooter-transforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026: Compose robot, turret, hood, and shooter transforms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2025-convert-translations-into-transforms-while-calculating-an-alignment-setpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2025: Convert translations into transforms while calculating an alignment setpoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-and-protected-callables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public and protected callables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public and protected callables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#public-static-transform2d-translationtotransformtranslation2d-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Transform2d translationToTransform(Translation2d translation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-transform2d-translationtotransformdouble-x-double-y" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Transform2d translationToTransform(double x, double y)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-transform2d-rotationtotransformrotation2d-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Transform2d rotationToTransform(Rotation2d rotation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-transform2d-posetotransformpose2d-pose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Transform2d poseToTransform(Pose2d pose)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-pose2d-transformtoposetransform2d-transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Pose2d transformToPose(Transform2d transform)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-pose2d-translationtoposetranslation2d-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Pose2d translationToPose(Translation2d translation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-pose2d-rotationtoposerotation2d-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Pose2d rotationToPose(Rotation2d rotation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-twist2d-multiplytwisttwist2d-twist-double-factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Twist2d multiplyTwist(Twist2d twist, double factor)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-transform3d-pose3dtotransform3dpose3d-pose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Transform3d pose3dToTransform3d(Pose3d pose)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-pose3d-transform3dtopose3dtransform3d-transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Pose3d transform3dToPose3d(Transform3d transform)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-translation2d-translation3dto2dxytranslation3d-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Translation2d translation3dTo2dXY(Translation3d translation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-translation2d-translation3dto2dxztranslation3d-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Translation2d translation3dTo2dXZ(Translation3d translation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-pose3d-translationtopose3dtranslation2d-translation-double-z" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Pose3d translationToPose3d(Translation2d translation, double z)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-translation2d-normalizetranslation2d-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Translation2d normalize(Translation2d translation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-static-translation2d-findclosesttranslation2d-origin-translation2d-others" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public static Translation2d findClosest(Translation2d origin, Translation2d... others)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exposed-fields-and-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exposed fields and types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exposed fields and types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#public-class-geomutil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        public class GeomUtil
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="geomutil">GeomUtil<a class="headerlink" href="#geomutil" title="Permanent link">&para;</a></h1>
+<p><code>com.teamscreamrobotics.util.GeomUtil</code></p>
+<p><a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java">View source</a> · <strong>15 callables</strong> · <strong>1 exposed fields/types</strong> · <strong>2 embedded competition examples</strong></p>
+<p><a class="md-button md-button--primary" href="#competition-examples">Jump to examples</a></p>
+<h2 id="competition-examples">Competition examples<a class="headerlink" href="#competition-examples" title="Permanent link">&para;</a></h2>
+<p>These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.</p>
+<div class="admonition note">
+<p class="admonition-title">2025 package names</p>
+<p>The 2025 robot used SCREAMLib's earlier short packages such as <code>data</code>, <code>drivers</code>, and <code>util</code>. With SCREAMLib 26.3.7, prefix those imports with <code>com.teamscreamrobotics.</code>; the implementation pattern remains applicable.</p>
+</div>
+<h3 id="2026-compose-robot-turret-hood-and-shooter-transforms">2026: Compose robot, turret, hood, and shooter transforms<a class="headerlink" href="#2026-compose-robot-turret-hood-and-shooter-transforms" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/4522_2026Competition/blob/e9d3ad1471c68ffa779655b75c4d56b9b7730325/src/main/java/frc2026/tars/subsystems/shooter/Shooter.java#L490-L505"><code>src/main/java/frc2026/tars/subsystems/shooter/Shooter.java</code> lines 490–505</a></p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">}</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="n">Logger</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="n">logPrefix</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;beam&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">beamDebouncer</span><span class="p">.</span><span class="na">calculate</span><span class="p">(</span><span class="n">beam</span><span class="p">.</span><span class="na">getIsDetected</span><span class="p">().</span><span class="na">getValue</span><span class="p">()));</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">}</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kd">public</span><span class="w"> </span><span class="n">Pose2d</span><span class="w"> </span><span class="nf">getFieldToShooter</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="n">Pose2d</span><span class="w"> </span><span class="n">pose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">robotPose</span><span class="p">;</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">GeomUtil</span><span class="p">.</span><span class="na">transformToPose</span><span class="p">(</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">      </span><span class="n">GeomUtil</span><span class="p">.</span><span class="na">poseToTransform</span><span class="p">(</span><span class="n">pose</span><span class="p">)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">          </span><span class="p">.</span><span class="na">plus</span><span class="p">(</span><span class="n">Util</span><span class="p">.</span><span class="na">transform3dTo2dXY</span><span class="p">(</span><span class="n">ShooterConstants</span><span class="p">.</span><span class="na">flywheelToRobot</span><span class="p">)));</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">}</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">getTimeOfFlight</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">distance</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">velocity</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">hoodAngleDeg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">exitVelocity</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">      </span><span class="n">Conversions</span><span class="p">.</span><span class="na">rpsToMPS</span><span class="p">(</span>
+</span></code></pre></div>
+<h3 id="2025-convert-translations-into-transforms-while-calculating-an-alignment-setpoint">2025: Convert translations into transforms while calculating an alignment setpoint<a class="headerlink" href="#2025-convert-translations-into-transforms-while-calculating-an-alignment-setpoint" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/commands/AutoAlign.java#L195-L229"><code>src/main/java/frc2025/commands/AutoAlign.java</code> lines 195–229</a></p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">currentDistance</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">driveTolerance</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">driveVelocityScalar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">}</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">lastSetpointTranslation</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">Pose2d</span><span class="p">(</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">            </span><span class="n">targetPose</span><span class="p">.</span><span class="na">getTranslation</span><span class="p">(),</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">            </span><span class="n">currentPose</span><span class="p">.</span><span class="na">getTranslation</span><span class="p">().</span><span class="na">minus</span><span class="p">(</span><span class="n">targetPose</span><span class="p">.</span><span class="na">getTranslation</span><span class="p">()).</span><span class="na">getAngle</span><span class="p">())</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="p">.</span><span class="na">transformBy</span><span class="p">(</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">            </span><span class="n">GeomUtil</span><span class="p">.</span><span class="na">translationToTransform</span><span class="p">(</span><span class="n">driveController</span><span class="p">.</span><span class="na">getSetpoint</span><span class="p">().</span><span class="na">position</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">))</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">        </span><span class="p">.</span><span class="na">getTranslation</span><span class="p">();</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="kt">double</span><span class="w"> </span><span class="n">thetaVelocity</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="n">headingController</span><span class="p">.</span><span class="na">getSetpoint</span><span class="p">().</span><span class="na">velocity</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ffScalar</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">headingController</span><span class="p">.</span><span class="na">calculate</span><span class="p">(</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">            </span><span class="n">currentPose</span><span class="p">.</span><span class="na">getRotation</span><span class="p">().</span><span class="na">getRadians</span><span class="p">(),</span><span class="w"> </span><span class="n">targetPose</span><span class="p">.</span><span class="na">getRotation</span><span class="p">().</span><span class="na">getRadians</span><span class="p">());</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="n">headingErrorAbs</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">currentPose</span><span class="p">.</span><span class="na">getRotation</span><span class="p">().</span><span class="na">minus</span><span class="p">(</span><span class="n">targetPose</span><span class="p">.</span><span class="na">getRotation</span><span class="p">()).</span><span class="na">getRadians</span><span class="p">());</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">headingErrorAbs</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">headingTolerance</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">  </span><span class="n">thetaVelocity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="p">}</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="n">Translation2d</span><span class="w"> </span><span class="n">driveVelocity</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">Pose2d</span><span class="p">(</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">            </span><span class="n">Translation2d</span><span class="p">.</span><span class="na">kZero</span><span class="p">,</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">            </span><span class="n">currentPose</span><span class="p">.</span><span class="na">getTranslation</span><span class="p">().</span><span class="na">minus</span><span class="p">(</span><span class="n">targetPose</span><span class="p">.</span><span class="na">getTranslation</span><span class="p">()).</span><span class="na">getAngle</span><span class="p">())</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">        </span><span class="p">.</span><span class="na">transformBy</span><span class="p">(</span><span class="n">GeomUtil</span><span class="p">.</span><span class="na">translationToTransform</span><span class="p">(</span><span class="n">driveVelocityScalar</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">))</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">        </span><span class="p">.</span><span class="na">getTranslation</span><span class="p">();</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="n">drivetrain</span><span class="p">.</span><span class="na">setControl</span><span class="p">(</span>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">    </span><span class="n">drivetrain</span>
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">        </span><span class="p">.</span><span class="na">getHelper</span><span class="p">()</span>
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">        </span><span class="p">.</span><span class="na">getApplyRobotSpeeds</span><span class="p">(</span>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="w">            </span><span class="n">ChassisSpeeds</span><span class="p">.</span><span class="na">fromFieldRelativeSpeeds</span><span class="p">(</span>
+</span></code></pre></div>
+<h2 id="public-and-protected-callables">Public and protected callables<a class="headerlink" href="#public-and-protected-callables" title="Permanent link">&para;</a></h2>
+<h3 id="public-static-transform2d-translationtotransformtranslation2d-translation"><code>public static Transform2d translationToTransform(Translation2d translation)</code><a class="headerlink" href="#public-static-transform2d-translationtotransformtranslation2d-translation" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L28">Source lines 28–30</a></p>
+<p><strong>Detailed behavior</strong></p>
+<ul>
+<li>The implementation executes 1 non-blank source line.</li>
+<li>Return path: <code>new Transform2d(translation, Rotation2d.kZero)</code>.</li>
+<li>Key collaborators/calls: <code>Transform2d()</code>.</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>translation</code></td>
+<td><code>Translation2d</code></td>
+<td><code>Translation2d</code> input consumed by the implementation shown below.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong> Returns <code>Transform2d</code>. Exact return expressions are listed in the behavior section.</p>
+<details class="example">
+<summary>Implementation (source lines 28–30)</summary>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Transform2d</span><span class="w"> </span><span class="nf">translationToTransform</span><span class="p">(</span><span class="n">Translation2d</span><span class="w"> </span><span class="n">translation</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Transform2d</span><span class="p">(</span><span class="n">translation</span><span class="p">,</span><span class="w"> </span><span class="n">Rotation2d</span><span class="p">.</span><span class="na">kZero</span><span class="p">);</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h3 id="public-static-transform2d-translationtotransformdouble-x-double-y"><code>public static Transform2d translationToTransform(double x, double y)</code><a class="headerlink" href="#public-static-transform2d-translationtotransformdouble-x-double-y" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L39">Source lines 39–41</a></p>
+<p><strong>Detailed behavior</strong></p>
+<ul>
+<li>The implementation executes 1 non-blank source line.</li>
+<li>Return path: <code>new Transform2d(new Translation2d(x, y), Rotation2d.kZero)</code>.</li>
+<li>Key collaborators/calls: <code>Transform2d()</code>, <code>Translation2d()</code>.</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x</code></td>
+<td><code>double</code></td>
+<td><code>double</code> input consumed by the implementation shown below.</td>
+</tr>
+<tr>
+<td><code>y</code></td>
+<td><code>double</code></td>
+<td><code>double</code> input consumed by the implementation shown below.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong> Returns <code>Transform2d</code>. Exact return expressions are listed in the behavior section.</p>
+<details class="example">
+<summary>Implementation (source lines 39–41)</summary>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Transform2d</span><span class="w"> </span><span class="nf">translationToTransform</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Transform2d</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Translation2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">),</span><span class="w"> </span><span class="n">Rotation2d</span><span class="p">.</span><span class="na">kZero</span><span class="p">);</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h3 id="public-static-transform2d-rotationtotransformrotation2d-rotation"><code>public static Transform2d rotationToTransform(Rotation2d rotation)</code><a class="headerlink" href="#public-static-transform2d-rotationtotransformrotation2d-rotation" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L49">Source lines 49–51</a></p>
+<p><strong>Detailed behavior</strong></p>
+<ul>
+<li>The implementation executes 1 non-blank source line.</li>
+<li>Return path: <code>new Transform2d(Translation2d.kZero, rotation)</code>.</li>
+<li>Key collaborators/calls: <code>Transform2d()</code>.</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rotation</code></td>
+<td><code>Rotation2d</code></td>
+<td>Mechanism or rotor rotations; verify the configured ratio.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong> Returns <code>Transform2d</code>. Exact return expressions are listed in the behavior section.</p>
+<details class="example">
+<summary>Implementation (source lines 49–51)</summary>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Transform2d</span><span class="w"> </span><span class="nf">rotationToTransform</span><span class="p">(</span><span class="n">Rotation2d</span><span class="w"> </span><span class="n">rotation</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Transform2d</span><span class="p">(</span><span class="n">Translation2d</span><span class="p">.</span><span class="na">kZero</span><span class="p">,</span><span class="w"> </span><span class="n">rotation</span><span class="p">);</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h3 id="public-static-transform2d-posetotransformpose2d-pose"><code>public static Transform2d poseToTransform(Pose2d pose)</code><a class="headerlink" href="#public-static-transform2d-posetotransformpose2d-pose" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L59">Source lines 59–61</a></p>
+<p><strong>Detailed behavior</strong></p>
+<ul>
+<li>The implementation executes 1 non-blank source line.</li>
+<li>Return path: <code>new Transform2d(pose.getTranslation(), pose.getRotation())</code>.</li>
+<li>Key collaborators/calls: <code>Transform2d()</code>, <code>pose.getTranslation()</code>, <code>pose.getRotation()</code>.</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pose</code></td>
+<td><code>Pose2d</code></td>
+<td><code>Pose2d</code> input consumed by the implementation shown below.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong> Returns <code>Transform2d</code>. Exact return expressions are listed in the behavior section.</p>
+<details class="example">
+<summary>Implementation (source lines 59–61)</summary>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Transform2d</span><span class="w"> </span><span class="nf">poseToTransform</span><span class="p">(</span><span class="n">Pose2d</span><span class="w"> </span><span class="n">pose</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Transform2d</span><span class="p">(</span><span class="n">pose</span><span class="p">.</span><span class="na">getTranslation</span><span class="p">(),</span><span class="w"> </span><span class="n">pose</span><span class="p">.</span><span class="na">getRotation</span><span class="p">());</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h3 id="public-static-pose2d-transformtoposetransform2d-transform"><code>public static Pose2d transformToPose(Transform2d transform)</code><a class="headerlink" href="#public-static-pose2d-transformtoposetransform2d-transform" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L70">Source lines 70–72</a></p>
+<p><strong>Detailed behavior</strong></p>
+<ul>
+<li>The implementation executes 1 non-blank source line.</li>
+<li>Return path: <code>new Pose2d(transform.getTranslation(), transform.getRotation())</code>.</li>
+<li>Key collaborators/calls: <code>Pose2d()</code>, <code>transform.getTranslation()</code>, <code>transform.getRotation()</code>.</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>transform</code></td>
+<td><code>Transform2d</code></td>
+<td><code>Transform2d</code> input consumed by the implementation shown below.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong> Returns <code>Pose2d</code>. Exact return expressions are listed in the behavior section.</p>
+<details class="example">
+<summary>Implementation (source lines 70–72)</summary>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Pose2d</span><span class="w"> </span><span class="nf">transformToPose</span><span class="p">(</span><span class="n">Transform2d</span><span class="w"> </span><span class="n">transform</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Pose2d</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="na">getTranslation</span><span class="p">(),</span><span class="w"> </span><span class="n">transform</span><span class="p">.</span><span class="na">getRotation</span><span class="p">());</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h3 id="public-static-pose2d-translationtoposetranslation2d-translation"><code>public static Pose2d translationToPose(Translation2d translation)</code><a class="headerlink" href="#public-static-pose2d-translationtoposetranslation2d-translation" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L80">Source lines 80–82</a></p>
+<p><strong>Detailed behavior</strong></p>
+<ul>
+<li>The implementation executes 1 non-blank source line.</li>
+<li>Return path: <code>new Pose2d(translation, Rotation2d.kZero)</code>.</li>
+<li>Key collaborators/calls: <code>Pose2d()</code>.</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>translation</code></td>
+<td><code>Translation2d</code></td>
+<td><code>Translation2d</code> input consumed by the implementation shown below.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong> Returns <code>Pose2d</code>. Exact return expressions are listed in the behavior section.</p>
+<details class="example">
+<summary>Implementation (source lines 80–82)</summary>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Pose2d</span><span class="w"> </span><span class="nf">translationToPose</span><span class="p">(</span><span class="n">Translation2d</span><span class="w"> </span><span class="n">translation</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Pose2d</span><span class="p">(</span><span class="n">translation</span><span class="p">,</span><span class="w"> </span><span class="n">Rotation2d</span><span class="p">.</span><span class="na">kZero</span><span class="p">);</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h3 id="public-static-pose2d-rotationtoposerotation2d-rotation"><code>public static Pose2d rotationToPose(Rotation2d rotation)</code><a class="headerlink" href="#public-static-pose2d-rotationtoposerotation2d-rotation" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L90">Source lines 90–92</a></p>
+<p><strong>Detailed behavior</strong></p>
+<ul>
+<li>The implementation executes 1 non-blank source line.</li>
+<li>Return path: <code>new Pose2d(Translation2d.kZero, rotation)</code>.</li>
+<li>Key collaborators/calls: <code>Pose2d()</code>.</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rotation</code></td>
+<td><code>Rotation2d</code></td>
+<td>Mechanism or rotor rotations; verify the configured ratio.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong> Returns <code>Pose2d</code>. Exact return expressions are listed in the behavior section.</p>
+<details class="example">
+<summary>Implementation (source lines 90–92)</summary>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Pose2d</span><span class="w"> </span><span class="nf">rotationToPose</span><span class="p">(</span><span class="n">Rotation2d</span><span class="w"> </span><span class="n">rotation</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Pose2d</span><span class="p">(</span><span class="n">Translation2d</span><span class="p">.</span><span class="na">kZero</span><span class="p">,</span><span class="w"> </span><span class="n">rotation</span><span class="p">);</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h3 id="public-static-twist2d-multiplytwisttwist2d-twist-double-factor"><code>public static Twist2d multiplyTwist(Twist2d twist, double factor)</code><a class="headerlink" href="#public-static-twist2d-multiplytwisttwist2d-twist-double-factor" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L101">Source lines 101–103</a></p>
+<p><strong>Detailed behavior</strong></p>
+<ul>
+<li>The implementation executes 1 non-blank source line.</li>
+<li>Return path: <code>new Twist2d(twist.dx * factor, twist.dy * factor, twist.dtheta * factor)</code>.</li>
+<li>Key collaborators/calls: <code>Twist2d()</code>.</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>twist</code></td>
+<td><code>Twist2d</code></td>
+<td><code>Twist2d</code> input consumed by the implementation shown below.</td>
+</tr>
+<tr>
+<td><code>factor</code></td>
+<td><code>double</code></td>
+<td><code>double</code> input consumed by the implementation shown below.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong> Returns <code>Twist2d</code>. Exact return expressions are listed in the behavior section.</p>
+<details class="example">
+<summary>Implementation (source lines 101–103)</summary>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Twist2d</span><span class="w"> </span><span class="nf">multiplyTwist</span><span class="p">(</span><span class="n">Twist2d</span><span class="w"> </span><span class="n">twist</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">factor</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Twist2d</span><span class="p">(</span><span class="n">twist</span><span class="p">.</span><span class="na">dx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">factor</span><span class="p">,</span><span class="w"> </span><span class="n">twist</span><span class="p">.</span><span class="na">dy</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">factor</span><span class="p">,</span><span class="w"> </span><span class="n">twist</span><span class="p">.</span><span class="na">dtheta</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">factor</span><span class="p">);</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h3 id="public-static-transform3d-pose3dtotransform3dpose3d-pose"><code>public static Transform3d pose3dToTransform3d(Pose3d pose)</code><a class="headerlink" href="#public-static-transform3d-pose3dtotransform3dpose3d-pose" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L111">Source lines 111–113</a></p>
+<p><strong>Detailed behavior</strong></p>
+<ul>
+<li>The implementation executes 1 non-blank source line.</li>
+<li>Return path: <code>new Transform3d(pose.getTranslation(), pose.getRotation())</code>.</li>
+<li>Key collaborators/calls: <code>Transform3d()</code>, <code>pose.getTranslation()</code>, <code>pose.getRotation()</code>.</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pose</code></td>
+<td><code>Pose3d</code></td>
+<td><code>Pose3d</code> input consumed by the implementation shown below.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong> Returns <code>Transform3d</code>. Exact return expressions are listed in the behavior section.</p>
+<details class="example">
+<summary>Implementation (source lines 111–113)</summary>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Transform3d</span><span class="w"> </span><span class="nf">pose3dToTransform3d</span><span class="p">(</span><span class="n">Pose3d</span><span class="w"> </span><span class="n">pose</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Transform3d</span><span class="p">(</span><span class="n">pose</span><span class="p">.</span><span class="na">getTranslation</span><span class="p">(),</span><span class="w"> </span><span class="n">pose</span><span class="p">.</span><span class="na">getRotation</span><span class="p">());</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h3 id="public-static-pose3d-transform3dtopose3dtransform3d-transform"><code>public static Pose3d transform3dToPose3d(Transform3d transform)</code><a class="headerlink" href="#public-static-pose3d-transform3dtopose3dtransform3d-transform" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L122">Source lines 122–124</a></p>
+<p><strong>Detailed behavior</strong></p>
+<ul>
+<li>The implementation executes 1 non-blank source line.</li>
+<li>Return path: <code>new Pose3d(transform.getTranslation(), transform.getRotation())</code>.</li>
+<li>Key collaborators/calls: <code>Pose3d()</code>, <code>transform.getTranslation()</code>, <code>transform.getRotation()</code>.</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>transform</code></td>
+<td><code>Transform3d</code></td>
+<td><code>Transform3d</code> input consumed by the implementation shown below.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong> Returns <code>Pose3d</code>. Exact return expressions are listed in the behavior section.</p>
+<details class="example">
+<summary>Implementation (source lines 122–124)</summary>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Pose3d</span><span class="w"> </span><span class="nf">transform3dToPose3d</span><span class="p">(</span><span class="n">Transform3d</span><span class="w"> </span><span class="n">transform</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Pose3d</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="na">getTranslation</span><span class="p">(),</span><span class="w"> </span><span class="n">transform</span><span class="p">.</span><span class="na">getRotation</span><span class="p">());</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h3 id="public-static-translation2d-translation3dto2dxytranslation3d-translation"><code>public static Translation2d translation3dTo2dXY(Translation3d translation)</code><a class="headerlink" href="#public-static-translation2d-translation3dto2dxytranslation3d-translation" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L132">Source lines 132–134</a></p>
+<p><strong>Detailed behavior</strong></p>
+<ul>
+<li>The implementation executes 1 non-blank source line.</li>
+<li>Return path: <code>new Translation2d(translation.getX(), translation.getY())</code>.</li>
+<li>Key collaborators/calls: <code>Translation2d()</code>, <code>translation.getX()</code>, <code>translation.getY()</code>.</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>translation</code></td>
+<td><code>Translation3d</code></td>
+<td><code>Translation3d</code> input consumed by the implementation shown below.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong> Returns <code>Translation2d</code>. Exact return expressions are listed in the behavior section.</p>
+<details class="example">
+<summary>Implementation (source lines 132–134)</summary>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Translation2d</span><span class="w"> </span><span class="nf">translation3dTo2dXY</span><span class="p">(</span><span class="n">Translation3d</span><span class="w"> </span><span class="n">translation</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Translation2d</span><span class="p">(</span><span class="n">translation</span><span class="p">.</span><span class="na">getX</span><span class="p">(),</span><span class="w"> </span><span class="n">translation</span><span class="p">.</span><span class="na">getY</span><span class="p">());</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h3 id="public-static-translation2d-translation3dto2dxztranslation3d-translation"><code>public static Translation2d translation3dTo2dXZ(Translation3d translation)</code><a class="headerlink" href="#public-static-translation2d-translation3dto2dxztranslation3d-translation" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L142">Source lines 142–144</a></p>
+<p><strong>Detailed behavior</strong></p>
+<ul>
+<li>The implementation executes 1 non-blank source line.</li>
+<li>Return path: <code>new Translation2d(translation.getX(), translation.getZ())</code>.</li>
+<li>Key collaborators/calls: <code>Translation2d()</code>, <code>translation.getX()</code>, <code>translation.getZ()</code>.</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>translation</code></td>
+<td><code>Translation3d</code></td>
+<td><code>Translation3d</code> input consumed by the implementation shown below.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong> Returns <code>Translation2d</code>. Exact return expressions are listed in the behavior section.</p>
+<details class="example">
+<summary>Implementation (source lines 142–144)</summary>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Translation2d</span><span class="w"> </span><span class="nf">translation3dTo2dXZ</span><span class="p">(</span><span class="n">Translation3d</span><span class="w"> </span><span class="n">translation</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Translation2d</span><span class="p">(</span><span class="n">translation</span><span class="p">.</span><span class="na">getX</span><span class="p">(),</span><span class="w"> </span><span class="n">translation</span><span class="p">.</span><span class="na">getZ</span><span class="p">());</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h3 id="public-static-pose3d-translationtopose3dtranslation2d-translation-double-z"><code>public static Pose3d translationToPose3d(Translation2d translation, double z)</code><a class="headerlink" href="#public-static-pose3d-translationtopose3dtranslation2d-translation-double-z" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L152">Source lines 152–155</a></p>
+<p><strong>Detailed behavior</strong></p>
+<ul>
+<li>The implementation executes 2 non-blank source lines.</li>
+<li>Return path: <code>new Pose3d( new Translation3d(translation.getX(), translation.getY(), z), new Rotation3d())</code>.</li>
+<li>Key collaborators/calls: <code>Pose3d()</code>, <code>Translation3d()</code>, <code>translation.getX()</code>, <code>translation.getY()</code>, <code>Rotation3d()</code>.</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>translation</code></td>
+<td><code>Translation2d</code></td>
+<td><code>Translation2d</code> input consumed by the implementation shown below.</td>
+</tr>
+<tr>
+<td><code>z</code></td>
+<td><code>double</code></td>
+<td><code>double</code> input consumed by the implementation shown below.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong> Returns <code>Pose3d</code>. Exact return expressions are listed in the behavior section.</p>
+<details class="example">
+<summary>Implementation (source lines 152–155)</summary>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Pose3d</span><span class="w"> </span><span class="nf">translationToPose3d</span><span class="p">(</span><span class="n">Translation2d</span><span class="w"> </span><span class="n">translation</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Pose3d</span><span class="p">(</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">      </span><span class="k">new</span><span class="w"> </span><span class="n">Translation3d</span><span class="p">(</span><span class="n">translation</span><span class="p">.</span><span class="na">getX</span><span class="p">(),</span><span class="w"> </span><span class="n">translation</span><span class="p">.</span><span class="na">getY</span><span class="p">(),</span><span class="w"> </span><span class="n">z</span><span class="p">),</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Rotation3d</span><span class="p">());</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h3 id="public-static-translation2d-normalizetranslation2d-translation"><code>public static Translation2d normalize(Translation2d translation)</code><a class="headerlink" href="#public-static-translation2d-normalizetranslation2d-translation" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L162">Source lines 162–164</a></p>
+<p><strong>Detailed behavior</strong></p>
+<ul>
+<li>The implementation executes 1 non-blank source line.</li>
+<li>Return path: <code>new Translation2d(1, translation.getAngle())</code>.</li>
+<li>Key collaborators/calls: <code>Translation2d()</code>, <code>translation.getAngle()</code>.</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>translation</code></td>
+<td><code>Translation2d</code></td>
+<td><code>Translation2d</code> input consumed by the implementation shown below.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong> Returns <code>Translation2d</code>. Exact return expressions are listed in the behavior section.</p>
+<details class="example">
+<summary>Implementation (source lines 162–164)</summary>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Translation2d</span><span class="w"> </span><span class="nf">normalize</span><span class="p">(</span><span class="n">Translation2d</span><span class="w"> </span><span class="n">translation</span><span class="p">){</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Translation2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">translation</span><span class="p">.</span><span class="na">getAngle</span><span class="p">());</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h3 id="public-static-translation2d-findclosesttranslation2d-origin-translation2d-others"><code>public static Translation2d findClosest(Translation2d origin, Translation2d... others)</code><a class="headerlink" href="#public-static-translation2d-findclosesttranslation2d-origin-translation2d-others" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L172">Source lines 172–185</a></p>
+<p><strong>Detailed behavior</strong></p>
+<ul>
+<li>The implementation executes 10 non-blank source lines.</li>
+<li>It has 1 conditional path: <code>distance &lt; smallestDistance</code>.</li>
+<li>It iterates through 1 loop; work scales with the associated collection/range.</li>
+<li>Return path: <code>closest</code>.</li>
+<li>Key collaborators/calls: <code>origin.getDistance()</code>.</li>
+</ul>
+<p><strong>Inputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>origin</code></td>
+<td><code>Translation2d</code></td>
+<td><code>Translation2d</code> input consumed by the implementation shown below.</td>
+</tr>
+<tr>
+<td><code>others</code></td>
+<td><code>Translation2d...</code></td>
+<td><code>Translation2d...</code> input consumed by the implementation shown below.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong> Returns <code>Translation2d</code>. Exact return expressions are listed in the behavior section.</p>
+<details class="example">
+<summary>Implementation (source lines 172–185)</summary>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Translation2d</span><span class="w"> </span><span class="nf">findClosest</span><span class="p">(</span><span class="n">Translation2d</span><span class="w"> </span><span class="n">origin</span><span class="p">,</span><span class="w"> </span><span class="n">Translation2d</span><span class="p">...</span><span class="w"> </span><span class="n">others</span><span class="p">){</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="n">Translation2d</span><span class="w"> </span><span class="n">closest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">smallestDistance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Double</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="p">;</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">  </span><span class="k">for</span><span class="p">(</span><span class="n">Translation2d</span><span class="w"> </span><span class="n">point</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">others</span><span class="p">){</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">origin</span><span class="p">.</span><span class="na">getDistance</span><span class="p">(</span><span class="n">point</span><span class="p">);</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">distance</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">smallestDistance</span><span class="p">){</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">      </span><span class="n">smallestDistance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">distance</span><span class="p">;</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">      </span><span class="n">closest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">point</span><span class="p">;</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">closest</span><span class="p">;</span>
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h2 id="exposed-fields-and-types">Exposed fields and types<a class="headerlink" href="#exposed-fields-and-types" title="Permanent link">&para;</a></h2>
+<h3 id="public-class-geomutil"><code>public class GeomUtil</code><a class="headerlink" href="#public-class-geomutil" title="Permanent link">&para;</a></h3>
+<p><em>Nested/API type · <a href="https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/GeomUtil.java#L21">source</a></em></p>
+<p>This exposed <code>class</code> is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../BLineUtil/" class="md-footer__link md-footer__link--prev" aria-label="Previous: BLineUtil">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                BLineUtil
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Logger/" class="md-footer__link md-footer__link--next" aria-label="Next: Logger">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Logger
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Team SCREAM Robotics
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/TeamSCREAMRobotics" target="_blank" rel="noopener" title="Team SCREAM Robotics on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "content.code.annotate", "content.tooltips", "search.highlight", "search.share", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
