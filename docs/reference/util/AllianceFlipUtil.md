@@ -2,127 +2,694 @@
 
 `com.teamscreamrobotics.util.AllianceFlipUtil`
 
-[View source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java) · **18 callables** · **4 exposed fields/types**
+[View source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java) · **18 callables** · **4 exposed fields/types** · **2 embedded competition examples**
 
-## Competition usage
+[Jump to examples](#competition-examples){ .md-button .md-button--primary }
 
-**2025:** [`Routines.java`](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/autonomous/Routines.java#L34), [`FieldConstants.java`](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/constants/FieldConstants.java#L14), [`Controlboard.java`](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/controlboard/Controlboard.java#L17), [`RobotContainer.java`](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/RobotContainer.java#L42), [`RobotState.java`](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/RobotState.java#L25), [`Drivetrain.java`](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/subsystems/drivetrain/Drivetrain.java#L97), [`VisionManager.java`](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/subsystems/vision/VisionManager.java#L32)
+## Competition examples
 
-**2026:** [`Controlboard.java`](https://github.com/TeamSCREAMRobotics/4522_2026Competition/blob/e9d3ad1471c68ffa779655b75c4d56b9b7730325/src/main/java/frc2026/tars/controlboard/Controlboard.java#L3), [`RobotContainer.java`](https://github.com/TeamSCREAMRobotics/4522_2026Competition/blob/e9d3ad1471c68ffa779655b75c4d56b9b7730325/src/main/java/frc2026/tars/RobotContainer.java#L9), [`RobotState.java`](https://github.com/TeamSCREAMRobotics/4522_2026Competition/blob/e9d3ad1471c68ffa779655b75c4d56b9b7730325/src/main/java/frc2026/tars/RobotState.java#L5), [`Drivetrain.java`](https://github.com/TeamSCREAMRobotics/4522_2026Competition/blob/e9d3ad1471c68ffa779655b75c4d56b9b7730325/src/main/java/frc2026/tars/subsystems/drivetrain/Drivetrain.java#L12), [`Shooter.java`](https://github.com/TeamSCREAMRobotics/4522_2026Competition/blob/e9d3ad1471c68ffa779655b75c4d56b9b7730325/src/main/java/frc2026/tars/subsystems/shooter/Shooter.java#L9)
+These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.
+
+### 2026: Select alliance-correct shooting and ferry targets
+
+[`src/main/java/frc2026/tars/subsystems/shooter/Shooter.java` lines 260–330](https://github.com/TeamSCREAMRobotics/4522_2026Competition/blob/e9d3ad1471c68ffa779655b75c4d56b9b7730325/src/main/java/frc2026/tars/subsystems/shooter/Shooter.java#L260-L330)
+
+```java
+}
+}
+
+private void idleCase(RobotState.Area area, Pose2d robotPose, ChassisSpeeds robotSpeeds) {
+  if (area == null) return;
+  switch (area) {
+    case ALLIANCEZONE:
+      applyAimingSetpoints(
+          robotPose,
+          robotSpeeds,
+          AllianceFlipUtil.get(FieldConstants.Hub.hubCenter, FieldConstants.Hub.oppHubCenter),
+          wantShoot);
+      setIdleState(IdleState.IDLE_HUB);
+      led.wave(
+          Color.kBlack,
+          AllianceFlipUtil.get(
+              new Color(1.0f, 0.49803922f, 0.83137256f),
+              new Color(0.26078432f, 1.0f, 0.36078432f)),
+          0.1,
+          1.25);
+      break;
+    case DEPOT_SIDE_NEUTRALZONE:
+      applyAimingSetpoints(
+          robotPose,
+          robotSpeeds,
+          AllianceFlipUtil.get(
+              FieldConstants.AllianceZones.leftAllianceZone,
+              FieldConstants.AllianceZones.oppRightAllianceZone),
+          wantShoot);
+      setIdleState(IdleState.IDLE_FERRY_DEPOT);
+      led.wave(Color.kBlack, new Color(0.0f, 0.5019608f, 0.5019608f), 0.1, 1.25);
+      break;
+    case OUTPOST_SIDE_NEUTRALZONE:
+      applyAimingSetpoints(
+          robotPose,
+          robotSpeeds,
+          AllianceFlipUtil.get(
+              FieldConstants.AllianceZones.rightAllianceZone,
+              FieldConstants.AllianceZones.oppLeftAllianceZone),
+          wantShoot);
+      setIdleState(IdleState.IDLE_FERRY_OUTPOST);
+      led.wave(Color.kBlack, new Color(0.0f, 0.5019608f, 0.5019608f), 0.1, 1.25);
+      break;
+    case OTHER_ALLIANCEZONE_DEPOT:
+      applyAimingSetpoints(
+          robotPose,
+          robotSpeeds,
+          AllianceFlipUtil.get(FieldConstants.rightMiddle, FieldConstants.leftMiddle),
+          wantShoot);
+      setIdleState(IdleState.IDLE_FERRY_DEPOT);
+      led.wave(
+          Color.kBlack,
+          AllianceFlipUtil.get(
+              new Color(0.26078432f, 1.0f, 0.36078432f),
+              new Color(1.0f, 0.49803922f, 0.83137256f)),
+          0.1,
+          1.25);
+      break;
+    case OTHER_ALLIANCEZONE_OUTPOST:
+      applyAimingSetpoints(
+          robotPose,
+          robotSpeeds,
+          AllianceFlipUtil.get(FieldConstants.leftMiddle, FieldConstants.rightMiddle),
+          wantShoot);
+      setIdleState(IdleState.IDLE_FERRY_OUTPOST);
+      led.wave(
+          Color.kBlack,
+          AllianceFlipUtil.get(
+              new Color(0.26078432f, 1.0f, 0.36078432f),
+              new Color(1.0f, 0.49803922f, 0.83137256f)),
+          0.1,
+```
+
+### 2025: Select alliance-specific headings and poses (legacy package names)
+
+[`src/main/java/frc2025/RobotContainer.java` lines 190–228](https://github.com/TeamSCREAMRobotics/4522_2025Competition/blob/38f0984ae704c4e3da266547f38d9efcdccebe9b/src/main/java/frc2025/RobotContainer.java#L190-L228)
+
+```java
+if (Robot.isSimulation()) {
+    configureSimulationOverrides();
+    drivetrain.resetPose(
+        AllianceFlipUtil.get(
+            Pose2d.kZero, new Pose2d(FieldConstants.FIELD_DIMENSIONS, Rotation2d.k180deg)));
+  }
+}
+
+private void configureBindings() {
+
+  Controlboard.driveController
+      .back()
+      .onTrue(Commands.runOnce(() -> drivetrain.resetRotation(AllianceFlipUtil.getFwdHeading())));
+
+  // Auto aligning controls
+  Controlboard.alignToReef()
+      .and(() -> robotState.getReefZone().isPresent())
+      .toggleOnTrue(autoAlign);
+
+  Controlboard.driveController
+      .rightStick()
+      .whileTrue(
+          /* Commands.parallel(
+          new DriveToPose(
+                  subsystems,
+                  () ->
+                      AllianceFlipUtil.get(
+                          FieldConstants.BLUE_BARGE_ALIGN, FieldConstants.RED_BARGE_ALIGN),
+                  () -> Controlboard.getTranslation().get().getY())
+              .onlyIf(() -> !Dashboard.disableAutoFeatures.get()), */
+          /* Commands.sequence(
+          Commands.waitUntil(
+              () ->
+                  AllianceFlipUtil.get(
+                          drivetrain.getEstimatedPose().getX()
+                              > FieldConstants.BLUE_BARGE_ALIGN
+                                  .getTranslation()
+                                  .minus(new Translation2d(3.0, 0))
+```
 
 ## Public and protected callables
 
 ### `public static BooleanSupplier shouldFlip()`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L24)*
+[Source lines 24–26](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L24)
 
-Returns a supplier that is `true` when the robot is on the red alliance.
+**Detailed behavior**
+
+- The implementation executes 1 non-blank source line.
+- It reads WPILib runtime/Driver Station state; behavior may differ by alliance, enable state, real hardware, or simulation.
+- Return path: `() -> DriverStation.getAlliance().filter(value -> value == Alliance.Red).isPresent()`.
+- Key collaborators/calls: `DriverStation.getAlliance()`, `filter()`, `isPresent()`.
+
+**Inputs:** None.
+
+**Result:** Returns `BooleanSupplier`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 24–26)"
+
+    ```java
+    public static BooleanSupplier shouldFlip() {
+      return () -> DriverStation.getAlliance().filter(value -> value == Alliance.Red).isPresent();
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns a supplier that is `true` when the robot is on the red alliance.
 
 ### `public static Rotation2d getFwdHeading()`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L29)*
+[Source lines 29–31](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L29)
 
-Returns `0°` for blue alliance and `180°` for red — the forward-facing heading.
+**Detailed behavior**
+
+- The implementation executes 1 non-blank source line.
+- Return path: `get(Rotation2d.kZero, Rotation2d.k180deg)`.
+- Key collaborators/calls: `get()`.
+
+**Inputs:** None.
+
+**Result:** Returns `Rotation2d`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 29–31)"
+
+    ```java
+    public static Rotation2d getFwdHeading() {
+      return get(Rotation2d.kZero, Rotation2d.k180deg);
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns `0°` for blue alliance and `180°` for red — the forward-facing heading.
 
 ### `public static int getDirectionCoefficient()`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L34)*
+[Source lines 34–36](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L34)
 
-Returns `+1` for blue and `-1` for red — useful for signed field-relative math.
+**Detailed behavior**
+
+- The implementation executes 1 non-blank source line.
+- Return path: `(int) get(1, -1)`.
+- Key collaborators/calls: `get()`.
+
+**Inputs:** None.
+
+**Result:** Returns `int`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 34–36)"
+
+    ```java
+    public static int getDirectionCoefficient() {
+      return (int) get(1, -1);
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns `+1` for blue and `-1` for red — useful for signed field-relative math.
 
 ### `public static &lt;T&gt; T get(T blueValue, T redValue)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L39)*
+[Source lines 39–41](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L39)
 
-Returns `blueValue` on blue alliance and `redValue` on red.
+**Detailed behavior**
+
+- The implementation executes 1 non-blank source line.
+- Return path: `get(blueValue, redValue, false)`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `blueValue` | `T` | `T` input consumed by the implementation shown below. |
+| `redValue` | `T` | `T` input consumed by the implementation shown below. |
+
+**Result:** Returns `&lt;T&gt; T`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 39–41)"
+
+    ```java
+    public static <T> T get(T blueValue, T redValue) {
+      return get(blueValue, redValue, false);
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns `blueValue` on blue alliance and `redValue` on red.
 
 ### `public static &lt;T&gt; T get(T blueValue, T redValue, boolean inverse)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L50)*
+[Source lines 50–54](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L50)
 
-Returns the alliance-appropriate value, optionally inverted.
+**Detailed behavior**
 
-**Parameter `blueValue`:** the value to return for blue (or red when `inverse` is true)
-**Parameter `redValue`:** the value to return for red (or blue when `inverse` is true)
-**Parameter `inverse`:** if `true`, swaps which alliance gets which value
+- The implementation executes 3 non-blank source lines.
+- Return path: `(inverse && !shouldFlip().getAsBoolean() || !inverse && shouldFlip().getAsBoolean()) ? redValue : blueValue`.
+- Key collaborators/calls: `shouldFlip()`, `getAsBoolean()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `blueValue` | `T` | the value to return for blue (or red when `inverse` is true) **Parameter `redValue`:** the value to return for red (or blue when `inverse` is true) **Parameter `inverse`:** if `true`, swaps which alliance gets which val… |
+| `redValue` | `T` | the value to return for red (or blue when `inverse` is true) **Parameter `inverse`:** if `true`, swaps which alliance gets which value |
+| `inverse` | `boolean` | if `true`, swaps which alliance gets which value |
+
+**Result:** Returns `&lt;T&gt; T`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 50–54)"
+
+    ```java
+    public static <T> T get(T blueValue, T redValue, boolean inverse) {
+      return (inverse && !shouldFlip().getAsBoolean() || !inverse && shouldFlip().getAsBoolean())
+          ? redValue
+          : blueValue;
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the alliance-appropriate value, optionally inverted.
+    
+    **Parameter `blueValue`:** the value to return for blue (or red when `inverse` is true)
+    **Parameter `redValue`:** the value to return for red (or blue when `inverse` is true)
+    **Parameter `inverse`:** if `true`, swaps which alliance gets which value
 
 ### `public static Rotation2d FlippedRotation2d(Rotation2d blueValue)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L57)*
+[Source lines 57–59](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L57)
 
-Returns the blue rotation, or blue + 180° on red (rotationally-symmetric flip).
+**Detailed behavior**
+
+- The implementation executes 1 non-blank source line.
+- Return path: `get(blueValue, blueValue.plus(Rotation2d.k180deg))`.
+- Key collaborators/calls: `get()`, `blueValue.plus()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `blueValue` | `Rotation2d` | `Rotation2d` input consumed by the implementation shown below. |
+
+**Result:** Returns `Rotation2d`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 57–59)"
+
+    ```java
+    public static Rotation2d FlippedRotation2d(Rotation2d blueValue) {
+      return get(blueValue, blueValue.plus(Rotation2d.k180deg));
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the blue rotation, or blue + 180° on red (rotationally-symmetric flip).
 
 ### `public static Rotation3d FlippedRotation3d(Rotation3d blueValue)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L62)*
+[Source lines 62–67](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L62)
 
-Returns the blue rotation, or the Z-flipped equivalent on red (rotationally-symmetric flip).
+**Detailed behavior**
+
+- The implementation executes 4 non-blank source lines.
+- Return path: `new Rotation3d( blueValue.getX(), blueValue.getY(), FlippedRotation2d(Rotation2d.fromRadians(blueValue.getZ())).getRadians())`.
+- Key collaborators/calls: `Rotation3d()`, `blueValue.getX()`, `blueValue.getY()`, `FlippedRotation2d()`, `Rotation2d.fromRadians()`, `blueValue.getZ()`, `getRadians()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `blueValue` | `Rotation3d` | `Rotation3d` input consumed by the implementation shown below. |
+
+**Result:** Returns `Rotation3d`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 62–67)"
+
+    ```java
+    public static Rotation3d FlippedRotation3d(Rotation3d blueValue) {
+      return new Rotation3d(
+          blueValue.getX(),
+          blueValue.getY(),
+          FlippedRotation2d(Rotation2d.fromRadians(blueValue.getZ())).getRadians());
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the blue rotation, or the Z-flipped equivalent on red (rotationally-symmetric flip).
 
 ### `public static Translation2d FlippedTranslation2d(Translation2d blueValue)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L70)*
+[Source lines 70–76](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L70)
 
-Returns the blue translation, or `(fieldLength - x, fieldWidth - y)` on red.
+**Detailed behavior**
+
+- The implementation executes 5 non-blank source lines.
+- Return path: `get( blueValue, new Translation2d( FIELD_LENGTH - blueValue.getX(), FIELD_WIDTH - blueValue.getY()))`.
+- Key collaborators/calls: `get()`, `Translation2d()`, `blueValue.getX()`, `blueValue.getY()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `blueValue` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
+
+**Result:** Returns `Translation2d`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 70–76)"
+
+    ```java
+    public static Translation2d FlippedTranslation2d(Translation2d blueValue) {
+      return get(
+          blueValue,
+          new Translation2d(
+              FIELD_LENGTH - blueValue.getX(),
+              FIELD_WIDTH - blueValue.getY()));
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the blue translation, or `(fieldLength - x, fieldWidth - y)` on red.
 
 ### `public static Pose2d FlippedPose2d(Pose2d blueValue)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L79)*
+[Source lines 79–83](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L79)
 
-Returns the blue pose, or the rotationally-flipped equivalent on red.
+**Detailed behavior**
+
+- The implementation executes 3 non-blank source lines.
+- Return path: `new Pose2d( FlippedTranslation2d(blueValue.getTranslation()), FlippedRotation2d(blueValue.getRotation()))`.
+- Key collaborators/calls: `Pose2d()`, `FlippedTranslation2d()`, `blueValue.getTranslation()`, `FlippedRotation2d()`, `blueValue.getRotation()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `blueValue` | `Pose2d` | `Pose2d` input consumed by the implementation shown below. |
+
+**Result:** Returns `Pose2d`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 79–83)"
+
+    ```java
+    public static Pose2d FlippedPose2d(Pose2d blueValue) {
+      return new Pose2d(
+          FlippedTranslation2d(blueValue.getTranslation()),
+          FlippedRotation2d(blueValue.getRotation()));
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the blue pose, or the rotationally-flipped equivalent on red.
 
 ### `public static Translation3d FlippedTranslation3d(Translation3d blueValue)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L86)*
+[Source lines 86–93](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L86)
 
-Returns the blue translation3d, or `(fieldLength - x, fieldWidth - y, z)` on red.
+**Detailed behavior**
+
+- The implementation executes 6 non-blank source lines.
+- Return path: `get( blueValue, new Translation3d( FIELD_LENGTH - blueValue.getX(), FIELD_WIDTH - blueValue.getY(), blueValue.getZ()))`.
+- Key collaborators/calls: `get()`, `Translation3d()`, `blueValue.getX()`, `blueValue.getY()`, `blueValue.getZ()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `blueValue` | `Translation3d` | `Translation3d` input consumed by the implementation shown below. |
+
+**Result:** Returns `Translation3d`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 86–93)"
+
+    ```java
+    public static Translation3d FlippedTranslation3d(Translation3d blueValue) {
+      return get(
+          blueValue,
+          new Translation3d(
+              FIELD_LENGTH - blueValue.getX(),
+              FIELD_WIDTH - blueValue.getY(),
+              blueValue.getZ()));
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the blue translation3d, or `(fieldLength - x, fieldWidth - y, z)` on red.
 
 ### `public static Pose3d FlippedPose3d(Pose3d blueValue)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L96)*
+[Source lines 96–100](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L96)
 
-Returns the blue pose3d, or the rotationally-flipped equivalent on red.
+**Detailed behavior**
+
+- The implementation executes 3 non-blank source lines.
+- Return path: `new Pose3d( FlippedTranslation3d(blueValue.getTranslation()), FlippedRotation3d(blueValue.getRotation()))`.
+- Key collaborators/calls: `Pose3d()`, `FlippedTranslation3d()`, `blueValue.getTranslation()`, `FlippedRotation3d()`, `blueValue.getRotation()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `blueValue` | `Pose3d` | `Pose3d` input consumed by the implementation shown below. |
+
+**Result:** Returns `Pose3d`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 96–100)"
+
+    ```java
+    public static Pose3d FlippedPose3d(Pose3d blueValue) {
+      return new Pose3d(
+          FlippedTranslation3d(blueValue.getTranslation()),
+          FlippedRotation3d(blueValue.getRotation()));
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the blue pose3d, or the rotationally-flipped equivalent on red.
 
 ### `public static Rotation2d MirroredRotation2d(Rotation2d blueValue)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L103)*
+[Source lines 103–105](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L103)
 
-Returns the blue rotation, or `180° - blueValue` on red (bilaterally-symmetric mirror).
+**Detailed behavior**
+
+- The implementation executes 1 non-blank source line.
+- Return path: `get(blueValue, Rotation2d.k180deg.minus(blueValue))`.
+- Key collaborators/calls: `get()`, `Rotation2d.k180deg.minus()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `blueValue` | `Rotation2d` | `Rotation2d` input consumed by the implementation shown below. |
+
+**Result:** Returns `Rotation2d`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 103–105)"
+
+    ```java
+    public static Rotation2d MirroredRotation2d(Rotation2d blueValue) {
+      return get(blueValue, Rotation2d.k180deg.minus(blueValue));
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the blue rotation, or `180° - blueValue` on red (bilaterally-symmetric mirror).
 
 ### `public static Rotation3d MirroredRotation3d(Rotation3d blueValue)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L108)*
+[Source lines 108–113](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L108)
 
-Returns the blue rotation3d, or the Z-mirrored equivalent on red (bilaterally-symmetric).
+**Detailed behavior**
+
+- The implementation executes 4 non-blank source lines.
+- Return path: `new Rotation3d( blueValue.getX(), blueValue.getY(), MirroredRotation2d(Rotation2d.fromRadians(blueValue.getZ())).getRadians())`.
+- Key collaborators/calls: `Rotation3d()`, `blueValue.getX()`, `blueValue.getY()`, `MirroredRotation2d()`, `Rotation2d.fromRadians()`, `blueValue.getZ()`, `getRadians()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `blueValue` | `Rotation3d` | `Rotation3d` input consumed by the implementation shown below. |
+
+**Result:** Returns `Rotation3d`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 108–113)"
+
+    ```java
+    public static Rotation3d MirroredRotation3d(Rotation3d blueValue) {
+      return new Rotation3d(
+          blueValue.getX(),
+          blueValue.getY(),
+          MirroredRotation2d(Rotation2d.fromRadians(blueValue.getZ())).getRadians());
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the blue rotation3d, or the Z-mirrored equivalent on red (bilaterally-symmetric).
 
 ### `public static Translation2d MirroredTranslation2d(Translation2d blueValue)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L116)*
+[Source lines 116–119](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L116)
 
-Returns the blue translation, or `(fieldLength - x, y)` on red (X-axis mirror only).
+**Detailed behavior**
+
+- The implementation executes 2 non-blank source lines.
+- Return path: `get( blueValue, new Translation2d(FIELD_DIMENSIONS.getX() - blueValue.getX(), blueValue.getY()))`.
+- Key collaborators/calls: `get()`, `Translation2d()`, `FIELD_DIMENSIONS.getX()`, `blueValue.getX()`, `blueValue.getY()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `blueValue` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
+
+**Result:** Returns `Translation2d`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 116–119)"
+
+    ```java
+    public static Translation2d MirroredTranslation2d(Translation2d blueValue) {
+      return get(
+          blueValue, new Translation2d(FIELD_DIMENSIONS.getX() - blueValue.getX(), blueValue.getY()));
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the blue translation, or `(fieldLength - x, y)` on red (X-axis mirror only).
 
 ### `blueValue, new Translation2d(FIELD_DIMENSIONS.getX() - blueValue.getX(), blueValue.getY()))`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L118)*
+[Source lines 118–118](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L118)
 
-No source Javadoc is present. Use the signature and linked implementation as the contract; verify units and side effects before calling it.
+**Detailed behavior**
+
+- This is a declaration-only contract. The implementing class or lambda supplies the behavior; this file performs no work by itself.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `blueValue.getX()` | `FIELD_DIMENSIONS.getX() -` | `FIELD_DIMENSIONS.getX() -` input consumed by the implementation shown below. |
+
+**Result:** Returns `blueValue, new`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 118)"
+
+    ```java
+    blueValue, new Translation2d(FIELD_DIMENSIONS.getX() - blueValue.getX(), blueValue.getY()));
+    ```
 
 ### `public static Pose2d MirroredPose2d(Pose2d blueValue)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L122)*
+[Source lines 122–126](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L122)
 
-Returns the blue pose, or the X-axis-mirrored equivalent on red (bilaterally-symmetric).
+**Detailed behavior**
+
+- The implementation executes 3 non-blank source lines.
+- Return path: `new Pose2d( MirroredTranslation2d(blueValue.getTranslation()), MirroredRotation2d(blueValue.getRotation()))`.
+- Key collaborators/calls: `Pose2d()`, `MirroredTranslation2d()`, `blueValue.getTranslation()`, `MirroredRotation2d()`, `blueValue.getRotation()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `blueValue` | `Pose2d` | `Pose2d` input consumed by the implementation shown below. |
+
+**Result:** Returns `Pose2d`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 122–126)"
+
+    ```java
+    public static Pose2d MirroredPose2d(Pose2d blueValue) {
+      return new Pose2d(
+          MirroredTranslation2d(blueValue.getTranslation()),
+          MirroredRotation2d(blueValue.getRotation()));
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the blue pose, or the X-axis-mirrored equivalent on red (bilaterally-symmetric).
 
 ### `public static Translation3d MirroredTranslation3d(Translation3d blueValue)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L129)*
+[Source lines 129–134](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L129)
 
-Returns the blue translation3d, or `(fieldLength - x, y, z)` on red (X-axis mirror).
+**Detailed behavior**
+
+- The implementation executes 4 non-blank source lines.
+- Return path: `get( blueValue, new Translation3d( FIELD_DIMENSIONS.getX() - blueValue.getX(), blueValue.getY(), blueValue.getZ()))`.
+- Key collaborators/calls: `get()`, `Translation3d()`, `FIELD_DIMENSIONS.getX()`, `blueValue.getX()`, `blueValue.getY()`, `blueValue.getZ()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `blueValue` | `Translation3d` | `Translation3d` input consumed by the implementation shown below. |
+
+**Result:** Returns `Translation3d`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 129–134)"
+
+    ```java
+    public static Translation3d MirroredTranslation3d(Translation3d blueValue) {
+      return get(
+          blueValue,
+          new Translation3d(
+              FIELD_DIMENSIONS.getX() - blueValue.getX(), blueValue.getY(), blueValue.getZ()));
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the blue translation3d, or `(fieldLength - x, y, z)` on red (X-axis mirror).
 
 ### `public static Pose3d MirroredPose3d(Pose3d blueValue)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L137)*
+[Source lines 137–141](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L137)
 
-Returns the blue pose3d, or the X-axis-mirrored equivalent on red.
+**Detailed behavior**
+
+- The implementation executes 3 non-blank source lines.
+- Return path: `new Pose3d( MirroredTranslation3d(blueValue.getTranslation()), MirroredRotation3d(blueValue.getRotation()))`.
+- Key collaborators/calls: `Pose3d()`, `MirroredTranslation3d()`, `blueValue.getTranslation()`, `MirroredRotation3d()`, `blueValue.getRotation()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `blueValue` | `Pose3d` | `Pose3d` input consumed by the implementation shown below. |
+
+**Result:** Returns `Pose3d`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 137–141)"
+
+    ```java
+    public static Pose3d MirroredPose3d(Pose3d blueValue) {
+      return new Pose3d(
+          MirroredTranslation3d(blueValue.getTranslation()),
+          MirroredRotation3d(blueValue.getRotation()));
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the blue pose3d, or the X-axis-mirrored equivalent on red.
 
 ## Exposed fields and types
 
@@ -130,22 +697,38 @@ Returns the blue pose3d, or the X-axis-mirrored equivalent on red.
 
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L14)*
 
-Utility for flipping or mirroring field-relative geometry between blue and red alliance.
+This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
+
+??? note "Author note from JavaDoc"
+
+    Utility for flipping or mirroring field-relative geometry between blue and red alliance.
 
 ### `public static final Translation2d FIELD_DIMENSIONS = new Translation2d(16.541, 8.211)`
 
 *Exposed field · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L17)*
 
-Full field dimensions (length × width) in meters.
+This is a **static final public** field with an initializer. It is not reassigned after initialization. The declaring source references it 5 times, so changing it can affect every control path that reads `FIELD_DIMENSIONS`.
+
+??? note "Author note from JavaDoc"
+
+    Full field dimensions (length × width) in meters.
 
 ### `public static final double FIELD_WIDTH = FIELD_DIMENSIONS.getY()`
 
 *Exposed field · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L19)*
 
-Field width (Y axis) in meters.
+This is a **static final public** field with an initializer. It is not reassigned after initialization. The declaring source references it 3 times, so changing it can affect every control path that reads `FIELD_WIDTH`.
+
+??? note "Author note from JavaDoc"
+
+    Field width (Y axis) in meters.
 
 ### `public static final double FIELD_LENGTH = FIELD_DIMENSIONS.getX()`
 
 *Exposed field · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/AllianceFlipUtil.java#L21)*
 
-Field length (X axis) in meters.
+This is a **static final public** field with an initializer. It is not reassigned after initialization. The declaring source references it 3 times, so changing it can affect every control path that reads `FIELD_LENGTH`.
+
+??? note "Author note from JavaDoc"
+
+    Field length (X axis) in meters.

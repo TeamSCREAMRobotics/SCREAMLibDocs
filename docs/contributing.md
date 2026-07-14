@@ -1,6 +1,6 @@
 # Maintaining these docs
 
-The API pages are generated from the checked-out SCREAMLib source so the signature inventory stays complete.
+The API pages are generated from the checked-out SCREAMLib source so the signature inventory, implementation analysis, and inline competition examples stay complete.
 
 ## Regenerate the reference
 
@@ -26,4 +26,3 @@ The generator replaces only `docs/reference`. Curated guides and examples remain
 3. Add or refresh examples when a competition robot adopts a new class.
 4. Run the strict MkDocs build.
 5. Let Read the Docs build from `.readthedocs.yaml`.
-

@@ -34,13 +34,15 @@ Read [TalonFXSubsystem](reference/drivers/TalonFXSubsystem.md) before changing p
 
 ## Generated reference policy
 
-The reference catalog is generated from Java declarations. It includes:
+The reference catalog is generated from Java declarations and implementations. It includes:
 
 - every public and protected method or constructor;
+- implicitly public interface methods and compiler-generated record constructors/accessors;
 - public and protected fields, records, enums, interfaces, and nested classes;
-- nearby Javadocs where present;
+- detailed behavior derived from each method body, including branches, state writes, return paths, external calls, and explicit failures;
+- the complete implementation body in a collapsible source block;
+- nearby Javadocs, clearly separated as secondary author notes;
 - exact GitHub source lines;
-- links to files in the 2025 and 2026 robots that mention that class.
+- embedded code examples from files in the 2025 and 2026 robots that use that class.
 
 Private helpers are implementation details and are not API promises.
-

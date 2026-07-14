@@ -2,42 +2,159 @@
 
 `com.teamscreamrobotics.zones.CircularPoseArea`
 
-[View source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/CircularPoseArea.java) · **5 callables** · **1 exposed fields/types**
+[View source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/CircularPoseArea.java) · **5 callables** · **1 exposed fields/types** · **0 embedded competition examples**
+
+[Jump to examples](#competition-examples){ .md-button .md-button--primary }
+
+## Competition examples
+
+No direct reference to this class was found in the pinned 2025 or 2026 competition source. The callable sections below therefore document behavior from SCREAMLib itself instead of presenting a fabricated robot example.
 
 ## Public and protected callables
 
 ### `public CircularPoseArea(Translation2d center, double diameter)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/CircularPoseArea.java#L18)*
+[Source lines 18–21](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/CircularPoseArea.java#L18)
 
-Creates a circular zone.
+**Detailed behavior**
 
-**Parameter `center`:** center of the circle in field coordinates (meters)
-**Parameter `diameter`:** diameter of the circle in meters
+- The implementation executes 2 non-blank source lines.
+- It changes object/subclass state through `center`, `diameter`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `center` | `Translation2d` | center of the circle in field coordinates (meters) **Parameter `diameter`:** diameter of the circle in meters |
+| `diameter` | `double` | diameter of the circle in meters |
+
+**Result:** Constructs and initializes a `CircularPoseArea` instance.
+
+??? example "Implementation (source lines 18–21)"
+
+    ```java
+    public CircularPoseArea(Translation2d center, double diameter) {
+      this.center = center;
+      this.diameter = diameter;
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Creates a circular zone.
+    
+    **Parameter `center`:** center of the circle in field coordinates (meters)
+    **Parameter `diameter`:** diameter of the circle in meters
 
 ### `public Translation2d getCenter()`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/CircularPoseArea.java#L24)*
+[Source lines 24–26](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/CircularPoseArea.java#L24)
 
-Returns the center of the circle in field coordinates.
+**Detailed behavior**
+
+- The implementation executes 1 non-blank source line.
+- Return path: `center`.
+
+**Inputs:** None.
+
+**Result:** Returns `Translation2d`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 24–26)"
+
+    ```java
+    public Translation2d getCenter() {
+      return center;
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the center of the circle in field coordinates.
 
 ### `public double getDiameter()`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/CircularPoseArea.java#L29)*
+[Source lines 29–31](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/CircularPoseArea.java#L29)
 
-Returns the diameter of the circle in meters.
+**Detailed behavior**
+
+- The implementation executes 1 non-blank source line.
+- Return path: `diameter`.
+
+**Inputs:** None.
+
+**Result:** Returns `double`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 29–31)"
+
+    ```java
+    public double getDiameter() {
+      return diameter;
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the diameter of the circle in meters.
 
 ### `public boolean contains(Pose2d pose)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/CircularPoseArea.java#L34)*
+[Source lines 34–36](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/CircularPoseArea.java#L34)
 
-Returns `true` if the pose's translation is inside the circle.
+**Detailed behavior**
+
+- The implementation executes 1 non-blank source line.
+- Return path: `contains(pose.getTranslation())`.
+- Key collaborators/calls: `pose.getTranslation()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `pose` | `Pose2d` | `Pose2d` input consumed by the implementation shown below. |
+
+**Result:** Returns `boolean`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 34–36)"
+
+    ```java
+    public boolean contains(Pose2d pose) {
+      return contains(pose.getTranslation());
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns `true` if the pose's translation is inside the circle.
 
 ### `public boolean contains(Translation2d translation)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/CircularPoseArea.java#L39)*
+[Source lines 39–41](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/CircularPoseArea.java#L39)
 
-Returns `true` if the translation is inside the circle.
+**Detailed behavior**
+
+- The implementation executes 1 non-blank source line.
+- Return path: `center.getDistance(translation) <= (diameter / 2.0)`.
+- Key collaborators/calls: `center.getDistance()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `translation` | `Translation2d` | `Translation2d` input consumed by the implementation shown below. |
+
+**Result:** Returns `boolean`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 39–41)"
+
+    ```java
+    public boolean contains(Translation2d translation) {
+      return center.getDistance(translation) <= (diameter / 2.0);
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns `true` if the translation is inside the circle.
 
 ## Exposed fields and types
 
@@ -45,4 +162,8 @@ Returns `true` if the translation is inside the circle.
 
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/zones/CircularPoseArea.java#L7)*
 
-A circular 2D zone on the field used for pose containment checks.
+This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.
+
+??? note "Author note from JavaDoc"
+
+    A circular 2D zone on the field used for pose containment checks.

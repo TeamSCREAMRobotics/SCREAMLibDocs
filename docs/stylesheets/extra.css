@@ -1,7 +1,23 @@
 :root {
-  --md-primary-fg-color: #c8102e;
-  --md-primary-fg-color--light: #ed174c;
-  --md-primary-fg-color--dark: #8a0b20;
+  --md-primary-fg-color: #efb422;
+  --md-primary-fg-color--light: #f6cc67;
+  --md-primary-fg-color--dark: #c78f0d;
+  --md-accent-fg-color: #efb422;
+}
+
+.md-header {
+  background-color: #efb422;
+  color: #181a20;
+}
+
+.md-header .md-header__button,
+.md-header .md-header__title,
+.md-header .md-search__input::placeholder {
+  color: #181a20;
+}
+
+.md-header .md-logo img {
+  border-radius: 0.25rem;
 }
 
 .md-typeset h1 {
@@ -17,3 +33,12 @@
   font-size: 0.82rem;
 }
 
+/* Read the Docs injects a bottom-right version flyout. The site has its own
+   navigation and deliberately does not display the "latest" badge/flyout. */
+readthedocs-flyout,
+#readthedocs-flyout,
+.readthedocs-flyout,
+.rst-versions,
+.injected-rtd-flyout {
+  display: none !important;
+}

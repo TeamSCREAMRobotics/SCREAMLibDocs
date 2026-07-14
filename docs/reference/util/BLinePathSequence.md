@@ -2,129 +2,517 @@
 
 `com.teamscreamrobotics.util.BLinePathSequence`
 
-[View source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java) · **14 callables** · **1 exposed fields/types**
+[View source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java) · **14 callables** · **1 exposed fields/types** · **1 embedded competition examples**
 
-## Competition usage
+[Jump to examples](#competition-examples){ .md-button .md-button--primary }
 
-**2026:** [`Routines.java`](https://github.com/TeamSCREAMRobotics/4522_2026Competition/blob/e9d3ad1471c68ffa779655b75c4d56b9b7730325/src/main/java/frc2026/tars/autonomous/Routines.java#L3)
+## Competition examples
+
+These are real call sites from the pinned competition repositories, shown here so usage is available without leaving this API page.
+
+### 2026: Use `BLinePathSequence` in `Routines.java`
+
+[`src/main/java/frc2026/tars/autonomous/Routines.java` lines 87–102](https://github.com/TeamSCREAMRobotics/4522_2026Competition/blob/e9d3ad1471c68ffa779655b75c4d56b9b7730325/src/main/java/frc2026/tars/autonomous/Routines.java#L87-L102)
+
+```java
+"deployIntake", intakeWrist.applyGoalCommand(IntakeWristGoal.EXTENDED));
+FollowPath.registerEventTrigger(
+    "intakeFeed", new IntakeFeed(feeder, rollers, shooter.beam, shooter.beamOne));
+
+Overbump_Outpost =
+    new BLinePathSequence(
+        pathBuilder, FieldSymmetry.kRotational, "Overbump_One", "Overbump_Two");
+
+Overbump_Depot = Overbump_Outpost.mirror();
+
+Middle =
+    new BLinePathSequence(pathBuilder, FieldSymmetry.kRotational, "Middle_One", "Middle_Two");
+
+routineChooser = new SendableChooser<>();
+routineChooser.setDefaultOption("Do Nothing", Commands.none().withName("Do Nothing"));
+routineChooser.addOption("Overbump Outpost", OverbumpOutpost().withName("Overbump Outpost"));
+```
 
 ## Public and protected callables
 
 ### `public BLinePathSequence(FollowPath.Builder builder, FieldSymmetry fieldSymmetry, String... pathNames)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L44)*
+[Source lines 44–56](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L44)
 
-Loads and prepares a sequence of BLine paths for autonomous use.
-Alliance flipping is deferred to retrieval time so the correct alliance
-is used even if the object is constructed before the DS reports alliance.
+**Detailed behavior**
 
-**Parameter `builder`:** the `FollowPath.Builder` used to build each path-following command
-**Parameter `flipType`:** how paths should be mirrored for the red alliance — see `FlipType`
-**Parameter `pathNames`:** one or more BLine path names to load, in order
-**Throws `InvalidParameterException`:** if no path names are supplied
+- The implementation executes 9 non-blank source lines.
+- It changes object/subclass state through `builder`, `fieldSymmetry`, `pathNames`.
+- It has 1 conditional path: `pathNames.length == 0`.
+- It iterates through 1 loop; work scales with the associated collection/range.
+- It can explicitly throw `InvalidParameterException`.
+- Key collaborators/calls: `InvalidParameterException()`, `entries.add()`, `PathEntry()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `builder` | `FollowPath.Builder` | the `FollowPath.Builder` used to build each path-following command **Parameter `flipType`:** how paths should be mirrored for the red alliance — see `FlipType` **Parameter `pathNames`:** one or more BLine path names to … |
+| `fieldSymmetry` | `FieldSymmetry` | `FieldSymmetry` input consumed by the implementation shown below. |
+| `pathNames` | `String...` | one or more BLine path names to load, in order **Throws `InvalidParameterException`:** if no path names are supplied |
+
+**Result:** Constructs and initializes a `BLinePathSequence` instance.
+
+??? example "Implementation (source lines 44–56)"
+
+    ```java
+    public BLinePathSequence(FollowPath.Builder builder, FieldSymmetry fieldSymmetry, String... pathNames){
+        this.builder = builder;
+        this.fieldSymmetry = fieldSymmetry;
+        this.pathNames = pathNames;
+    
+        if (pathNames.length == 0) {
+            throw new InvalidParameterException("Cannot create path sequence of length 0");
+        }
+    
+        for (String pathName : pathNames){
+            entries.add(new PathEntry(pathName, false));
+        }
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Loads and prepares a sequence of BLine paths for autonomous use.
+    Alliance flipping is deferred to retrieval time so the correct alliance
+    is used even if the object is constructed before the DS reports alliance.
+    
+    **Parameter `builder`:** the `FollowPath.Builder` used to build each path-following command
+    **Parameter `flipType`:** how paths should be mirrored for the red alliance — see `FlipType`
+    **Parameter `pathNames`:** one or more BLine path names to load, in order
+    **Throws `InvalidParameterException`:** if no path names are supplied
 
 ### `public static boolean isRunningPath()`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L91)*
+[Source lines 91–93](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L91)
 
-Returns `true` while any path command from this class is executing.
+**Detailed behavior**
+
+- The implementation executes 1 non-blank source line.
+- Return path: `isRunningPath`.
+
+**Inputs:** None.
+
+**Result:** Returns `boolean`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 91–93)"
+
+    ```java
+    public static boolean isRunningPath(){
+        return isRunningPath;
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns `true` while any path command from this class is executing.
 
 ### `public Pose2d getStartingPose()`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L106)*
+[Source lines 106–110](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L106)
 
-Returns the starting pose of the first path — use this to reset odometry before auto.
+**Detailed behavior**
+
+- The implementation executes 3 non-blank source lines.
+- Return path: `loadPath(entries.get(0)) .orElseThrow(() -> new RuntimeException("Failed to load path: " + entries.get(0).name)) .getStartPose()`.
+- Key collaborators/calls: `loadPath()`, `entries.get()`, `orElseThrow()`, `RuntimeException()`, `getStartPose()`.
+
+**Inputs:** None.
+
+**Result:** Returns `Pose2d`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 106–110)"
+
+    ```java
+    public Pose2d getStartingPose(){
+        return loadPath(entries.get(0))
+            .orElseThrow(() -> new RuntimeException("Failed to load path: " + entries.get(0).name))
+            .getStartPose();
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the starting pose of the first path — use this to reset odometry before auto.
 
 ### `public Command getStart()`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L113)*
+[Source lines 113–118](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L113)
 
-Returns a command that follows the first path in the sequence.
+**Detailed behavior**
+
+- The implementation executes 4 non-blank source lines.
+- It has 1 conditional path: `index == -1`.
+- Return path: `getPathCommand(entries.get(0))`.
+- Key collaborators/calls: `getPathCommand()`, `entries.get()`.
+
+**Inputs:** None.
+
+**Result:** Returns `Command`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 113–118)"
+
+    ```java
+    public Command getStart(){
+        if(index == -1){
+            index = 0;
+        }
+        return getPathCommand(entries.get(0));
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns a command that follows the first path in the sequence.
 
 ### `public Command getEnd()`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L121)*
+[Source lines 121–123](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L121)
 
-Returns a command that follows the last path in the sequence.
+**Detailed behavior**
+
+- The implementation executes 1 non-blank source line.
+- Return path: `getPathCommand(entries.get(entries.size() - 1))`.
+- Key collaborators/calls: `getPathCommand()`, `entries.get()`, `entries.size()`.
+
+**Inputs:** None.
+
+**Result:** Returns `Command`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 121–123)"
+
+    ```java
+    public Command getEnd(){
+        return getPathCommand(entries.get(entries.size() - 1));
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns a command that follows the last path in the sequence.
 
 ### `public int getSize()`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L126)*
+[Source lines 126–128](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L126)
 
-Returns the total number of paths in this sequence.
+**Detailed behavior**
+
+- The implementation executes 1 non-blank source line.
+- Return path: `entries.size()`.
+- Key collaborators/calls: `entries.size()`.
+
+**Inputs:** None.
+
+**Result:** Returns `int`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 126–128)"
+
+    ```java
+    public int getSize(){
+        return entries.size();
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the total number of paths in this sequence.
 
 ### `public Command getNext()`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L135)*
+[Source lines 135–147](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L135)
 
-Advances the internal cursor and returns a command for the next path.
-Starts at index 1 on first call (use `#getStart()` for index 0).
-Returns a no-op `InstantCommand` and logs a DS warning if already at the last path.
+**Detailed behavior**
+
+- The implementation executes 10 non-blank source lines.
+- It reads WPILib runtime/Driver Station state; behavior may differ by alliance, enable state, real hardware, or simulation.
+- It has 1 conditional path: `index + 1 >= entries.size(`.
+- Return paths: `new InstantCommand()`; `getPathCommand(entries.get(index))`.
+- Key collaborators/calls: `entries.size()`, `DriverStation.reportWarning()`, `InstantCommand()`, `getPathCommand()`, `entries.get()`.
+
+**Inputs:** None.
+
+**Result:** Returns `Command`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 135–147)"
+
+    ```java
+    public Command getNext(){
+        if (index + 1 >= entries.size()) {
+            DriverStation.reportWarning(
+                "[Auto] No additional paths. Last supplied path: " +
+                pathNames[pathNames.length - 1],
+                true
+            );
+            return new InstantCommand();
+        }
+    
+        index++;
+        return getPathCommand(entries.get(index));
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Advances the internal cursor and returns a command for the next path.
+    Starts at index 1 on first call (use `#getStart()` for index 0).
+    Returns a no-op `InstantCommand` and logs a DS warning if already at the last path.
 
 ### `public Command getAll()`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L150)*
+[Source lines 150–156](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L150)
 
-Returns a `SequentialCommandGroup` that runs all paths in order.
+**Detailed behavior**
+
+- The implementation executes 5 non-blank source lines.
+- It iterates through 1 loop; work scales with the associated collection/range.
+- Return path: `new SequentialCommandGroup(commands)`.
+- Key collaborators/calls: `entries.size()`, `getPathCommand()`, `entries.get()`, `SequentialCommandGroup()`.
+
+**Inputs:** None.
+
+**Result:** Returns `Command`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 150–156)"
+
+    ```java
+    public Command getAll(){
+        Command[] commands = new Command[entries.size()];
+        for (int i = 0; i < entries.size(); i++){
+            commands[i] = getPathCommand(entries.get(i));
+        }
+        return new SequentialCommandGroup(commands);
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns a `SequentialCommandGroup` that runs all paths in order.
 
 ### `public Command getIndex(int index)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L164)*
+[Source lines 164–174](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L164)
 
-Returns a command for the path at `index`.
-Returns a no-op `InstantCommand` and logs a DS warning if out of bounds.
+**Detailed behavior**
 
-**Parameter `index`:** zero-based path index
+- The implementation executes 9 non-blank source lines.
+- It reads WPILib runtime/Driver Station state; behavior may differ by alliance, enable state, real hardware, or simulation.
+- It has 1 conditional path: `index < 0 || index >= entries.size(`.
+- Return paths: `new InstantCommand()`; `getPathCommand(entries.get(index))`.
+- Key collaborators/calls: `entries.size()`, `DriverStation.reportWarning()`, `InstantCommand()`, `getPathCommand()`, `entries.get()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `index` | `int` | zero-based path index |
+
+**Result:** Returns `Command`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 164–174)"
+
+    ```java
+    public Command getIndex(int index){
+        if (index < 0 || index >= entries.size()) {
+            DriverStation.reportWarning(
+                "[Auto] No path at specified index " + index +
+                ". Last supplied path: " + pathNames[pathNames.length - 1],
+                true
+            );
+            return new InstantCommand();
+        }
+        return getPathCommand(entries.get(index));
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns a command for the path at `index`.
+    Returns a no-op `InstantCommand` and logs a DS warning if out of bounds.
+    
+    **Parameter `index`:** zero-based path index
 
 ### `public Optional&lt;Path&gt; getPath(int index)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L183)*
+[Source lines 183–193](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L183)
 
-Returns the raw `Path` at `index`, or `Optional#empty()` if out of bounds.
-The path is flipped according to the current alliance at call time.
-Use this when you need direct path access rather than a follow command.
+**Detailed behavior**
 
-**Parameter `index`:** zero-based path index
+- The implementation executes 9 non-blank source lines.
+- It reads WPILib runtime/Driver Station state; behavior may differ by alliance, enable state, real hardware, or simulation.
+- It has 1 conditional path: `index < 0 || index >= entries.size(`.
+- Return paths: `Optional.empty()`; `loadPath(entries.get(index))`.
+- Key collaborators/calls: `entries.size()`, `DriverStation.reportWarning()`, `Optional.empty()`, `loadPath()`, `entries.get()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `index` | `int` | zero-based path index |
+
+**Result:** Returns `Optional&lt;Path&gt;`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 183–193)"
+
+    ```java
+    public Optional<Path> getPath(int index){
+        if (index < 0 || index >= entries.size()) {
+            DriverStation.reportWarning(
+                "[Auto] No path at specified index " + index +
+                ". Last supplied path: " + pathNames[pathNames.length - 1],
+                true
+            );
+            return Optional.empty();
+        }
+        return loadPath(entries.get(index));
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the raw `Path` at `index`, or `Optional#empty()` if out of bounds.
+    The path is flipped according to the current alliance at call time.
+    Use this when you need direct path access rather than a follow command.
+    
+    **Parameter `index`:** zero-based path index
 
 ### `public BLinePathSequence withAdditional(String... pathNames)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L201)*
+[Source lines 201–206](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L201)
 
-Appends additional paths to the end of this sequence.
+**Detailed behavior**
 
-**Parameter `pathNames`:** one or more BLine path names to append
-**Returns:** `this`, for chaining
+- The implementation executes 4 non-blank source lines.
+- It iterates through 1 loop; work scales with the associated collection/range.
+- Return path: `this`.
+- Key collaborators/calls: `entries.add()`, `PathEntry()`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `pathNames` | `String...` | one or more BLine path names to append **Returns:** `this`, for chaining |
+
+**Result:** Returns `BLinePathSequence`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 201–206)"
+
+    ```java
+    public BLinePathSequence withAdditional(String... pathNames){
+        for (String pathName : pathNames){
+            entries.add(new PathEntry(pathName, false));
+        }
+        return this;
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Appends additional paths to the end of this sequence.
+    
+    **Parameter `pathNames`:** one or more BLine path names to append
+    **Returns:** `this`, for chaining
 
 ### `public BLinePathSequence mirror()`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L216)*
+[Source lines 216–218](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L216)
 
-Returns a new `BLinePathSequence` with all paths mirrored across the field
-width centerline (`y -> fieldSizeY - y`), regardless of alliance.
-Use this when reusing a path designed for one half of the field on the other
-(e.g. top wall path -> bottom wall path).
+**Detailed behavior**
 
-**Returns:** a new `BLinePathSequence` with mirrored paths
+- The implementation executes 1 non-blank source line.
+- Return path: `new BLinePathSequence(this, true)`.
+- Key collaborators/calls: `BLinePathSequence()`.
+
+**Inputs:** None.
+
+**Result:** Returns `BLinePathSequence`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 216–218)"
+
+    ```java
+    public BLinePathSequence mirror() {
+        return new BLinePathSequence(this, true);
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns a new `BLinePathSequence` with all paths mirrored across the field
+    width centerline (`y -> fieldSizeY - y`), regardless of alliance.
+    Use this when reusing a path designed for one half of the field on the other
+    (e.g. top wall path -> bottom wall path).
+    
+    **Returns:** a new `BLinePathSequence` with mirrored paths
 
 ### `public BLinePathSequence withName(String name)`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L226)*
+[Source lines 226–229](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L226)
 
-Sets the name of this path sequence.
+**Detailed behavior**
 
-**Parameter `name`:** the name to assign to this sequence
-**Returns:** `this`, for chaining
+- The implementation executes 2 non-blank source lines.
+- It changes object/subclass state through `name`.
+- Return path: `this`.
+
+**Inputs**
+
+| Parameter | Type | Meaning |
+| --- | --- | --- |
+| `name` | `String` | the name to assign to this sequence **Returns:** `this`, for chaining |
+
+**Result:** Returns `BLinePathSequence`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 226–229)"
+
+    ```java
+    public BLinePathSequence withName(String name) {
+        this.name = name;
+        return this;
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Sets the name of this path sequence.
+    
+    **Parameter `name`:** the name to assign to this sequence
+    **Returns:** `this`, for chaining
 
 ### `public String getName()`
 
-*Callable · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L236)*
+[Source lines 236–238](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L236)
 
-Returns the name of this path sequence.
+**Detailed behavior**
 
-**Returns:** the sequence name, or `null` if no name has been set
+- The implementation executes 1 non-blank source line.
+- Return path: `name`.
+
+**Inputs:** None.
+
+**Result:** Returns `String`. Exact return expressions are listed in the behavior section.
+
+??? example "Implementation (source lines 236–238)"
+
+    ```java
+    public String getName() {
+        return name;
+    }
+    ```
+
+??? note "Author note from JavaDoc"
+
+    Returns the name of this path sequence.
+    
+    **Returns:** the sequence name, or `null` if no name has been set
 
 ## Exposed fields and types
 
 ### `public class BLinePathSequence`
 
 *Nested/API type · [source](https://github.com/TeamSCREAMRobotics/SCREAMLib/blob/e3d20643f43b7f35da63011d6083caccac8b062c/src/main/java/com/teamscreamrobotics/util/BLinePathSequence.java#L16)*
+
+This exposed `class` is part of the API surface. Its callable members are documented above on this page; inspect the linked declaration before adding implementations or enum values because callers may switch on the existing shape.

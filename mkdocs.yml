@@ -37,6 +37,8 @@ theme:
         name: Switch to light mode
   icon:
     repo: fontawesome/brands/github
+  logo: assets/screamlib-logo-256.png
+  favicon: assets/screamlib-logo-256.png
 
 markdown_extensions:
   - admonition
@@ -63,12 +65,9 @@ extra_css:
   - stylesheets/extra.css
 
 extra:
-  version:
-    provider: mike
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/TeamSCREAMRobotics
       name: Team SCREAM Robotics on GitHub
 
 copyright: Copyright &copy; Team SCREAM Robotics
-
